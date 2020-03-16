@@ -50,6 +50,12 @@ class EventernoteService {
     return ActorsSearch.fromJson(json).results;
   }
 
+  Future<List<Actor>> getNewActors(int page) async {
+    final json = await _get(
+        '$_actorsUrl?sort=created_at&order=DESC&offset=${_offset(page)}');
+    return ActorsSearch.fromJson(json).results;
+  }
+
   Future<int> getNumEventsForDate(DateTime date) async {
     final json = await _get(
         '$_eventsUrl?year=${date.year}&month=${date.month}&day=${date.day}&offset=1');

@@ -11,10 +11,7 @@ import 'package:path_provider/path_provider.dart';
 class EventernotePlaceService {
   static const PAGE_SIZE = 100;
   static const _baseUrl = 'https://www.eventernote.com/api';
-  static const _actorsUrl = "$_baseUrl/actors/search";
-  static const _eventsUrl = "$_baseUrl/events/search";
   static const _placesUrl = "$_baseUrl/places/search";
-  static const _verticalUrl = "$_baseUrl/vertical/search";
   final _EventernotePlaceCacheManager _cache;
 
   static EventernotePlaceService _instance;

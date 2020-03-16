@@ -1,22 +1,17 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/services/holidays_service.dart';
+import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/animated_event_tile.dart';
-import 'package:eventernote/widgets/fade_indexed_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class EventCalendarPage extends StatefulWidget with NavigationPage {
-  String get title => 'イベントカレンダー';
-  String get navTitle => 'カレンダー';
-  IconData get icon => CommunityMaterialIcons.calendar;
-
+class CalendarNavigationPage extends StatefulWidget {
   @override
-  _EventCalendarPageState createState() => _EventCalendarPageState();
+  _CalendarNavigationPageState createState() => _CalendarNavigationPageState();
 }
 
-class _EventCalendarPageState extends State<EventCalendarPage> {
+class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
   Map<DateTime, List> _holidays;
   Map<DateTime, List> _events;
   DateTime _selectedDate; // used by PagewiseLoadController
@@ -51,43 +46,58 @@ class _EventCalendarPageState extends State<EventCalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        _buildCalendar(),
-        SizedBox(height: 8.0),
-        Expanded(
-          child: Dismissible(
-            key: ValueKey(_selectedDate.toIso8601String()),
-            resizeDuration: null,
-            direction: DismissDirection.horizontal,
-            onDismissed: (direction) {
-              if (direction == DismissDirection.startToEnd) {
-                _calendarController.setSelectedDay(
-                  _selectedDate.subtract(Duration(days: 1)),
-                  runCallback: true,
-                );
-              } else {
-                _calendarController.setSelectedDay(
-                  _selectedDate.add(Duration(days: 1)),
-                  runCallback: true,
-                );
-              }
-            },
-            child: PagewiseListView(
-              pageLoadController: _pagewiseLoadController,
-              itemBuilder: (context, event, i) {
-                return Column(
-                  children: <Widget>[
-                    Divider(height: 0.5),
-                    AnimatedEventTile(event),
-                  ],
-                );
-              },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('イベントカレンダー'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: '検索',
+            onPressed: () => showSearch(
+              context: context,
+              delegate: VerticalSearchDelegate(),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          _buildCalendar(),
+          SizedBox(height: 8.0),
+          Expanded(
+            child: Dismissible(
+              key: ValueKey(_selectedDate.toIso8601String()),
+              resizeDuration: null,
+              direction: DismissDirection.horizontal,
+              onDismissed: (direction) {
+                if (direction == DismissDirection.startToEnd) {
+                  _calendarController.setSelectedDay(
+                    _selectedDate.subtract(Duration(days: 1)),
+                    runCallback: true,
+                  );
+                } else {
+                  _calendarController.setSelectedDay(
+                    _selectedDate.add(Duration(days: 1)),
+                    runCallback: true,
+                  );
+                }
+              },
+              child: PagewiseListView(
+                pageLoadController: _pagewiseLoadController,
+                itemBuilder: (context, event, i) {
+                  return Column(
+                    children: <Widget>[
+                      Divider(height: 0.5),
+                      AnimatedEventTile(event),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

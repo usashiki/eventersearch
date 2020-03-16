@@ -1,15 +1,35 @@
-import 'package:eventernote/pages/actor_ranking_page.dart';
-import 'package:eventernote/pages/event_calendar_page.dart';
-import 'package:eventernote/pages/place_map_page.dart';
-import 'package:eventernote/services/vertical_search_delegate.dart';
-import 'package:eventernote/widgets/fade_indexed_navigation.dart';
+import 'package:community_material_icon/community_material_icon.dart';
+import 'package:eventernote/pages/actors_navigation_page.dart';
+import 'package:eventernote/pages/calendar_navigation_page.dart';
+import 'package:eventernote/pages/search_navigation_page.dart';
+import 'package:eventernote/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() =>
     initializeDateFormatting('ja_jp').then((_) => runApp(EventernoteApp()));
 
-class EventernoteApp extends StatelessWidget {
+class EventernoteApp extends StatefulWidget {
+  EventernoteApp({Key key}) : super(key: key);
+
+  @override
+  _EventernoteAppState createState() => _EventernoteAppState();
+}
+
+class _EventernoteAppState extends State<EventernoteApp> {
+  final List<Widget> pages = [
+    ActorsNavigationPage(),
+    CalendarNavigationPage(),
+    SearchNavigationPage(),
+  ];
+  int _index;
+
+  @override
+  void initState() {
+    super.initState();
+    _index = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,19 +56,24 @@ class EventernoteApp extends StatelessWidget {
         brightness: Brightness.dark,
         accentColor: Colors.blue,
       ),
-      home: Builder(
-        builder: (context) => FadeIndexedNavigation(
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () => showSearch(
-                  context: context, delegate: VerticalSearchDelegate()),
+      home: Scaffold(
+        body: AnimatedIndexedStack(index: _index, children: pages),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _index,
+          onTap: (selectedIndex) => setState(() => _index = selectedIndex),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(CommunityMaterialIcons.account_multiple),
+              title: Text('声優/ｱｰﾃｨｽﾄ'),
             ),
-          ],
-          children: <NavigationPage>[
-            EventCalendarPage(),
-            ActorRankingPage(),
-            PlaceMapPage(),
+            BottomNavigationBarItem(
+              icon: Icon(CommunityMaterialIcons.calendar),
+              title: Text('カレンダー'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              title: Text('条件検索'),
+            ),
           ],
         ),
       ),

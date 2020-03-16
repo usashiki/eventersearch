@@ -84,11 +84,11 @@ class PlacePage extends StatelessWidget {
 
   Widget _headerCard(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 10),
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(left: 25, right: 25),
+            padding: EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: <Widget>[
                 AutoSizeText(

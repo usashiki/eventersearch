@@ -9,7 +9,7 @@ class TextBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 25, right: 25),
+      padding: EdgeInsets.symmetric(horizontal: 25),
       child: RichText(
         text: TextSpan(
           text: text == null || text.isEmpty ? 'N/A' : text,

@@ -160,6 +160,7 @@ goodbye tabs
 * improve item pages
   + ~~open in website links~~
   + eventpage, venuepage: dont use built-in listviews
+    - see gcal event page for inspiration
   + eventpage, venuepage: move links to body?
   + eventpage: show people going more prominently?
   + pull down to dismiss page
@@ -221,12 +222,12 @@ goodbye tabs
 * bottom nav pages (_requires new api_, ~~done~~)
   + artist: (actions: quicksearch)
     - ~~ranking~~
+    - ~~new~~
     - _chuumoku_
-    - new: https://www.eventernote.com/api/actors/search?sort=created_at
   + ~~calendar: (actions: quicksearch)~~
   + search (no quicksearch action?)
-    - events: keyword, date, area/prefecture
     - actors: keyword, kana
+    - events: keyword, date, area/prefecture
     - places: keyword, prefecture (also do area?)
   + _notifs (actions: quicksearch)_
     - _my artists_
