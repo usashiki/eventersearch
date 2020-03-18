@@ -202,6 +202,15 @@ goodbye tabs
   + textstyles, custom fonts?
   + how to indicate past events on event tile? (and what about dark theme?)
 
+* launch/splash screen
+  + use https://pub.dev/packages/flutter_native_splash to set static launch image
+  + transition launch image into same image in flutter, then play animation implemented in flutter ("splash screen")
+    - as described: https://stackoverflow.com/a/12916167
+  + alternatively: https://pub.dev/packages/flare_splash_screen
+  + docs
+    - https://flutter.dev/docs/development/ui/assets-and-images#updating-the-launch-screen
+    - https://flutter.dev/docs/development/ui/splash-screen/android-splash-screen
+
 * pull to refresh on pagewise lists, pages
   + https://api.flutter.dev/flutter/material/RefreshIndicator-class.html
   + https://github.com/AbdulRahmanAlHamali/flutter_pagewise/issues/12
@@ -215,23 +224,22 @@ goodbye tabs
 * tests lel
 * ask about data use
 
-お返事お待ちしております。
-
 ## app layout (3)
 
 * bottom nav pages (_requires new api_, ~~done~~)
-  + artist: (actions: quicksearch)
-    - ~~ranking~~
-    - ~~new~~
-    - _chuumoku_
-  + ~~calendar: (actions: quicksearch)~~
-  + search (no quicksearch action?)
-    - actors: keyword, kana
-    - events: keyword, date, area/prefecture
-    - places: keyword, prefecture (also do area?)
-  + _notifs (actions: quicksearch)_
+  + ~~calendar~~
+  + search/explore
+    - _chuumoku events_
+    - _new events_
+    - _chuumoku artists_
+    - top artists
+    - new artists
+  + _notifs/home_ (TODO: should the below be separate or combined?)
+    - _my artists_ (あなたへのお知らせ/notice)
+    - _following_ (友達の活動/dashboard/timeline)
+  + _likes_
     - _my artists_
-    - _following_
-  + _profile (actions: settings)_
-    - _past events_
     - _my artists' events_
+  + _profile (actions: settings)_
+    - _my events (past/future)_
+    - _following/followers_
