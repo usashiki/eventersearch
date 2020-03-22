@@ -8,7 +8,7 @@ class AnimatedEventTile extends StatelessWidget {
   final Event event;
   final bool expanded;
 
-  AnimatedEventTile(this.event, {this.expanded: true, Key key})
+  AnimatedEventTile(this.event, {this.expanded = true, Key key})
       : super(key: key);
 
   @override

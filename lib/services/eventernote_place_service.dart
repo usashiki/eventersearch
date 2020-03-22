@@ -18,7 +18,7 @@ class EventernotePlaceService {
 
   factory EventernotePlaceService() {
     if (_instance == null) {
-      _instance = new EventernotePlaceService._();
+      _instance = EventernotePlaceService._();
     }
     return _instance;
   }
@@ -54,7 +54,7 @@ class _EventernotePlaceCacheManager extends BaseCacheManager {
 
   factory _EventernotePlaceCacheManager() {
     if (_instance == null) {
-      _instance = new _EventernotePlaceCacheManager._();
+      _instance = _EventernotePlaceCacheManager._();
     }
     return _instance;
   }

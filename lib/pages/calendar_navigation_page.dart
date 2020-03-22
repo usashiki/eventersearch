@@ -47,6 +47,10 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: PreferredSize(
+      //   preferredSize: Size(double.infinity, 0),
+      //   child: Container(),
+      // ),
       appBar: AppBar(
         title: Text('イベントカレンダー'),
         actions: <Widget>[
@@ -153,7 +157,7 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
                   child: FutureBuilder<int>(
                     future: EventernoteService().getNumEventsForDate(date),
                     builder: (context, snapshot) {
-                      String text = '?';
+                      var text = '?';
                       if (snapshot.hasData) {
                         text = "${snapshot.data}";
                       } else if (snapshot.hasError) {
@@ -185,7 +189,7 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
 
   // TableCalendar will not call markersBuilder unless events[date] is populated
   void _populateEvents(DateTime start, DateTime end) {
-    DateTime cur = start;
+    var cur = start;
     while (cur.isBefore(end.add(Duration(days: 1)))) {
       if (_events[cur] == null) {
         _events[cur] = [];
@@ -194,9 +198,9 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
     }
   }
 
-  Widget _dayCellBuilder(DateTime date, {bool outside: false}) {
+  Widget _dayCellBuilder(DateTime date, {bool outside = false}) {
     Color boxColor;
-    TextStyle cellTextStyle = TextStyle(
+    var cellTextStyle = TextStyle(
       color: date.weekday == DateTime.saturday
           ? Colors.blue[outside ? 200 : 500]
           : Colors.red[outside ? 200 : 500],

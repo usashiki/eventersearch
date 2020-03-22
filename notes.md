@@ -228,12 +228,18 @@ goodbye tabs
 
 * bottom nav pages (_requires new api_, ~~done~~)
   + ~~calendar~~
-  + search/explore
-    - _chuumoku events_
-    - _new events_
-    - _chuumoku artists_
-    - top artists
-    - new artists
+  + search
+    - explore
+      - _chuumoku events_
+      - _new events_
+      - _chuumoku artists_
+      - (today's events)
+      - top artists
+      - new artists
+    - suggestions: vertical results
+      * sorted by edit distance to name/kana?
+    - results: each object search, separated
+      * layout: tabs? carousels?
   + _notifs/home_ (TODO: should the below be separate or combined?)
     - _my artists_ (あなたへのお知らせ/notice)
     - _following_ (友達の活動/dashboard/timeline)

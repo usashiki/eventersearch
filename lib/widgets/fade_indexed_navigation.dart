@@ -23,7 +23,7 @@ class FadeIndexedNavigation extends StatefulWidget {
   FadeIndexedNavigation({
     Key key,
     this.actions, // TODO: move to NavigationPage?
-    this.index: 0,
+    this.index = 0,
     @required this.children,
   })  : assert(children.isNotEmpty),
         super(key: key);

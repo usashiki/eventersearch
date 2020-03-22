@@ -13,9 +13,9 @@ class ActorTile extends StatelessWidget {
   ActorTile(
     this.actor, {
     this.rank,
-    this.expanded: true,
+    this.expanded = true,
     this.tap,
-    this.maxLines: 1,
+    this.maxLines = 1,
     Key key,
   }) : super(key: key);
 

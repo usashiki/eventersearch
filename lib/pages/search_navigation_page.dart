@@ -1,87 +1,75 @@
+import 'package:eventernote/services/eventernote_service.dart';
+import 'package:eventernote/services/vertical_search_delegate.dart';
+import 'package:eventernote/widgets/actor_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 class SearchNavigationPage extends StatefulWidget {
   @override
   _SearchNavigationPageState createState() => _SearchNavigationPageState();
 }
 
-class _SearchNavigationPageState extends State<SearchNavigationPage>
-    with SingleTickerProviderStateMixin {
-  final List<Widget> _tabs = [
-    ActorSearchTab(),
-    FillerTab(),
-    FillerTab(),
-  ];
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
-  }
-
+class _SearchNavigationPageState extends State<SearchNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('条件検索'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: <Widget>[
-            Tab(text: '声優/ｱｰﾃｨｽﾄ'),
-            Tab(text: 'イベント'),
-            Tab(text: '会場'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: _tabs,
-      ),
-    );
-  }
-}
-
-class ActorSearchTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.short_text),
-                    labelText: 'キーワード',
-                    hintText: '声優・アーティスト名等',
-                  ),
-                ),
-                SizedBox(height: 10),
-                RaisedButton(
-                  child: Text('検索'),
-                  onPressed: () {},
-                ),
-              ],
+        title: Text('検索'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: '検索',
+            onPressed: () => showSearch(
+              context: context,
+              delegate: VerticalSearchDelegate(),
             ),
           ),
-        ),
-        Divider(height: 28, thickness: 1),
-        ListTile(
-          leading: Icon(Icons.translate),
-          title: Text('頭文字から探す'),
-          dense: true,
-        ),
-      ],
+        ],
+      ),
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: 8),
+          Text('人気声優・アーティストランキング'),
+          ActorsRanking(),
+          SizedBox(height: 8),
+          Text('新着声優・アーティスト'),
+          NewActors(),
+        ],
+      ),
     );
   }
 }
 
-class FillerTab extends StatelessWidget {
+class ActorsRanking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('wip');
+    return Container(
+      height: 100,
+      child: PagewiseListView(
+        pageSize: EventernoteService.PAGE_SIZE,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, actor, i) {
+          return ActorCard(actor);
+        },
+        pageFuture: (page) => EventernoteService().getPopularActors(page),
+      ),
+    );
+  }
+}
+
+class NewActors extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      child: PagewiseListView(
+        pageSize: EventernoteService.PAGE_SIZE,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (_, actor, i) {
+          return ActorCard(actor);
+        },
+        pageFuture: (page) => EventernoteService().getNewActors(page),
+      ),
+    );
   }
 }

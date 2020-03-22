@@ -13,8 +13,8 @@ class AnimatedActorTile extends StatelessWidget {
   AnimatedActorTile(
     this.actor, {
     this.rank,
-    this.expanded: true,
-    this.maxLines: 1,
+    this.expanded = true,
+    this.maxLines = 1,
     Key key,
   }) : super(key: key);
 

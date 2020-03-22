@@ -91,7 +91,7 @@ class ActorPage extends StatelessWidget {
                   FutureBuilder<int>(
                     future: EventernoteService().getNumEventsForActor(actor.id),
                     builder: (context, snapshot) {
-                      String text = '?';
+                      var text = '?';
                       if (snapshot.hasData) {
                         text = "${snapshot.data}";
                       } else if (snapshot.hasError) {

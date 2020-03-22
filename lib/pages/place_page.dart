@@ -47,7 +47,7 @@ class PlacePage extends StatelessWidget {
   }
 
   List<Widget> _actions(BuildContext context) {
-    List<Widget> actions = [
+    var actions = [
       IconButton(
         icon: Icon(CommunityMaterialIcons.web),
         tooltip: 'サイトで見る',

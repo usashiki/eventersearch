@@ -9,7 +9,7 @@ class EventTile extends StatelessWidget {
   final bool expanded;
   final VoidCallback tap;
 
-  EventTile(this.event, {this.expanded: true, this.tap, Key key})
+  EventTile(this.event, {this.expanded = true, this.tap, Key key})
       : super(key: key);
 
   @override

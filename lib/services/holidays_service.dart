@@ -15,7 +15,7 @@ class HolidaysService {
 
   factory HolidaysService() {
     if (_instance == null) {
-      _instance = new HolidaysService._();
+      _instance = HolidaysService._();
     }
     return _instance;
   }
@@ -24,7 +24,7 @@ class HolidaysService {
       : _holidays = {},
         _cache = _HolidaysCacheManager();
 
-  get all => _holidays;
+  Map<DateTime, List> get all => _holidays;
 
   bool isHoliday(DateTime date) {
     // jan 1 is always 元日
@@ -52,7 +52,7 @@ class _HolidaysCacheManager extends BaseCacheManager {
 
   factory _HolidaysCacheManager() {
     if (_instance == null) {
-      _instance = new _HolidaysCacheManager._();
+      _instance = _HolidaysCacheManager._();
     }
     return _instance;
   }

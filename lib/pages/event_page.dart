@@ -107,7 +107,7 @@ class EventPage extends StatelessWidget {
   }
 
   List<Widget> _actions(BuildContext context) {
-    List<Widget> actions = [
+    var actions = [
       IconButton(
         icon: Icon(CommunityMaterialIcons.web),
         tooltip: 'サイトで見る',
@@ -123,7 +123,7 @@ class EventPage extends StatelessWidget {
           if (event.links.length == 1) {
             await launch(event.link);
           } else {
-            showDialog(
+            await showDialog(
               context: context,
               builder: (context) {
                 return SimpleDialog(

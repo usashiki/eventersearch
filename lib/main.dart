@@ -18,9 +18,9 @@ class EventernoteApp extends StatefulWidget {
 
 class _EventernoteAppState extends State<EventernoteApp> {
   final List<Widget> pages = [
-    ActorsNavigationPage(),
-    CalendarNavigationPage(),
     SearchNavigationPage(),
+    CalendarNavigationPage(),
+    ActorsNavigationPage(),
   ];
   int _index;
 
@@ -63,18 +63,22 @@ class _EventernoteAppState extends State<EventernoteApp> {
           onTap: (selectedIndex) => setState(() => _index = selectedIndex),
           items: [
             BottomNavigationBarItem(
-              icon: Icon(CommunityMaterialIcons.account_multiple),
-              title: Text('声優/ｱｰﾃｨｽﾄ'),
+              icon: Icon(Icons.search),
+              title: Text('検索'),
             ),
             BottomNavigationBarItem(
               icon: Icon(CommunityMaterialIcons.calendar),
               title: Text('カレンダー'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              title: Text('条件検索'),
+              icon: Icon(CommunityMaterialIcons.account_multiple),
+              title: Text('声優/ｱｰﾃｨｽﾄ'),
             ),
           ],
+          // showSelectedLabels: false,
+          // showUnselectedLabels: false,
+          // backgroundColor: Theme.of(context).primaryColor,
+          // selectedItemColor: Theme.of(context).backgroundColor,
         ),
       ),
     );

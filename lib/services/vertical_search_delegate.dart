@@ -37,7 +37,7 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: make it so this doesnt reload
+    // TODO: change this
     return buildSuggestions(context);
   }
 
