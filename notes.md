@@ -155,35 +155,50 @@ goodbye tabs
   + artist page: w/ list of events
   + venue page: w/ list of events
 
+## redesign (3)
+
+* bottom nav pages (_requires new api_, ~~done~~)
+  + ~~calendar~~
+  + search
+    - explore
+      - _chuumoku events_
+      - _chuumoku artists_
+      - _new events_
+      - (today's events)
+      - top artists
+      - new artists
+    - suggestions: vertical results
+    - results: each object search, separated
+  + _notifs/home_: separate tabs? combined?
+    - _my artists_ (あなたへのお知らせ/notice)
+    - _following_ (友達の活動/dashboard/timeline)
+  + _likes_
+    - _my artists_
+    - _my artists' events_
+  + _profile (actions: settings)_
+    - _my events (past/future)_
+    - _following/followers_
+
 ### todos
 
-* improve item pages
-  + ~~open in website links~~
+* cards, listitems, etc: make up your mind lol
+  + go back to cards?
+  + make actor (carousel) card look good (no picture though... )
+  + make event carousel card?
+
+* rework item pages
   + eventpage, venuepage: dont use built-in listviews
     - see gcal event page for inspiration
-  + eventpage, venuepage: move links to body?
+    - also make artistpage the same style
+  + forgo appbar?
+    - probably would want to move most actions into body then
   + eventpage: show people going more prominently?
   + pull down to dismiss page
+    - instead of navigator page, just a stack layer above page?
   + eventpage: color appbar based on image? https://github.com/flutter/packages/tree/master/packages/palette_generator
     - would be best to get the color before loading the page, but how???
 
-* map
-  + https://pub.dev/packages/flutter_map, https://pub.dev/packages/latlong
-  + per prefecture: https://www.eventernote.com/api/places/search?prefecture=13
-  + popup per location
-    - https://github.com/johnpryan/flutter_map/issues/184
-    - https://github.com/johnpryan/flutter_map/issues/354
-  + clustering per pref: https://pub.dev/packages/flutter_map_marker_cluster
-  + user location? https://pub.dev/packages/user_location
-  + or maybe something else entirely
-
-* settings page?
-  + theme selector
-  + customize event card: what fields to show?
-  + licenses
-
 * themeing......... 
-  + dark theme??
   + color of selected/today on calendar
   + custom themes based on colors in logo?
     - https://pub.dev/packages/flutter_material_color_picker
@@ -202,6 +217,22 @@ goodbye tabs
   + textstyles, custom fonts?
   + how to indicate past events on event tile? (and what about dark theme?)
 
+* custom statusbar + navigation bar background color
+  + https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
+
+* search
+  + explore results: work on cards
+  + transition between searchbar and searchdelegate could be better
+  + search suggestions: change to leading icons + sort by edit distance?
+  + results
+    - layout: carousels instead?
+    - save selected tab on navigator back
+
+* settings page?
+  + theme selector
+  + customize event card: what fields to show?
+  + licenses
+
 * launch/splash screen
   + use https://pub.dev/packages/flutter_native_splash to set static launch image
   + transition launch image into same image in flutter, then play animation implemented in flutter ("splash screen")
@@ -216,36 +247,5 @@ goodbye tabs
   + https://github.com/AbdulRahmanAlHamali/flutter_pagewise/issues/12
   + or maybe pull down to close single item pages
 
-* search (neither of these things are possible??? lmao)
-  + replace title appbar with a persistent search bar
-    - https://github.com/flutter/flutter/issues/17119 lol
-  + dont refresh on submit <- this doesnt seem possible with SearchDelegate
-
-* tests lel
+* tests... 
 * ask about data use
-
-## app layout (3)
-
-* bottom nav pages (_requires new api_, ~~done~~)
-  + ~~calendar~~
-  + search
-    - explore
-      - _chuumoku events_
-      - _new events_
-      - _chuumoku artists_
-      - (today's events)
-      - top artists
-      - new artists
-    - suggestions: vertical results
-      * sorted by edit distance to name/kana?
-    - results: each object search, separated
-      * layout: tabs? carousels?
-  + _notifs/home_ (TODO: should the below be separate or combined?)
-    - _my artists_ (あなたへのお知らせ/notice)
-    - _following_ (友達の活動/dashboard/timeline)
-  + _likes_
-    - _my artists_
-    - _my artists' events_
-  + _profile (actions: settings)_
-    - _my events (past/future)_
-    - _following/followers_

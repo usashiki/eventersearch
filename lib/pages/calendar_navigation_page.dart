@@ -1,6 +1,5 @@
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/services/holidays_service.dart';
-import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/animated_event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
@@ -47,23 +46,8 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size(double.infinity, 0),
-      //   child: Container(),
-      // ),
-      appBar: AppBar(
-        title: Text('イベントカレンダー'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            tooltip: '検索',
-            onPressed: () => showSearch(
-              context: context,
-              delegate: VerticalSearchDelegate(),
-            ),
-          ),
-        ],
-      ),
+      // empty appbar
+      appBar: PreferredSize(preferredSize: Size(0, 0), child: Container()),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

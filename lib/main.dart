@@ -2,8 +2,10 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/pages/actors_navigation_page.dart';
 import 'package:eventernote/pages/calendar_navigation_page.dart';
 import 'package:eventernote/pages/search_navigation_page.dart';
+import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() =>
@@ -56,30 +58,48 @@ class _EventernoteAppState extends State<EventernoteApp> {
         brightness: Brightness.dark,
         accentColor: Colors.blue,
       ),
-      home: Scaffold(
-        body: AnimatedIndexedStack(index: _index, children: pages),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
-          onTap: (selectedIndex) => setState(() => _index = selectedIndex),
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              title: Text('検索'),
+      home: Builder(
+        // builder for Navigator (for showSearch)
+        builder: (context) {
+          return Scaffold(
+            body: SafeArea(
+              child: AnimatedIndexedStack(index: _index, children: pages),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(CommunityMaterialIcons.calendar),
-              title: Text('カレンダー'),
+            bottomNavigationBar: SafeArea(
+              child: BottomNavigationBar(
+                currentIndex: _index,
+                onTap: (selectedIndex) {
+                  if (_index != selectedIndex) {
+                    setState(() => _index = selectedIndex);
+                  } else if (selectedIndex == 0) {
+                    // open search/keyboard if already on search page
+                    showSearch(
+                      context: context,
+                      delegate: VerticalSearchDelegate(),
+                    );
+                  }
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.search),
+                    title: Text('検索'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(CommunityMaterialIcons.calendar),
+                    title: Text('カレンダー'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(CommunityMaterialIcons.account_multiple),
+                    title: Text('声優/ｱｰﾃｨｽﾄ'),
+                  ),
+                ],
+                // backgroundColor: Theme.of(context).primaryColor,
+                // selectedItemColor: Colors.white,
+                // unselectedItemColor: Colors.grey,
+              ),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(CommunityMaterialIcons.account_multiple),
-              title: Text('声優/ｱｰﾃｨｽﾄ'),
-            ),
-          ],
-          // showSelectedLabels: false,
-          // showUnselectedLabels: false,
-          // backgroundColor: Theme.of(context).primaryColor,
-          // selectedItemColor: Theme.of(context).backgroundColor,
-        ),
+          );
+        },
       ),
     );
   }

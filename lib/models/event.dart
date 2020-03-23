@@ -75,8 +75,7 @@ class Event {
     this.user,
   });
 
-  static DateTime _stringToDate(String s) =>
-      DateTime.parse(s); // TODO: timezone?
+  static DateTime _stringToDate(String s) => DateTime.parse(s);
   static String _dateToString(DateTime d) => DateFormat('yyyy-MM-dd').format(d);
 
   static bool _intToBool(int i) => i == 1;
