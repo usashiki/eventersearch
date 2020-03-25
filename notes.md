@@ -181,10 +181,16 @@ goodbye tabs
 
 ### todos
 
-* cards, listitems, etc: make up your mind lol
-  + go back to cards?
-  + make actor (carousel) card look good (no picture though... )
-  + make event carousel card?
+* cards, listitems, etc
+  + ActorCarouselCard - search/explore carousel
+  + ActorGridCard - event page
+  + ActorSuggestionTile - search suggestions
+  + ActorListTile - search results
+  + EventCarouselCard - search/explore carousel
+  + EventSuggestionTile - search suggestions
+  + EventListTile - search results, calendar page
+  + PlaceSuggestionTile - search suggestions
+  + PlaceListTile - search results
 
 * rework item pages
   + eventpage, venuepage: dont use built-in listviews

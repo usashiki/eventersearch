@@ -38,6 +38,9 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
 
   @override
   Widget buildResults(BuildContext context) {
+    if (query.isEmpty) {
+      return Container();
+    }
     return SearchResults(query);
   }
 
