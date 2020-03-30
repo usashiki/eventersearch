@@ -194,9 +194,8 @@ goodbye tabs
   + dont use built-in listviews (gcal)
     - what about eventers going?
   + forgo appbar - move actions into body or dropdown?
+    - remove gradient as well
   + make space for going button
-  + color appbar based on image? https://github.com/flutter/packages/tree/master/packages/palette_generator
-    - would be best to get the color before loading the page, but how???
 * place page
   + dont use built-in listviews (gcal)
   + forgo appbar - move actions into body or dropdown?
@@ -204,15 +203,16 @@ goodbye tabs
   + instead of navigator page, just a stack layer above page?
 
 * search
-  + use OpenContainer for transition between searchbar and searchdelegate?
-    - this will require reimplementing searchdelegate lol
-  + search suggestions
-    - sort by edit distance?
-  + results: save selected tab on navigator back
-    - also requires reimplementing searchdelegate?
+  + search suggestions: sort by edit distance?
+  + reimplement search page (searchdelegate)
+    - use OpenContainer for transition between searchbar and search page
+    - results: save selected tab on navigator back
 
 * calendar page
   + add animation to horizontal swipe
+
+* loading animations: skeleton views
+  + https://www.filledstacks.com/snippet/using-shimmer-for-loading-indication-in-flutter/
 
 * theming......... 
   + color of selected/today on calendar
@@ -235,14 +235,12 @@ goodbye tabs
   + custom statusbar + navigation bar background color
     - https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
 
-* loading animations: skeleton views
-  + https://www.filledstacks.com/snippet/using-shimmer-for-loading-indication-in-flutter/
-
 * settings page?
   + theme selector
   + customize event card: what fields to show?
-  + licenses
+  + cache duration
   + app locale / english translation
+  + licenses
 
 * launch/splash screen
   + use https://pub.dev/packages/flutter_native_splash to set static launch image
@@ -259,6 +257,7 @@ goodbye tabs
   + or maybe pull down to close single item pages
 
 * administrative
+  + app name
   + error handling
   + general code organization
   + tests
