@@ -181,31 +181,26 @@ goodbye tabs
 
 ### todos
 
-* cards, listitems, etc
-  + ~~ActorCarouselCard - search/explore carousel~~
-  + ~~ActorGridCard - event page~~
-  + ~~ActorSuggestionTile - search suggestions~~
-  + ~~ActorTile - search results~~
-  + ~~EventCarouselCard - search/explore carousel~~
-  + ~~EventSuggestionTile - search suggestions~~
-  + ~~EventTile - search results (not animated), calendar page, actor page, place page~~
-  + ~~PlaceSuggestionTile - search suggestions~~
-  + ~~PlaceTile - search results~~
+* carousel cards
+  + make fan/eventers count look better
+  + event card: add image (perhaps separate out image from text? or gradient)
+  + actor card: add color?
+  + how to have background with inkwell?
 
 * actor page
   + make more like event/place pages
   + make space for like buttom (heart)
-  + forgo appbar? move actions into body or dropdown
+  + forgo appbar - move actions into body or dropdown?
 * event page
   + dont use built-in listviews (gcal)
     - what about eventers going?
-  + forgo appbar? move actions into body or dropdown
+  + forgo appbar - move actions into body or dropdown?
   + make space for going button
   + color appbar based on image? https://github.com/flutter/packages/tree/master/packages/palette_generator
     - would be best to get the color before loading the page, but how???
 * place page
   + dont use built-in listviews (gcal)
-  + forgo appbar? move actions into body or dropdown
+  + forgo appbar - move actions into body or dropdown?
 * [all pages] pull down to dismiss page
   + instead of navigator page, just a stack layer above page?
 
