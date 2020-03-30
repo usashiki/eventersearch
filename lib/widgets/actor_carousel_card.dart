@@ -24,54 +24,61 @@ class ActorCarouselCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         closedBuilder: (context, open) {
-          return InkWell(
-            child: Container(
-              padding: EdgeInsets.all(8.0),
-              child: Stack(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment(1.0, -1.0),
-                    child: Container(
-                      height: 36,
-                      width: 36,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).canvasColor,
-                      ),
-                      child: IconButton(
-                        padding: EdgeInsets.all(0.0),
-                        icon: Random().nextBool() // TODO: remove
-                            ? Icon(Icons.favorite, color: Colors.red)
-                            : Icon(
-                                Icons.favorite_border,
-                                color: Theme.of(context).textTheme.title.color,
-                              ),
-                        iconSize: 22.0,
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment(-1.0, 1.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AutoSizeText(
-                          rank != null
-                              ? '${rank + 1}. ${actor.name}'
-                              : actor.name,
-                          style: Theme.of(context).textTheme.title,
-                          maxLines: 2,
+          return Container(
+            // color: Color(0x90F6C8DD), // TODO: color
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Stack(
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment(1.0, -1.0),
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).canvasColor,
+                          ),
+                          child: IconButton(
+                            padding: EdgeInsets.all(0.0),
+                            icon: Random().nextBool() // TODO: remove rng
+                                ? Icon(Icons.favorite, color: Colors.red)
+                                : Icon(
+                                    Icons.favorite_border,
+                                    color:
+                                        Theme.of(context).textTheme.title.color,
+                                  ),
+                            iconSize: 22.0,
+                            onPressed: () {},
+                          ),
                         ),
-                        Text('ファン: ${actor.favoriteCount}'),
-                      ],
-                    ),
-                  )
-                ],
+                      ),
+                      Align(
+                        alignment: Alignment(-1.0, 1.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              rank != null
+                                  ? '${rank + 1}. ${actor.name}'
+                                  : actor.name,
+                              style: Theme.of(context).textTheme.title,
+                              maxLines: 2,
+                            ),
+                            Text('ファン: ${actor.favoriteCount}'),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: open,
               ),
             ),
-            onTap: open,
           );
         },
         openBuilder: (context, close) => ActorPage(actor, close: close),

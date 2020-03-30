@@ -182,10 +182,9 @@ goodbye tabs
 ### todos
 
 * carousel cards
-  + make fan/eventers count look better
-  + event card: add image (perhaps separate out image from text? or gradient)
-  + actor card: add color?
-  + how to have background with inkwell?
+  + make fan/eventers counts look better
+  + actor card: add color
+    - random from logo? light/dark theming??
 
 * actor page
   + make more like event/place pages
@@ -205,21 +204,17 @@ goodbye tabs
   + instead of navigator page, just a stack layer above page?
 
 * search
-  + ~~explore results: work on cards~~
   + use OpenContainer for transition between searchbar and searchdelegate?
     - this will require reimplementing searchdelegate lol
   + search suggestions
-    - ~~change to leading icons~~
     - sort by edit distance?
-  + results
-    - ~~show number of results in tab title~~
-    - save selected tab on navigator back
+  + results: save selected tab on navigator back
+    - also requires reimplementing searchdelegate?
 
 * calendar page
   + add animation to horizontal swipe
-  + ~~jump to today/date?~~
 
-* themeing......... 
+* theming......... 
   + color of selected/today on calendar
   + custom themes based on colors in logo?
     - https://pub.dev/packages/flutter_material_color_picker
@@ -265,6 +260,7 @@ goodbye tabs
 
 * administrative
   + error handling
+  + general code organization
   + tests
   + readme
   + license

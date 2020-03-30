@@ -12,7 +12,6 @@ class EventCarouselCard extends StatelessWidget {
 
   const EventCarouselCard(this.event, {Key key}) : super(key: key);
 
-  // TODO: fix inkwell
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,92 +24,119 @@ class EventCarouselCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         closedBuilder: (context, open) {
-          return InkWell(
+          return CachedNetworkImage(
+            placeholder: (context, url) => _EventCarouselCardText(event, open),
+            alignment: Alignment.topLeft,
+            imageUrl: event.imageUrl,
+            imageBuilder: (context, provider) {
+              return Ink.image(
+                image: provider,
+                fit: BoxFit.cover,
+                child: _EventCarouselCardText(event, open, background: true),
+              );
+            },
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) {
+              print(error);
+              return Icon(Icons.error);
+            },
+          );
+        },
+        openBuilder: (context, close) => EventPage(event, close: close),
+      ),
+    );
+  }
+}
+
+class _EventCarouselCardText extends StatelessWidget {
+  final Event event;
+  final VoidCallback open;
+  final bool background;
+
+  const _EventCarouselCardText(
+    this.event,
+    this.open, {
+    this.background = false,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment(0, -0.9),
+                colors: <Color>[
+                  Color(background ? 0xFF000000 : 0x00000000),
+                  Color(0x00000000),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(8.0),
             child: Stack(
-              fit: StackFit.expand,
-              children: [
-                CachedNetworkImage(
-                  placeholder: (context, url) => Container(),
-                  imageUrl: event.imageUrl,
-                  alignment: Alignment.topLeft,
-                  fit: BoxFit.cover,
-                  errorWidget: (context, url, error) {
-                    print(error);
-                    return Icon(Icons.error);
-                  },
-                ),
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment(0, -0.9),
-                      colors: <Color>[Color(0xFF000000), Color(0x00000000)],
+              children: <Widget>[
+                Align(
+                  alignment: Alignment(1.0, -1.0),
+                  child: Container(
+                    height: 36,
+                    width: 36,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).canvasColor,
+                    ),
+                    child: IconButton(
+                      padding: EdgeInsets.all(0.0),
+                      icon: Random().nextBool() // TODO: remove rng
+                          ? Icon(Icons.star, color: Colors.amber)
+                          : Icon(
+                              Icons.star_border,
+                              color: Theme.of(context).textTheme.title.color,
+                            ),
+                      iconSize: 22.0,
+                      onPressed: () {},
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment(1.0, -1.0),
-                        child: Container(
-                          height: 36,
-                          width: 36,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Theme.of(context).canvasColor,
-                          ),
-                          child: IconButton(
-                            padding: EdgeInsets.all(0.0),
-                            icon: Random().nextBool() // TODO: remove
-                                ? Icon(Icons.star, color: Colors.amber)
-                                : Icon(
-                                    Icons.star_border,
-                                    color:
-                                        Theme.of(context).textTheme.title.color,
-                                  ),
-                            iconSize: 22.0,
-                            onPressed: () {},
-                          ),
-                        ),
+                Align(
+                  alignment: Alignment(-1.0, 1.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        event.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .title
+                            .copyWith(color: background ? Colors.white : null),
+                        maxLines: 3,
+                        presetFontSizes: [
+                          Theme.of(context).textTheme.title.fontSize,
+                        ],
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Align(
-                        alignment: Alignment(-1.0, 1.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AutoSizeText(
-                              event.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .title
-                                  .copyWith(color: Colors.white),
-                              maxLines: 3,
-                              presetFontSizes: [
-                                Theme.of(context).textTheme.title.fontSize,
-                              ],
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            // AutoSizeText(event.place.name, maxLines: 1),
-                            Text(
-                              '参加イベンター: ${event.noteCount}',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      )
+                      // AutoSizeText(event.place.name, maxLines: 1),
+                      Text(
+                        '参加イベンター: ${event.noteCount}',
+                        style:
+                            background ? TextStyle(color: Colors.white) : null,
+                      ),
                     ],
                   ),
                 )
               ],
             ),
-            onTap: open,
-          );
-        },
-        openBuilder: (context, close) => EventPage(event, close: close),
+          )
+        ],
       ),
+      onTap: open,
     );
   }
 }
