@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/place_page.dart';
-import 'package:eventernote/widgets/animated_actor_tile.dart';
+import 'package:eventernote/widgets/actor_grid_card.dart';
 import 'package:eventernote/widgets/date_text.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:eventernote/widgets/text_block.dart';
@@ -13,18 +13,17 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EventPage extends StatelessWidget {
   final Event event;
-  final Color color;
+  final VoidCallback close;
 
-  EventPage(this.event, {this.color, Key key}) : super(key: key);
+  const EventPage(this.event, {this.close, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: color,
         leading: IconButton(
           icon: Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
+          onPressed: close != null ? close : () => Navigator.pop(context),
         ),
         title: Text('イベント情報'),
         actions: _actions(context),
@@ -66,7 +65,7 @@ class EventPage extends StatelessWidget {
                       event.place.latitude == 0 && event.place.longitude == 0
                           ? 0
                           : 100,
-                  child: PlaceMap(event.place, color: color),
+                  child: PlaceMap(event.place),
                 ),
                 ListTile(
                   leading: Icon(CommunityMaterialIcons.file_account),
@@ -91,14 +90,10 @@ class EventPage extends StatelessWidget {
           SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              childAspectRatio: 2,
+              childAspectRatio: 1.75,
             ),
             delegate: SliverChildListDelegate([
-              for (var actor in event.actors)
-                Card(
-                  elevation: 3.0,
-                  child: AnimatedActorTile(actor, expanded: false, maxLines: 2),
-                ),
+              for (var actor in event.actors) ActorGridCard(actor),
             ]),
           ),
         ],

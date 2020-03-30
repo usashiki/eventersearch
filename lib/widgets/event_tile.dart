@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:eventernote/widgets/date_text.dart';
 import 'package:flutter/material.dart';
 import 'package:eventernote/models/event.dart';
@@ -6,17 +7,36 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class EventTile extends StatelessWidget {
   final Event event;
-  final bool expanded;
-  final VoidCallback tap;
+  final bool animated;
 
-  EventTile(this.event, {this.expanded = true, this.tap, Key key})
+  const EventTile(this.event, {this.animated = false, Key key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget leading, title, subtitle;
-    if (expanded) {
-      leading = SizedBox(
+    if (animated) {
+      return OpenContainer(
+        closedElevation: 0.0,
+        closedColor: Theme.of(context).canvasColor,
+        closedBuilder: (context, openContainer) =>
+            _BaseEventTile(event, tap: openContainer),
+        openBuilder: (context, close) => EventPage(event, close: close),
+      );
+    }
+    return _BaseEventTile(event);
+  }
+}
+
+class _BaseEventTile extends StatelessWidget {
+  final Event event;
+  final VoidCallback tap;
+
+  const _BaseEventTile(this.event, {this.tap, Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: SizedBox(
         width: 60,
         height: 60,
         child: CachedNetworkImage(
@@ -28,37 +48,21 @@ class EventTile extends StatelessWidget {
             return Icon(Icons.error);
           },
         ),
-      );
-      title = Text(event.name);
-      subtitle = RichText(
+      ),
+      title: Text(event.name),
+      subtitle: RichText(
         text: TextSpan(
           style: Theme.of(context).textTheme.caption,
           children: [
-            for (var t in DateText(event.date).spans()) t,
+            for (var t in DateText(event.date).spans) t,
             TextSpan(text: '\n'),
             TextSpan(text: event.timesString),
             TextSpan(text: '\n'),
             TextSpan(text: event?.place?.name),
           ],
         ),
-      );
-    } else {
-      title = RichText(
-        text: TextSpan(
-          style: Theme.of(context).textTheme.body1,
-          children: [
-            for (var t in DateText(event.date).spans()) t,
-            TextSpan(text: " ${event.name}"),
-          ],
-        ),
-      );
-    }
-
-    return ListTile(
-      leading: leading,
-      title: title,
-      subtitle: subtitle,
-      isThreeLine: expanded,
+      ),
+      isThreeLine: true,
       dense: true,
       onTap: tap != null
           ? tap

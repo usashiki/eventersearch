@@ -5,26 +5,15 @@ import 'package:flutter/material.dart';
 
 class ActorTile extends StatelessWidget {
   final Actor actor;
-  final bool expanded;
-  final int rank; // if populated, prefix title with rank
-  final int maxLines;
-  final VoidCallback tap;
 
-  ActorTile(
-    this.actor, {
-    this.rank,
-    this.expanded = true,
-    this.tap,
-    this.maxLines = 1,
-    Key key,
-  }) : super(key: key);
+  const ActorTile(this.actor, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget subtitle, trailing;
-    if (expanded) {
-      subtitle = AutoSizeText(actor.kana, maxLines: 1);
-      trailing = Container(
+    return ListTile(
+      title: AutoSizeText(actor.name, maxLines: 1),
+      subtitle: AutoSizeText(actor.kana, maxLines: 1),
+      trailing: Container(
         constraints: BoxConstraints(maxHeight: 35, maxWidth: 40),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
@@ -36,23 +25,12 @@ class ActorTile extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
         ),
-      );
-    }
-
-    return ListTile(
-      title: AutoSizeText(
-        expanded && rank != null ? "$rank. ${actor.name}" : actor.name,
-        maxLines: maxLines,
       ),
-      subtitle: subtitle,
-      trailing: trailing,
       dense: true,
-      onTap: tap != null
-          ? tap
-          : () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ActorPage(actor)),
-              ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ActorPage(actor)),
+      ),
     );
   }
 }

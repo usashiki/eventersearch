@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/place.dart';
 import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/widgets/animated_event_tile.dart';
+import 'package:eventernote/widgets/event_tile.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:eventernote/widgets/text_block.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class PlacePage extends StatelessWidget {
               return Column(
                 children: <Widget>[
                   Divider(height: 0.5),
-                  AnimatedEventTile(event),
+                  EventTile(event, animated: true),
                 ],
               );
             },

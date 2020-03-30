@@ -50,6 +50,12 @@ class EventernoteService {
     return ActorsSearch.fromJson(json).results;
   }
 
+  Future<int> getNumActorsForKeyword(String keyword) async {
+    final json = await _get(
+        '$_actorsUrl?sort=favorite_count&order=DESC&keyword=$keyword&offset=1');
+    return ActorsSearch.fromJson(json).info.total;
+  }
+
   Future<List<Actor>> getPopularActors(int page) async {
     final json = await _get(
         '$_actorsUrl?sort=favorite_count&order=DESC&offset=${_offset(page)}');
@@ -66,6 +72,11 @@ class EventernoteService {
     final json =
         await _get('$_eventsUrl?keyword=$keyword&offset=${_offset(page)}');
     return EventsSearch.fromJson(json).results;
+  }
+
+  Future<int> getNumEventsForKeyword(String keyword) async {
+    final json = await _get('$_eventsUrl?keyword=$keyword&offset=1');
+    return EventsSearch.fromJson(json).info.total;
   }
 
   Future<int> getNumEventsForDate(DateTime date) async {
@@ -101,6 +112,11 @@ class EventernoteService {
     final json =
         await _get('$_placesUrl?keyword=$keyword&offset=${_offset(page)}');
     return PlacesSearch.fromJson(json).results;
+  }
+
+  Future<int> getNumPlacesForKeyword(String keyword) async {
+    final json = await _get('$_placesUrl?keyword=$keyword&offset=1');
+    return PlacesSearch.fromJson(json).info.total;
   }
 
   Future<List<VerticalSearchResult>> getVertical(String keyword) async {

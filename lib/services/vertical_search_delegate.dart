@@ -1,8 +1,10 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/vertical_search_result.dart';
 import 'package:eventernote/services/eventernote_service.dart';
+import 'package:eventernote/widgets/actor_suggestion_tile.dart';
 import 'package:eventernote/widgets/actor_tile.dart';
+import 'package:eventernote/widgets/event_suggestion_tile.dart';
 import 'package:eventernote/widgets/event_tile.dart';
+import 'package:eventernote/widgets/place_suggestion_tile.dart';
 import 'package:eventernote/widgets/place_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
@@ -57,45 +59,22 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
           if (results != null && results.isNotEmpty) {
             VerticalSearchResult result = results[0];
             List<Widget> children = [];
-            if (result.actors != null && result.actors.isNotEmpty) {
-              children.add(
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('声優/アーティスト'),
-                  dense: true,
-                ),
-              );
+            if (result.actors != null) {
               for (final actor in result.actors) {
+                children.add(ActorSuggestionTile(actor));
                 children.add(Divider(height: 0.5));
-                children.add(ActorTile(actor, expanded: false));
               }
-              children.add(Divider(height: 0.5));
             }
-            if (result.events != null && result.events.isNotEmpty) {
-              children.add(
-                ListTile(
-                  leading: Icon(CommunityMaterialIcons.microphone_variant),
-                  title: Text('イベント'),
-                  dense: true,
-                ),
-              );
+            if (result.events != null) {
               for (final event in result.events) {
+                children.add(EventSuggestionTile(event));
                 children.add(Divider(height: 0.5));
-                children.add(EventTile(event, expanded: false));
               }
-              children.add(Divider(height: 0.5));
             }
-            if (result.places != null && result.places.isNotEmpty) {
-              children.add(
-                ListTile(
-                  leading: Icon(CommunityMaterialIcons.stadium),
-                  title: Text('会場'),
-                  dense: true,
-                ),
-              );
+            if (result.places != null) {
               for (final place in result.places) {
+                children.add(PlaceSuggestionTile(place));
                 children.add(Divider(height: 0.5));
-                children.add(PlaceTile(place));
               }
             }
             return ListView(children: children);
@@ -134,12 +113,48 @@ class _SearchResultsState extends State<SearchResults>
         child: Container(
           child: TabBar(
             controller: _tabController,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey,
+            labelColor: Theme.of(context).textTheme.title.color,
+            unselectedLabelColor: Theme.of(context).textTheme.caption.color,
             tabs: [
-              Tab(text: '声優/ｱｰﾃｨｽﾄ'),
-              Tab(text: 'イベント'),
-              Tab(text: '会場'),
+              FutureBuilder<int>(
+                future:
+                    EventernoteService().getNumActorsForKeyword(widget.query),
+                builder: (context, snapshot) {
+                  var text = '(?)';
+                  if (snapshot.hasData) {
+                    text = '(${snapshot.data})';
+                  } else if (snapshot.hasError) {
+                    text = '(-)';
+                  }
+                  return Tab(text: '声優/ｱｰﾃｨｽﾄ' + text);
+                },
+              ),
+              FutureBuilder<int>(
+                future:
+                    EventernoteService().getNumEventsForKeyword(widget.query),
+                builder: (context, snapshot) {
+                  var text = '(?)';
+                  if (snapshot.hasData) {
+                    text = '(${snapshot.data})';
+                  } else if (snapshot.hasError) {
+                    text = '(-)';
+                  }
+                  return Tab(text: 'イベント' + text);
+                },
+              ),
+              FutureBuilder<int>(
+                future:
+                    EventernoteService().getNumPlacesForKeyword(widget.query),
+                builder: (context, snapshot) {
+                  var text = '(?)';
+                  if (snapshot.hasData) {
+                    text = '(${snapshot.data})';
+                  } else if (snapshot.hasError) {
+                    text = '(-)';
+                  }
+                  return Tab(text: '会場' + text);
+                },
+              ),
             ],
           ),
         ),
@@ -147,31 +162,26 @@ class _SearchResultsState extends State<SearchResults>
       body: TabBarView(
         controller: _tabController,
         children: [
-          ActorResults(widget.query),
-          EventResults(widget.query),
-          PlaceResults(widget.query),
+          _ActorResults(widget.query),
+          _EventResults(widget.query),
+          _PlaceResults(widget.query),
         ],
       ),
     );
   }
 }
 
-class ActorResults extends StatelessWidget {
+class _ActorResults extends StatelessWidget {
   final String query;
 
-  ActorResults(this.query, {Key key}) : super(key: key);
+  const _ActorResults(this.query, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PagewiseListView(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, actor, i) {
-        return Column(
-          children: <Widget>[
-            ActorTile(actor),
-            Divider(height: 0.5),
-          ],
-        );
+        return Column(children: [ActorTile(actor), Divider(height: 0.5)]);
       },
       pageFuture: (page) =>
           EventernoteService().getActorsForKeyword(query, page),
@@ -179,22 +189,17 @@ class ActorResults extends StatelessWidget {
   }
 }
 
-class EventResults extends StatelessWidget {
+class _EventResults extends StatelessWidget {
   final String query;
 
-  EventResults(this.query, {Key key}) : super(key: key);
+  const _EventResults(this.query, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PagewiseListView(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, event, i) {
-        return Column(
-          children: <Widget>[
-            EventTile(event),
-            Divider(height: 0.5),
-          ],
-        );
+        return Column(children: [EventTile(event), Divider(height: 0.5)]);
       },
       pageFuture: (page) =>
           EventernoteService().getEventsForKeyword(query, page),
@@ -202,22 +207,17 @@ class EventResults extends StatelessWidget {
   }
 }
 
-class PlaceResults extends StatelessWidget {
+class _PlaceResults extends StatelessWidget {
   final String query;
 
-  PlaceResults(this.query, {Key key}) : super(key: key);
+  const _PlaceResults(this.query, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return PagewiseListView(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, place, i) {
-        return Column(
-          children: <Widget>[
-            PlaceTile(place),
-            Divider(height: 0.5),
-          ],
-        );
+        return Column(children: [PlaceTile(place), Divider(height: 0.5)]);
       },
       pageFuture: (page) =>
           EventernoteService().getPlacesForKeyword(query, page),

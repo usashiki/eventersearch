@@ -9,7 +9,7 @@ class DateText extends StatelessWidget {
 
   const DateText(this.date, {this.style, Key key}) : super(key: key);
 
-  List<InlineSpan> spans() {
+  List<InlineSpan> get spans {
     Color c;
     if (date.weekday == DateTime.saturday) {
       c = Colors.blue;
@@ -34,7 +34,7 @@ class DateText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: style != null ? style : null,
-        children: spans(),
+        children: spans,
       ),
     );
   }

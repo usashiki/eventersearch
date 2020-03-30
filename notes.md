@@ -182,27 +182,47 @@ goodbye tabs
 ### todos
 
 * cards, listitems, etc
-  + ActorCarouselCard - search/explore carousel
-  + ActorGridCard - event page
-  + ActorSuggestionTile - search suggestions
-  + ActorListTile - search results
-  + EventCarouselCard - search/explore carousel
-  + EventSuggestionTile - search suggestions
-  + EventListTile - search results, calendar page
-  + PlaceSuggestionTile - search suggestions
-  + PlaceListTile - search results
+  + ~~ActorCarouselCard - search/explore carousel~~
+  + ~~ActorGridCard - event page~~
+  + ~~ActorSuggestionTile - search suggestions~~
+  + ~~ActorTile - search results~~
+  + ~~EventCarouselCard - search/explore carousel~~
+  + ~~EventSuggestionTile - search suggestions~~
+  + ~~EventTile - search results (not animated), calendar page, actor page, place page~~
+  + ~~PlaceSuggestionTile - search suggestions~~
+  + ~~PlaceTile - search results~~
 
-* rework item pages
-  + eventpage, venuepage: dont use built-in listviews
-    - see gcal event page for inspiration
-    - also make artistpage the same style
-  + forgo appbar?
-    - probably would want to move most actions into body then
-  + eventpage: show people going more prominently?
-  + pull down to dismiss page
-    - instead of navigator page, just a stack layer above page?
-  + eventpage: color appbar based on image? https://github.com/flutter/packages/tree/master/packages/palette_generator
+* actor page
+  + make more like event/place pages
+  + make space for like buttom (heart)
+  + forgo appbar? move actions into body or dropdown
+* event page
+  + dont use built-in listviews (gcal)
+    - what about eventers going?
+  + forgo appbar? move actions into body or dropdown
+  + make space for going button
+  + color appbar based on image? https://github.com/flutter/packages/tree/master/packages/palette_generator
     - would be best to get the color before loading the page, but how???
+* place page
+  + dont use built-in listviews (gcal)
+  + forgo appbar? move actions into body or dropdown
+* [all pages] pull down to dismiss page
+  + instead of navigator page, just a stack layer above page?
+
+* search
+  + ~~explore results: work on cards~~
+  + use OpenContainer for transition between searchbar and searchdelegate?
+    - this will require reimplementing searchdelegate lol
+  + search suggestions
+    - ~~change to leading icons~~
+    - sort by edit distance?
+  + results
+    - ~~show number of results in tab title~~
+    - save selected tab on navigator back
+
+* calendar page
+  + add animation to horizontal swipe
+  + ~~jump to today/date?~~
 
 * themeing......... 
   + color of selected/today on calendar
@@ -222,22 +242,17 @@ goodbye tabs
     - #6CBA5A or #59F35E
   + textstyles, custom fonts?
   + how to indicate past events on event tile? (and what about dark theme?)
+  + custom statusbar + navigation bar background color
+    - https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
 
-* custom statusbar + navigation bar background color
-  + https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
-
-* search
-  + explore results: work on cards
-  + transition between searchbar and searchdelegate could be better
-  + search suggestions: change to leading icons + sort by edit distance?
-  + results
-    - layout: carousels instead?
-    - save selected tab on navigator back
+* loading animations: skeleton views
+  + https://www.filledstacks.com/snippet/using-shimmer-for-loading-indication-in-flutter/
 
 * settings page?
   + theme selector
   + customize event card: what fields to show?
   + licenses
+  + app locale / english translation
 
 * launch/splash screen
   + use https://pub.dev/packages/flutter_native_splash to set static launch image
@@ -253,5 +268,9 @@ goodbye tabs
   + https://github.com/AbdulRahmanAlHamali/flutter_pagewise/issues/12
   + or maybe pull down to close single item pages
 
-* tests... 
-* ask about data use
+* administrative
+  + error handling
+  + tests
+  + readme
+  + license
+  + ask about data use

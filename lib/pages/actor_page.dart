@@ -2,15 +2,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/actor.dart';
 import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/widgets/animated_event_tile.dart';
+import 'package:eventernote/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ActorPage extends StatelessWidget {
   final Actor actor;
+  final VoidCallback close;
 
-  const ActorPage(this.actor, {Key key}) : super(key: key);
+  const ActorPage(this.actor, {this.close, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ActorPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
+          onPressed: close != null ? close : () => Navigator.pop(context),
         ),
         title: Text('声優/アーティスト情報'),
         actions: <Widget>[
@@ -43,7 +44,7 @@ class ActorPage extends StatelessWidget {
               return Column(
                 children: <Widget>[
                   Divider(height: 0.5),
-                  AnimatedEventTile(event),
+                  EventTile(event, animated: true),
                 ],
               );
             },

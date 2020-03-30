@@ -1,5 +1,4 @@
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:eventernote/pages/actors_navigation_page.dart';
 import 'package:eventernote/pages/calendar_navigation_page.dart';
 import 'package:eventernote/pages/search_navigation_page.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
@@ -22,7 +21,7 @@ class _EventernoteAppState extends State<EventernoteApp> {
   final List<Widget> pages = [
     SearchNavigationPage(),
     CalendarNavigationPage(),
-    ActorsNavigationPage(),
+    Icon(Icons.warning),
   ];
   int _index;
 
@@ -89,8 +88,8 @@ class _EventernoteAppState extends State<EventernoteApp> {
                     title: Text('カレンダー'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(CommunityMaterialIcons.account_multiple),
-                    title: Text('声優/ｱｰﾃｨｽﾄ'),
+                    icon: Icon(Icons.settings),
+                    title: Text('設定'),
                   ),
                 ],
                 // backgroundColor: Theme.of(context).primaryColor,

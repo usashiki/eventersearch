@@ -1,6 +1,6 @@
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/services/holidays_service.dart';
-import 'package:eventernote/widgets/animated_event_tile.dart';
+import 'package:eventernote/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -77,7 +77,7 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
                   return Column(
                     children: <Widget>[
                       Divider(height: 0.5),
-                      AnimatedEventTile(event),
+                      EventTile(event, animated: true),
                     ],
                   );
                 },
@@ -101,7 +101,7 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
       availableGestures: AvailableGestures.all,
       availableCalendarFormats: {
         CalendarFormat.month: '月',
-        // CalendarFormat.twoWeeks: '2週', // issue #17 + visible day issues
+        // CalendarFormat.twoWeeks: '2週', // TODO: issue #17 + visible day issues
         CalendarFormat.week: '週',
       },
       // calendarStyle: CalendarStyle(
@@ -109,6 +109,22 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
       //   selectedColor: Theme.of(context).colorScheme.secondary,
       // ),
       headerStyle: HeaderStyle(formatButtonShowsNext: false),
+      onHeaderTapped: (current) {
+        showDatePicker(
+          context: context,
+          initialDate: current,
+          firstDate: DateTime(1980),
+          lastDate: DateTime.now().add(Duration(days: 365 * 2)),
+          locale: Localizations.localeOf(context), // TODO: set app locale to jp
+        ).then((selected) {
+          if (selected != null) {
+            _calendarController.setSelectedDay(selected, runCallback: true);
+          }
+        });
+      },
+      onHeaderLongPressed: (_) {
+        _calendarController.setSelectedDay(DateTime.now(), runCallback: true);
+      },
       builders: CalendarBuilders(
         dowWeekendBuilder: (context, str) {
           return Center(
@@ -203,10 +219,7 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
       decoration: BoxDecoration(shape: BoxShape.circle, color: boxColor),
       margin: EdgeInsets.all(6.0),
       alignment: Alignment.center,
-      child: Text(
-        "${date.day}",
-        style: cellTextStyle,
-      ),
+      child: Text("${date.day}", style: cellTextStyle),
     );
   }
 }
