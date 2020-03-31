@@ -69,7 +69,19 @@ class ActorCarouselCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.title,
                               maxLines: 2,
                             ),
-                            Text('ファン: ${actor.favoriteCount}'),
+                            RichText(
+                              text: TextSpan(
+                                style: Theme.of(context).textTheme.body1,
+                                children: [
+                                  TextSpan(
+                                    text: '${actor.favoriteCount}',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(text: ' ファン'),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       )

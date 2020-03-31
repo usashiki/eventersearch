@@ -6,8 +6,8 @@ import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/place_page.dart';
 import 'package:eventernote/widgets/actor_grid_card.dart';
 import 'package:eventernote/widgets/date_text.dart';
+import 'package:eventernote/widgets/header_item.dart';
 import 'package:eventernote/widgets/place_map.dart';
-import 'package:eventernote/widgets/text_block.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,72 +21,21 @@ class EventPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: close != null ? close : () => Navigator.pop(context),
-        ),
-        title: Text('イベント情報'),
-        actions: _actions(context),
-      ),
+          leading: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: close != null ? close : () => Navigator.pop(context),
+          ),
+          title: Text('イベント情報'),
+          actions: [
+            IconButton(
+              icon: Icon(CommunityMaterialIcons.web),
+              tooltip: 'サイトで見る',
+              onPressed: () async => await launch(event.eventernoteUrl),
+            ),
+          ]),
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: _imageHeader(context),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                ListTile(
-                  leading: Icon(CommunityMaterialIcons.calendar),
-                  title: DateText(event.date,
-                      style: Theme.of(context).textTheme.body1),
-                  dense: true,
-                ),
-                ListTile(
-                  leading: Icon(CommunityMaterialIcons.clock_outline),
-                  title: Text(event.timesString),
-                  dense: true,
-                ),
-                OpenContainer(
-                  closedElevation: 0.0,
-                  closedColor: Theme.of(context).canvasColor,
-                  closedBuilder: (context, openContainer) {
-                    return ListTile(
-                      leading: Icon(CommunityMaterialIcons.map_marker_outline),
-                      title: Text(event.place.name),
-                      dense: true,
-                      onTap: openContainer,
-                    );
-                  },
-                  openBuilder: (context, _) => PlacePage(event.place),
-                ),
-                SizedBox(
-                  height:
-                      event.place.latitude == 0 && event.place.longitude == 0
-                          ? 0
-                          : 100,
-                  child: PlaceMap(event.place),
-                ),
-                ListTile(
-                  leading: Icon(CommunityMaterialIcons.file_account),
-                  title: Text("参加のイベンター (${event.noteCount})"),
-                  dense: true,
-                ),
-                ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('概要'),
-                  dense: true,
-                ),
-                TextBlock(event.description),
-                SizedBox(height: 12),
-                ListTile(
-                  leading: Icon(CommunityMaterialIcons.account_multiple),
-                  title: Text('出演者'),
-                  dense: true,
-                ),
-              ],
-            ),
-          ),
+          SliverToBoxAdapter(child: _EventHeader(event)),
           SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -100,55 +49,16 @@ class EventPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  List<Widget> _actions(BuildContext context) {
-    var actions = [
-      IconButton(
-        icon: Icon(CommunityMaterialIcons.web),
-        tooltip: 'サイトで見る',
-        onPressed: () async => await launch(event.eventernoteUrl),
-      ),
-    ];
+// TODO: rework image header
+class _ImageHeader extends StatelessWidget {
+  final String name, imageUrl;
 
-    if (event.link != null && event.link.isNotEmpty) {
-      actions.add(IconButton(
-        icon: Icon(CommunityMaterialIcons.link_variant),
-        tooltip: "関連リンク (${event.links.length})",
-        onPressed: () async {
-          if (event.links.length == 1) {
-            await launch(event.link);
-          } else {
-            await showDialog(
-              context: context,
-              builder: (context) {
-                return SimpleDialog(
-                  children: <Widget>[
-                    for (String url in event.links)
-                      SimpleDialogOption(
-                        onPressed: () async => await launch(url),
-                        child: Text(url),
-                      )
-                  ],
-                );
-              },
-            );
-          }
-        },
-      ));
-    }
+  const _ImageHeader(this.name, this.imageUrl, {Key key}) : super(key: key);
 
-    if (event.hashtag != null && event.hashtag.isNotEmpty) {
-      actions.add(IconButton(
-        icon: Icon(CommunityMaterialIcons.pound),
-        tooltip: 'Twitterハッシュタグ',
-        onPressed: () async => await launch(event.hashtagUrl),
-      ));
-    }
-
-    return actions;
-  }
-
-  Widget _imageHeader(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
       child: Stack(
@@ -156,7 +66,7 @@ class EventPage extends StatelessWidget {
         children: <Widget>[
           CachedNetworkImage(
             placeholder: (context, url) => Container(),
-            imageUrl: event.imageUrl,
+            imageUrl: imageUrl,
             alignment: Alignment.topLeft,
             fit: BoxFit.cover,
             errorWidget: (context, url, error) {
@@ -177,7 +87,7 @@ class EventPage extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             padding: EdgeInsets.all(10),
             child: AutoSizeText(
-              event.name,
+              name,
               maxLines: 3,
               style: Theme.of(context)
                   .textTheme
@@ -187,6 +97,63 @@ class EventPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _EventHeader extends StatelessWidget {
+  final Event event;
+
+  const _EventHeader(this.event, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _ImageHeader(event.name, event.imageUrl),
+        SizedBox(height: 8),
+        HeaderItem(
+          icon: CommunityMaterialIcons.calendar_today,
+          text: event.date.toIso8601String(),
+          // TODO: DateText...
+        ),
+        HeaderItem(
+          icon: CommunityMaterialIcons.clock_outline,
+          text: event.timesString,
+        ),
+        HeaderItem(
+          icon: CommunityMaterialIcons.stadium,
+          text: event.place.name,
+          // TODO: OpenContainer into PlacePage
+        ),
+        PlaceMap(event.place, hideWhenNoLatLng: true),
+        HeaderItem(
+          icon: CommunityMaterialIcons.file_account,
+          text: '${event.noteCount} イベンター参加',
+          // TODO: bold eventers going?
+        ),
+        for (final link in event.links)
+          HeaderItem(
+              icon: CommunityMaterialIcons.link_variant, text: link, uri: link),
+        HeaderItem(
+          // TODO: hide/expand?
+          icon: CommunityMaterialIcons.information_outline,
+          text: event.description,
+        ),
+        HeaderItem(
+          icon: CommunityMaterialIcons.pound,
+          // TODO: handle this better
+          text: event.hashtag != null && event.hashtag.isNotEmpty
+              ? '#${event.hashtag}'
+              : null,
+          uri: event.hashtagUrl,
+        ),
+        HeaderItem(
+          // TODO: dont really want this to be a header...
+          icon: CommunityMaterialIcons.account_multiple_outline,
+          text: '出演者',
+        ),
+      ],
     );
   }
 }

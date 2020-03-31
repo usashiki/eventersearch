@@ -139,7 +139,7 @@ class _EventernoteCacheManager extends BaseCacheManager {
 
   _EventernoteCacheManager._()
       : super(key,
-            maxAgeCacheObject: Duration(days: 1),
+            maxAgeCacheObject: Duration(hours: 8),
             fileFetcher: _customHttpGetter);
 
   @override

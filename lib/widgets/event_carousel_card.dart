@@ -122,11 +122,18 @@ class _EventCarouselCardText extends StatelessWidget {
                         ],
                         overflow: TextOverflow.ellipsis,
                       ),
-                      // AutoSizeText(event.place.name, maxLines: 1),
-                      Text(
-                        '参加イベンター: ${event.noteCount}',
-                        style:
-                            background ? TextStyle(color: Colors.white) : null,
+                      RichText(
+                        text: TextSpan(
+                          style: Theme.of(context).textTheme.body1.copyWith(
+                              color: background ? Colors.white : null),
+                          children: [
+                            TextSpan(
+                              text: '${event.noteCount}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(text: ' 参加イベンター'),
+                          ],
+                        ),
                       ),
                     ],
                   ),
