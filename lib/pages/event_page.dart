@@ -142,7 +142,7 @@ class _EventHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 2),
+            padding: EdgeInsets.only(top: 2, bottom: 4),
             child: BoldNumber(
               prefix: '出演者',
               number: '${event.actors.length}',
@@ -157,8 +157,8 @@ class _EventHeader extends StatelessWidget {
             ),
         ],
       ),
+      omitBottomPadding: true,
     ));
-    // TODO: padding here is a bit off because HeaderTiles are already padded
 
     for (final link in event.links) {
       if (link != null && link.isNotEmpty) {
