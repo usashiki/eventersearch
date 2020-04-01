@@ -77,7 +77,6 @@ class _PlaceHeader extends StatelessWidget {
           ],
         ),
       ),
-      PlaceMap(place),
     ];
 
     if (place.postalcode != null &&
@@ -90,6 +89,7 @@ class _PlaceHeader extends StatelessWidget {
         uri: place.geoUri,
         copyableText: '${place.postalcode} ${place.address}',
       ));
+      children.add(PlaceMap(place));
     }
 
     if (place.tel != null && place.tel.isNotEmpty) {

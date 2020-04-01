@@ -54,7 +54,7 @@ class PlaceMap extends StatelessWidget {
       );
     }
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 4),
       child: SizedBox(height: 100, child: map),
     );
   }

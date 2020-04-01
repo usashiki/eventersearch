@@ -17,6 +17,7 @@ class ExpandableHeaderTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
+      // closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       closedElevation: 0.0,
       closedColor: Theme.of(context).canvasColor,
       closedBuilder: (context, open) => HeaderTile(

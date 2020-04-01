@@ -29,6 +29,7 @@ class HeaderTile extends StatelessWidget {
       onTap: onTap,
       onLongPress: onLongPress,
       child: Container(
+        // color: Theme.of(context).canvasColor,
         padding: padding,
         child: IntrinsicHeight(
           child: Row(
@@ -45,6 +46,10 @@ class HeaderTile extends StatelessWidget {
                   child: child,
                 ),
               ),
+              // Align(
+              //   alignment: Alignment.topCenter,
+              //   child: Icon(icon),
+              // ),
             ],
           ),
         ),

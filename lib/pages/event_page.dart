@@ -8,11 +8,14 @@ import 'package:eventernote/widgets/bold_number.dart';
 import 'package:eventernote/widgets/date_text.dart';
 import 'package:eventernote/widgets/expandable_header_tile.dart';
 import 'package:eventernote/widgets/header_tile.dart';
+import 'package:eventernote/widgets/icon_button_circle.dart';
 import 'package:eventernote/widgets/launchable_header_tile.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// TODO: color of appbar based on image?
+// TODO: inkwell in expanded appbar?
 class EventPage extends StatelessWidget {
   final Event event;
 
@@ -21,72 +24,65 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: Text('イベント情報'),
-          actions: [
-            IconButton(
-              icon: Icon(CommunityMaterialIcons.web),
-              tooltip: 'サイトで見る',
-              onPressed: () async => await launch(event.eventernoteUrl),
-            ),
-          ]),
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
-          SliverToBoxAdapter(child: _EventHeader(event)),
-        ],
-      ),
-    );
-  }
-}
-
-// TODO: rework image header
-class _ImageHeader extends StatelessWidget {
-  final String name, imageUrl;
-
-  const _ImageHeader(this.name, this.imageUrl, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          CachedNetworkImage(
-            placeholder: (context, url) => Container(),
-            imageUrl: imageUrl,
-            alignment: Alignment.topLeft,
-            fit: BoxFit.cover,
-            errorWidget: (context, url, error) {
-              print(error);
-              return Icon(Icons.error);
-            },
-          ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment(0, -0.2),
-                colors: <Color>[Color(0xFF000000), Color(0x00000000)],
+          SliverAppBar(
+            leading: Container(
+              padding: EdgeInsets.all(8),
+              child: IconButtonCircle(
+                icon: Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+            actions: <Widget>[
+              IconButtonCircle(
+                icon: Icon(CommunityMaterialIcons.web),
+                tooltip: 'サイトで見る',
+                onPressed: () async => await launch(event.eventernoteUrl),
+              ),
+              SizedBox(width: 6),
+            ],
+            expandedHeight: 200.0,
+            pinned: false,
+            stretch: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: AutoSizeText(
+                event.name,
+                maxFontSize: 16,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              centerTitle: true,
+              titlePadding:
+                  EdgeInsets.symmetric(horizontal: 80).copyWith(bottom: 16),
+              background: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  CachedNetworkImage(
+                    placeholder: (context, url) => Container(),
+                    imageUrl: event.imageUrl,
+                    alignment: Alignment.topCenter,
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, error) {
+                      print(error);
+                      return Icon(Icons.error);
+                    },
+                  ),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment(0, -0.2),
+                        colors: <Color>[Color(0xFF000000), Color(0x00000000)],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            padding: EdgeInsets.all(10),
-            child: AutoSizeText(
-              name,
-              maxLines: 3,
-              style: Theme.of(context)
-                  .textTheme
-                  .title
-                  .copyWith(color: Colors.white),
-            ),
-          ),
+          SliverToBoxAdapter(child: _EventHeader(event)),
         ],
       ),
     );
@@ -101,8 +97,7 @@ class _EventHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> children = [
-      _ImageHeader(event.name, event.imageUrl),
-      SizedBox(height: 8),
+      SizedBox(height: 4),
       HeaderTile(
         icon: CommunityMaterialIcons.calendar_today,
         child: DateText(
@@ -188,6 +183,8 @@ class _EventHeader extends StatelessWidget {
         copyableText: '#${event.hashtag}',
       ));
     }
+
+    children.add(SizedBox(height: 16));
 
     return Column(children: children);
   }

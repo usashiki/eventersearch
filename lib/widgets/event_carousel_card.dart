@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/event_page.dart';
 import 'package:eventernote/widgets/bold_number.dart';
+import 'package:eventernote/widgets/icon_button_circle.dart';
 import 'package:flutter/material.dart';
 
 class EventCarouselCard extends StatelessWidget {
@@ -85,23 +84,10 @@ class _EventCarouselCardText extends StatelessWidget {
               children: <Widget>[
                 Align(
                   alignment: Alignment(1.0, -1.0),
-                  child: Container(
-                    height: 36,
-                    width: 36,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).canvasColor,
-                    ),
-                    child: IconButton(
-                      padding: EdgeInsets.all(0.0),
-                      icon: Random().nextBool() // TODO: remove rng
-                          ? Icon(Icons.star, color: Colors.amber)
-                          : Icon(
-                              Icons.star_border,
-                              color: Theme.of(context).textTheme.title.color,
-                            ),
-                      iconSize: 22.0,
-                      onPressed: () {},
+                  child: IconButtonCircle(
+                    icon: Icon(
+                      Icons.star_border,
+                      color: Colors.white,
                     ),
                   ),
                 ),

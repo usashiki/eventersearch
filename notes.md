@@ -181,27 +181,19 @@ goodbye tabs
 
 ### todos
 
-* carousel cards
-  + make fan/eventers counts look better
-  + actor card: add color
-    - random from logo? dark theme -> just use default dark color
-
-* place page
-  + dont use built-in listviews (gcal)
-  + rework appbar
-  + for events, hide venue?
-  + add image from wikipedia?
 * event page
-  + dont use built-in listviews (gcal)
+  + appbar: move event name to below image?
+* place page
   + rework appbar
-    - remove gradient as well
-  + make space for going button
-  + hide/expand description?
+  + for events in event list, hide venue?
+  + ~~add image from wikipedia/site?~~
 * actor page
-  + make more like event/place pages
-  + make space for like buttom (heart)
   + rework appbar
-  + add image from wikipedia?
+  + make more like event/place pages?
+  + ~~add image from wikipedia?~~
+
+* actor carousel card: add color
+  + random from logo? dark theme -> just use default dark color
 
 * [all pages] pull down to dismiss page
   + instead of navigator page, just a stack layer above page?
