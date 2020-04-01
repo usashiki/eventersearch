@@ -1,4 +1,3 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/pages/calendar_navigation_page.dart';
 import 'package:eventernote/pages/search_navigation_page.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
@@ -6,6 +5,7 @@ import 'package:eventernote/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mdi/mdi.dart';
 
 void main() =>
     initializeDateFormatting('ja_jp').then((_) => runApp(EventernoteApp()));
@@ -84,11 +84,11 @@ class _EventernoteAppState extends State<EventernoteApp> {
                     title: Text('検索'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(CommunityMaterialIcons.calendar),
+                    icon: Icon(Mdi.calendarOutline),
                     title: Text('カレンダー'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.settings),
+                    icon: Icon(Mdi.cogOutline),
                     title: Text('設定'),
                   ),
                 ],

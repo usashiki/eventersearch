@@ -11,7 +11,7 @@ class ActorSuggestionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.person),
+      leading: Icon(Icons.person_outline),
       title: AutoSizeText(actor.name, maxLines: 1),
       dense: true,
       onTap: () => Navigator.push(

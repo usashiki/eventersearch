@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/actor_page.dart';
 import 'package:eventernote/pages/place_page.dart';
@@ -12,6 +11,7 @@ import 'package:eventernote/widgets/icon_button_circle.dart';
 import 'package:eventernote/widgets/launchable_header_tile.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
+import 'package:mdi/mdi.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // TODO: color of appbar based on image?
@@ -37,7 +37,7 @@ class EventPage extends StatelessWidget {
             ),
             actions: <Widget>[
               IconButtonCircle(
-                icon: Icon(CommunityMaterialIcons.web),
+                icon: Icon(Mdi.web),
                 tooltip: 'サイトで見る',
                 onPressed: () async => await launch(event.eventernoteUrl),
               ),
@@ -99,21 +99,21 @@ class _EventHeader extends StatelessWidget {
     final List<Widget> children = [
       SizedBox(height: 4),
       HeaderTile(
-        icon: CommunityMaterialIcons.calendar_today,
+        icon: Mdi.calendarOutline,
         child: DateText(
           event.date,
           style: Theme.of(context).textTheme.body1,
         ),
       ),
       HeaderTile(
-        icon: CommunityMaterialIcons.clock_outline,
+        icon: Mdi.clockOutline,
         child: Text(event.timesString),
       ),
     ];
 
     if (event.place != null) {
       children.add(ExpandableHeaderTile(
-        icon: CommunityMaterialIcons.stadium,
+        icon: Mdi.mapMarkerOutline,
         child: Text(event.place.name),
         openWidget: PlacePage(event.place),
       ));
@@ -123,7 +123,7 @@ class _EventHeader extends StatelessWidget {
     }
 
     children.add(HeaderTile(
-      icon: CommunityMaterialIcons.file_account,
+      icon: Mdi.fileAccountOutline,
       child: BoldNumber(
         prefix: 'イベンター',
         number: '${event.noteCount}',
@@ -132,7 +132,7 @@ class _EventHeader extends StatelessWidget {
     ));
 
     children.add(HeaderTile(
-      icon: CommunityMaterialIcons.account_multiple_outline,
+      icon: Mdi.accountMultipleOutline,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -158,7 +158,7 @@ class _EventHeader extends StatelessWidget {
     for (final link in event.links) {
       if (link != null && link.isNotEmpty) {
         children.add(LaunchableHeaderTile(
-          icon: CommunityMaterialIcons.link_variant,
+          icon: Mdi.linkVariant,
           child: Text(
             link,
             style: TextStyle(decoration: TextDecoration.underline),
@@ -170,14 +170,14 @@ class _EventHeader extends StatelessWidget {
 
     if (event.description != null && event.description.isNotEmpty) {
       children.add(HeaderTile(
-        icon: CommunityMaterialIcons.information_outline,
+        icon: Mdi.informationOutline,
         child: Text(event.description),
       ));
     }
 
     if (event.hashtag != null && event.hashtag.isNotEmpty) {
       children.add(LaunchableHeaderTile(
-        icon: CommunityMaterialIcons.pound,
+        icon: Mdi.pound,
         child: Text('#${event.hashtag}'),
         uri: event.hashtagUrl,
         copyableText: '#${event.hashtag}',

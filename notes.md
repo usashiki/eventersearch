@@ -190,6 +190,9 @@ goodbye tabs
 * actor page
   + rework appbar
   + make more like event/place pages?
+
+    -
+
   + ~~add image from wikipedia?~~
 
 * actor carousel card: add color

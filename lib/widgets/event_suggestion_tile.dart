@@ -1,8 +1,8 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/widgets/date_text.dart';
 import 'package:flutter/material.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/event_page.dart';
+import 'package:mdi/mdi.dart';
 
 class EventSuggestionTile extends StatelessWidget {
   final Event event;
@@ -12,7 +12,7 @@ class EventSuggestionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(CommunityMaterialIcons.microphone_variant),
+      leading: Icon(Mdi.musicNoteOutline),
       title: Text(event.name),
       subtitle: RichText(
         text: TextSpan(

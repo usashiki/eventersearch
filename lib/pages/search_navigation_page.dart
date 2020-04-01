@@ -1,9 +1,9 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/actor_carousel_card.dart';
 import 'package:eventernote/widgets/event_carousel_card.dart';
 import 'package:flutter/material.dart';
+import 'package:mdi/mdi.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 class SearchNavigationPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _SearchNavigationPageState extends State<SearchNavigationPage> {
           //   title: Text('注目の声優・アーティスト'),
           // ),
           ListTile(
-            leading: Icon(CommunityMaterialIcons.signal),
+            leading: Icon(Mdi.signal),
             title: Text('人気声優・アーティストランキング'),
           ),
           _ActorsRanking(),
@@ -41,7 +41,7 @@ class _SearchNavigationPageState extends State<SearchNavigationPage> {
           //   title: Text('注目のイベント'),
           // ),
           ListTile(
-            leading: Icon(CommunityMaterialIcons.calendar),
+            leading: Icon(Mdi.calendarOutline),
             title: Text('今日のイベント'),
           ),
           _TodaysEvents(),

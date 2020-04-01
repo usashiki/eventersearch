@@ -1,7 +1,7 @@
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/place.dart';
 import 'package:eventernote/pages/place_page.dart';
 import 'package:flutter/material.dart';
+import 'package:mdi/mdi.dart';
 
 class PlaceSuggestionTile extends StatelessWidget {
   final Place place;
@@ -11,7 +11,7 @@ class PlaceSuggestionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(CommunityMaterialIcons.stadium),
+      leading: Icon(Mdi.mapMarkerOutline),
       title: Text(place.name),
       dense: true,
       onTap: () => Navigator.push(

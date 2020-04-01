@@ -155,13 +155,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.11"
-  community_material_icon:
-    dependency: "direct main"
-    description:
-      name: community_material_icon
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.5.95"
   console_log_handler:
     dependency: transitive
     description:
@@ -408,6 +401,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.6"
+  mdi:
+    dependency: "direct main"
+    description:
+      name: mdi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   meta:
     dependency: transitive
     description:

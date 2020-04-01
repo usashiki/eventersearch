@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/actor.dart';
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
+import 'package:mdi/mdi.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ActorPage extends StatelessWidget {
@@ -23,12 +23,12 @@ class ActorPage extends StatelessWidget {
         title: Text('声優/アーティスト情報'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(CommunityMaterialIcons.web),
+            icon: Icon(Mdi.web),
             tooltip: 'サイトで見る',
             onPressed: () async => await launch(actor.eventernoteUrl),
           ),
           IconButton(
-            icon: Icon(CommunityMaterialIcons.wikipedia),
+            icon: Icon(Mdi.wikipedia),
             tooltip: 'Wikipedia',
             onPressed: () async => await launch(actor.wikiUrl),
           ),

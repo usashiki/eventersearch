@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/place.dart';
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/widgets/event_tile.dart';
@@ -8,6 +7,7 @@ import 'package:eventernote/widgets/launchable_header_tile.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
+import 'package:mdi/mdi.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlacePage extends StatelessWidget {
@@ -27,7 +27,7 @@ class PlacePage extends StatelessWidget {
         title: Text('会場情報'),
         actions: [
           IconButton(
-            icon: Icon(CommunityMaterialIcons.web),
+            icon: Icon(Mdi.web),
             tooltip: 'サイトで見る',
             onPressed: () async => await launch(place.eventernoteUrl),
           ),
@@ -84,7 +84,7 @@ class _PlaceHeader extends StatelessWidget {
         place.address != null &&
         place.address.isNotEmpty) {
       children.add(LaunchableHeaderTile(
-        icon: CommunityMaterialIcons.map_marker_outline,
+        icon: Mdi.mapOutline,
         child: Text('${place.postalcode} ${place.address}'),
         uri: place.geoUri,
         copyableText: '${place.postalcode} ${place.address}',
@@ -94,7 +94,7 @@ class _PlaceHeader extends StatelessWidget {
 
     if (place.tel != null && place.tel.isNotEmpty) {
       children.add(LaunchableHeaderTile(
-        icon: CommunityMaterialIcons.phone_outline,
+        icon: Mdi.phoneOutline,
         child: Text(place.tel),
         uri: place.telUri,
         copyableText: place.tel,
@@ -103,7 +103,7 @@ class _PlaceHeader extends StatelessWidget {
 
     if (place.webUrl != null && place.webUrl.isNotEmpty) {
       children.add(LaunchableHeaderTile(
-        icon: CommunityMaterialIcons.web,
+        icon: Mdi.web,
         child: Text(
           place.webUrl,
           style: TextStyle(decoration: TextDecoration.underline),
@@ -114,14 +114,14 @@ class _PlaceHeader extends StatelessWidget {
 
     if (place.capacity != null && place.capacity.isNotEmpty) {
       children.add(HeaderTile(
-        icon: CommunityMaterialIcons.account_group_outline,
+        icon: Mdi.accountGroupOutline,
         child: Text(place.capacity),
       ));
     }
 
     if (place.seatUrl != null && place.seatUrl.isNotEmpty) {
       children.add(LaunchableHeaderTile(
-        icon: CommunityMaterialIcons.seat_outline,
+        icon: Mdi.seatOutline,
         child: Text(
           place.seatUrl,
           style: TextStyle(decoration: TextDecoration.underline),
