@@ -20,7 +20,7 @@ class EventTile extends StatelessWidget {
         closedColor: Theme.of(context).canvasColor,
         closedBuilder: (context, openContainer) =>
             _BaseEventTile(event, tap: openContainer),
-        openBuilder: (context, close) => EventPage(event, close: close),
+        openBuilder: (context, _) => EventPage(event),
       );
     }
     return _BaseEventTile(event);

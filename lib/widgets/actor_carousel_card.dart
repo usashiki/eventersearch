@@ -4,6 +4,8 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eventernote/models/actor.dart';
 import 'package:eventernote/pages/actor_page.dart';
+import 'package:eventernote/services/eventernote_service.dart';
+import 'package:eventernote/widgets/bold_number.dart';
 import 'package:flutter/material.dart';
 
 class ActorCarouselCard extends StatelessWidget {
@@ -69,18 +71,26 @@ class ActorCarouselCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.title,
                               maxLines: 2,
                             ),
-                            RichText(
-                              text: TextSpan(
-                                style: Theme.of(context).textTheme.body1,
-                                children: [
-                                  TextSpan(
-                                    text: '${actor.favoriteCount}',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  TextSpan(text: ' ファン'),
-                                ],
-                              ),
+                            BoldNumber(
+                              prefix: 'ファン',
+                              number: '${actor.favoriteCount}',
+                              suffix: '人',
+                            ),
+                            FutureBuilder<int>(
+                              future: EventernoteService()
+                                  .getNumEventsForActor(actor.id),
+                              builder: (context, snapshot) {
+                                var text = '?';
+                                if (snapshot.hasData) {
+                                  text = "${snapshot.data}";
+                                } else if (snapshot.hasError) {
+                                  text = '-';
+                                }
+                                return BoldNumber(
+                                  number: text,
+                                  suffix: 'イベント',
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -93,7 +103,7 @@ class ActorCarouselCard extends StatelessWidget {
             ),
           );
         },
-        openBuilder: (context, close) => ActorPage(actor, close: close),
+        openBuilder: (context, _) => ActorPage(actor),
       ),
     );
   }

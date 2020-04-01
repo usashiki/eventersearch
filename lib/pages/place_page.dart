@@ -3,7 +3,8 @@ import 'package:community_material_icon/community_material_icon.dart';
 import 'package:eventernote/models/place.dart';
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/widgets/event_tile.dart';
-import 'package:eventernote/widgets/header_item.dart';
+import 'package:eventernote/widgets/header_tile.dart';
+import 'package:eventernote/widgets/launchable_header_tile.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
@@ -61,52 +62,81 @@ class _PlaceHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 8),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: <Widget>[
-              AutoSizeText(
-                place.name,
-                style: Theme.of(context).textTheme.title.copyWith(fontSize: 24),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              ),
-            ],
-          ),
+    final List<Widget> children = [
+      SizedBox(height: 8),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: <Widget>[
+            AutoSizeText(
+              place.name,
+              style: Theme.of(context).textTheme.title.copyWith(fontSize: 24),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+            ),
+          ],
         ),
-        PlaceMap(place),
-        HeaderItem(
-          icon: CommunityMaterialIcons.map_marker_outline,
-          text: '${place.postalcode} ${place.address}',
-          uri: place.geoUri,
+      ),
+      PlaceMap(place),
+    ];
+
+    if (place.postalcode != null &&
+        place.postalcode.isNotEmpty &&
+        place.address != null &&
+        place.address.isNotEmpty) {
+      children.add(LaunchableHeaderTile(
+        icon: CommunityMaterialIcons.map_marker_outline,
+        child: Text('${place.postalcode} ${place.address}'),
+        uri: place.geoUri,
+        copyableText: '${place.postalcode} ${place.address}',
+      ));
+    }
+
+    if (place.tel != null && place.tel.isNotEmpty) {
+      children.add(LaunchableHeaderTile(
+        icon: CommunityMaterialIcons.phone_outline,
+        child: Text(place.tel),
+        uri: place.telUri,
+        copyableText: place.tel,
+      ));
+    }
+
+    if (place.webUrl != null && place.webUrl.isNotEmpty) {
+      children.add(LaunchableHeaderTile(
+        icon: CommunityMaterialIcons.web,
+        child: Text(
+          place.webUrl,
+          style: TextStyle(decoration: TextDecoration.underline),
         ),
-        HeaderItem(
-          icon: CommunityMaterialIcons.phone_outline,
-          text: place.tel,
-          uri: place.telUri,
+        uri: place.webUrl,
+      ));
+    }
+
+    if (place.capacity != null && place.capacity.isNotEmpty) {
+      children.add(HeaderTile(
+        icon: CommunityMaterialIcons.account_group_outline,
+        child: Text(place.capacity),
+      ));
+    }
+
+    if (place.seatUrl != null && place.seatUrl.isNotEmpty) {
+      children.add(LaunchableHeaderTile(
+        icon: CommunityMaterialIcons.seat_outline,
+        child: Text(
+          place.seatUrl,
+          style: TextStyle(decoration: TextDecoration.underline),
         ),
-        HeaderItem(
-          icon: CommunityMaterialIcons.web,
-          text: place.webUrl,
-          uri: place.webUrl,
-        ),
-        HeaderItem(
-          icon: CommunityMaterialIcons.account_group_outline,
-          text: place.capacity,
-        ),
-        HeaderItem(
-          icon: CommunityMaterialIcons.seat_outline,
-          text: place.seatUrl,
-          uri: place.seatUrl,
-        ),
-        HeaderItem(
-          icon: Icons.info_outline,
-          text: place.tips,
-        ),
-      ],
-    );
+        uri: place.seatUrl,
+      ));
+    }
+
+    if (place.tips != null && place.tips.isNotEmpty) {
+      children.add(HeaderTile(
+        icon: Icons.info_outline,
+        child: Text(place.tips),
+      ));
+    }
+
+    return Column(children: children);
   }
 }

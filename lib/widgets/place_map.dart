@@ -6,22 +6,17 @@ import 'package:url_launcher/url_launcher.dart';
 class PlaceMap extends StatelessWidget {
   final Place place;
   final Color color;
-  final bool hideWhenNoLatLng;
 
   const PlaceMap(
     this.place, {
     this.color,
-    this.hideWhenNoLatLng = false,
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget map = Container();
-    if (place.latitude == 0 || place.longitude == 0) {
-      if (hideWhenNoLatLng) {
-        return map;
-      }
+    if (place.latLng == null) {
       map = Container(
         color: Colors.blue[200],
         alignment: Alignment.center,

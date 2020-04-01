@@ -9,9 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ActorPage extends StatelessWidget {
   final Actor actor;
-  final VoidCallback close;
 
-  const ActorPage(this.actor, {this.close, Key key}) : super(key: key);
+  const ActorPage(this.actor, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class ActorPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.close),
-          onPressed: close != null ? close : () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text('声優/アーティスト情報'),
         actions: <Widget>[

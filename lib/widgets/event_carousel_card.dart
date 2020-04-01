@@ -5,6 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/event_page.dart';
+import 'package:eventernote/widgets/bold_number.dart';
 import 'package:flutter/material.dart';
 
 class EventCarouselCard extends StatelessWidget {
@@ -42,7 +43,7 @@ class EventCarouselCard extends StatelessWidget {
             },
           );
         },
-        openBuilder: (context, close) => EventPage(event, close: close),
+        openBuilder: (context, _) => EventPage(event),
       ),
     );
   }
@@ -122,18 +123,14 @@ class _EventCarouselCardText extends StatelessWidget {
                         ],
                         overflow: TextOverflow.ellipsis,
                       ),
-                      RichText(
-                        text: TextSpan(
-                          style: Theme.of(context).textTheme.body1.copyWith(
-                              color: background ? Colors.white : null),
-                          children: [
-                            TextSpan(
-                              text: '${event.noteCount}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: ' 参加イベンター'),
-                          ],
-                        ),
+                      BoldNumber(
+                        prefix: 'イベンター',
+                        number: '${event.noteCount}',
+                        suffix: '人参加',
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(color: background ? Colors.white : null),
                       ),
                     ],
                   ),

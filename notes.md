@@ -193,10 +193,10 @@ goodbye tabs
   + add image from wikipedia?
 * event page
   + dont use built-in listviews (gcal)
-    - what about eventers going?
   + rework appbar
     - remove gradient as well
   + make space for going button
+  + hide/expand description?
 * actor page
   + make more like event/place pages
   + make space for like buttom (heart)
