@@ -15,8 +15,8 @@ class IconButtonCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
-      width: 40,
+      height: 36.0,
+      width: 36.0,
       child: DecoratedBox(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -26,6 +26,7 @@ class IconButtonCircle extends StatelessWidget {
           padding: EdgeInsets.all(0.0),
           icon: icon,
           tooltip: tooltip,
+          iconSize: 20.0,
           onPressed: onPressed ?? () {},
         ),
       ),

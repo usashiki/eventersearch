@@ -2,6 +2,7 @@ import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/actor_carousel_card.dart';
 import 'package:eventernote/widgets/event_carousel_card.dart';
+import 'package:eventernote/widgets/header_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
@@ -17,32 +18,33 @@ class _SearchNavigationPageState extends State<SearchNavigationPage> {
     return Scaffold(
       appBar: _SearchBarButton(),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.fiber_new),
-            title: Text('新着声優・アーティスト'),
+          HeaderTile(
+            icon: Icons.fiber_new,
+            child: Text('新着声優・アーティスト'),
           ),
           _NewActors(),
-          // ListTile(
-          //   leading: Icon(Icons.new_releases),
-          //   title: Text('注目の声優・アーティスト'),
+          // HeaderTile(
+          //   icon: Icons.new_releases,
+          //   child: Text('注目の声優・アーティスト'),
           // ),
-          ListTile(
-            leading: Icon(Mdi.signal),
-            title: Text('人気声優・アーティストランキング'),
+          HeaderTile(
+            icon: Mdi.signal,
+            child: Text('人気声優・アーティストランキング'),
           ),
           _ActorsRanking(),
-          // ListTile(
-          //   leading: Icon(Icons.fiber_new),
-          //   title: Text('新着イベント'),
+          // HeaderTile(
+          //   icon: Icons.fiber_new,
+          //   child: Text('新着イベント'),
           // ),
-          // ListTile(
-          //   leading: Icon(Icons.new_releases),
-          //   title: Text('注目のイベント'),
+          // HeaderTile(
+          //   icon: Icons.new_releases,
+          //   child: Text('注目のイベント'),
           // ),
-          ListTile(
-            leading: Icon(Mdi.calendarOutline),
-            title: Text('今日のイベント'),
+          HeaderTile(
+            icon: Mdi.calendarOutline,
+            child: Text('今日のイベント'),
           ),
           _TodaysEvents(),
         ],
@@ -87,6 +89,7 @@ class _ActorsRanking extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 150.0,
       child: PagewiseListView(
+        physics: const BouncingScrollPhysics(),
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, actor, i) => ActorCarouselCard(actor, rank: i),
@@ -103,6 +106,7 @@ class _NewActors extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 150.0,
       child: PagewiseListView(
+        physics: const BouncingScrollPhysics(),
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, actor, i) => ActorCarouselCard(actor),
@@ -119,6 +123,7 @@ class _TodaysEvents extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 180.0,
       child: PagewiseListView(
+        physics: const BouncingScrollPhysics(),
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, event, i) => EventCarouselCard(event),

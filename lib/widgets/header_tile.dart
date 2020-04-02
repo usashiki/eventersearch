@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Essentially a reimplementation of ListTile
 class HeaderTile extends StatelessWidget {
   final IconData icon;
   final Widget child;
@@ -29,7 +30,6 @@ class HeaderTile extends StatelessWidget {
       onTap: onTap,
       onLongPress: onLongPress,
       child: Container(
-        // color: Theme.of(context).canvasColor,
         padding: padding,
         child: IntrinsicHeight(
           child: Row(

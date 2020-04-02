@@ -72,6 +72,7 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
                 }
               },
               child: PagewiseListView(
+                physics: const BouncingScrollPhysics(),
                 pageLoadController: _pagewiseLoadController,
                 itemBuilder: (context, event, i) {
                   return Column(
@@ -149,10 +150,11 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(4),
                   color: Theme.of(context).primaryColor,
                 ),
-                width: 24.0,
-                height: 16.0,
+                width: 26.0,
+                height: 18.0,
                 child: Center(
                   child: FutureBuilder<int>(
                     future: EventernoteService().getNumEventsForDate(date),

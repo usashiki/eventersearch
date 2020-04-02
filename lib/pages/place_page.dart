@@ -1,14 +1,14 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eventernote/models/place.dart';
 import 'package:eventernote/services/eventernote_service.dart';
 import 'package:eventernote/widgets/event_tile.dart';
 import 'package:eventernote/widgets/header_tile.dart';
+import 'package:eventernote/widgets/header_title.dart';
 import 'package:eventernote/widgets/launchable_header_tile.dart';
+import 'package:eventernote/widgets/page_app_bar.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:mdi/mdi.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PlacePage extends StatelessWidget {
   final Place place;
@@ -17,24 +17,14 @@ class PlacePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: SliverAppBar? title?
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text('会場情報'),
-        actions: [
-          IconButton(
-            icon: Icon(Mdi.web),
-            tooltip: 'サイトで見る',
-            onPressed: () async => await launch(place.eventernoteUrl),
-          ),
-        ],
-      ),
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
+          PageAppBar(
+            url: place.eventernoteUrl,
+            background: place.latLng == null ? null : PlaceMap(place),
+          ),
           SliverToBoxAdapter(child: _PlaceHeader(place)),
           PagewiseSliverList(
             pageSize: EventernoteService.PAGE_SIZE,
@@ -63,20 +53,8 @@ class _PlaceHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> children = [
-      SizedBox(height: 8),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: <Widget>[
-            AutoSizeText(
-              place.name,
-              style: Theme.of(context).textTheme.title.copyWith(fontSize: 24),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-            ),
-          ],
-        ),
-      ),
+      SizedBox(height: 4),
+      HeaderTitle(place.name),
     ];
 
     if (place.postalcode != null &&
@@ -89,7 +67,7 @@ class _PlaceHeader extends StatelessWidget {
         uri: place.geoUri,
         copyableText: '${place.postalcode} ${place.address}',
       ));
-      children.add(PlaceMap(place));
+      // children.add(PlaceMap(place));
     }
 
     if (place.tel != null && place.tel.isNotEmpty) {
@@ -137,6 +115,9 @@ class _PlaceHeader extends StatelessWidget {
       ));
     }
 
-    return Column(children: children);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: children,
+    );
   }
 }

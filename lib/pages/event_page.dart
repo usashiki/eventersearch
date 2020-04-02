@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/actor_page.dart';
@@ -7,15 +6,13 @@ import 'package:eventernote/widgets/bold_number.dart';
 import 'package:eventernote/widgets/date_text.dart';
 import 'package:eventernote/widgets/expandable_header_tile.dart';
 import 'package:eventernote/widgets/header_tile.dart';
-import 'package:eventernote/widgets/icon_button_circle.dart';
+import 'package:eventernote/widgets/header_title.dart';
 import 'package:eventernote/widgets/launchable_header_tile.dart';
+import 'package:eventernote/widgets/page_app_bar.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-// TODO: color of appbar based on image?
-// TODO: inkwell in expanded appbar?
 class EventPage extends StatelessWidget {
   final Event event;
 
@@ -27,59 +24,17 @@ class EventPage extends StatelessWidget {
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
-          SliverAppBar(
-            leading: Container(
-              padding: EdgeInsets.all(8),
-              child: IconButtonCircle(
-                icon: Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-            actions: <Widget>[
-              IconButtonCircle(
-                icon: Icon(Mdi.web),
-                tooltip: 'サイトで見る',
-                onPressed: () async => await launch(event.eventernoteUrl),
-              ),
-              SizedBox(width: 6),
-            ],
-            expandedHeight: 200.0,
-            pinned: false,
-            stretch: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: AutoSizeText(
-                event.name,
-                maxFontSize: 16,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-              centerTitle: true,
-              titlePadding:
-                  EdgeInsets.symmetric(horizontal: 80).copyWith(bottom: 16),
-              background: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  CachedNetworkImage(
-                    placeholder: (context, url) => Container(),
-                    imageUrl: event.imageUrl,
-                    alignment: Alignment.topCenter,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) {
-                      print(error);
-                      return Icon(Icons.error);
-                    },
-                  ),
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment(0, -0.2),
-                        colors: <Color>[Color(0xFF000000), Color(0x00000000)],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+          PageAppBar(
+            url: event.eventernoteUrl,
+            background: CachedNetworkImage(
+              placeholder: (context, url) => Container(),
+              imageUrl: event.imageUrl,
+              alignment: Alignment.topCenter,
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) {
+                print(error);
+                return Icon(Icons.error);
+              },
             ),
           ),
           SliverToBoxAdapter(child: _EventHeader(event)),
@@ -98,6 +53,7 @@ class _EventHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> children = [
       SizedBox(height: 4),
+      HeaderTitle(event.name),
       HeaderTile(
         icon: Mdi.calendarOutline,
         child: DateText(
@@ -118,7 +74,10 @@ class _EventHeader extends StatelessWidget {
         openWidget: PlacePage(event.place),
       ));
       if (event.place.latLng != null) {
-        children.add(PlaceMap(event.place));
+        children.add(Padding(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: SizedBox(height: 100, child: PlaceMap(event.place)),
+        ));
       }
     }
 
@@ -186,6 +145,9 @@ class _EventHeader extends StatelessWidget {
 
     children.add(SizedBox(height: 16));
 
-    return Column(children: children);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: children,
+    );
   }
 }

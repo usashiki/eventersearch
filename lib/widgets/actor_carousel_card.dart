@@ -53,7 +53,10 @@ class ActorCarouselCard extends StatelessWidget {
                               rank != null
                                   ? '${rank + 1}. ${actor.name}'
                                   : actor.name,
-                              style: Theme.of(context).textTheme.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .title
+                                  .copyWith(fontSize: 18),
                               maxLines: 2,
                             ),
                             BoldNumber(

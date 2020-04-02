@@ -15,15 +15,14 @@ class PlaceMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget map = Container();
     if (place.latLng == null) {
-      map = Container(
+      return Container(
         color: Colors.blue[200],
         alignment: Alignment.center,
         child: Text('緯度経度はございません。', style: TextStyle(color: Colors.white)),
       );
     } else {
-      map = GestureDetector(
+      return GestureDetector(
         onTap: () async => await launch(place.geoUri),
         child: FlutterMap(
           options: MapOptions(
@@ -53,9 +52,5 @@ class PlaceMap extends StatelessWidget {
         ),
       );
     }
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
-      child: SizedBox(height: 100, child: map),
-    );
   }
 }

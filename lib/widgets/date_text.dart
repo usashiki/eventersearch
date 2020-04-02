@@ -32,10 +32,7 @@ class DateText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
-      text: TextSpan(
-        style: style != null ? style : null,
-        children: spans,
-      ),
+      text: TextSpan(style: style, children: spans),
     );
   }
 }

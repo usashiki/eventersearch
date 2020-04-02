@@ -36,11 +36,15 @@ class HolidaysService {
 
   void _update(int year) async {
     final file = await _cache.getSingleFile('$_baseUrl/$year/date.json');
+    Map<String, dynamic> json;
     if (file != null) {
-      Map<String, dynamic> json = jsonDecode(await file.readAsString());
-      for (var mapEntry in json.entries) {
-        _holidays[DateTime.parse(mapEntry.key)] = [mapEntry.value.toString()];
-      }
+      json = jsonDecode(await file.readAsString());
+    } else {
+      print('failed to find holidays for year $year');
+      json = {DateTime(year, 1, 1).toIso8601String(): '元日'};
+    }
+    for (var mapEntry in json.entries) {
+      _holidays[DateTime.parse(mapEntry.key)] = [mapEntry.value.toString()];
     }
   }
 }

@@ -77,7 +77,10 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
                 children.add(Divider(height: 0.5));
               }
             }
-            return ListView(children: children);
+            return ListView(
+              physics: const BouncingScrollPhysics(),
+              children: children,
+            );
           }
         }
         return Container(child: Center(child: CircularProgressIndicator()));
@@ -100,9 +103,15 @@ class _SearchResultsState extends State<SearchResults>
   TabController _tabController;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -160,6 +169,7 @@ class _SearchResultsState extends State<SearchResults>
         ),
       ),
       body: TabBarView(
+        physics: const BouncingScrollPhysics(), // TODO: doesn't seem to work?
         controller: _tabController,
         children: [
           _ActorResults(widget.query),
@@ -179,6 +189,7 @@ class _ActorResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PagewiseListView(
+      physics: const BouncingScrollPhysics(),
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, actor, i) {
         return Column(children: [ActorTile(actor), Divider(height: 0.5)]);
@@ -197,6 +208,7 @@ class _EventResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PagewiseListView(
+      physics: const BouncingScrollPhysics(),
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, event, i) {
         return Column(children: [EventTile(event), Divider(height: 0.5)]);
@@ -215,6 +227,7 @@ class _PlaceResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PagewiseListView(
+      physics: const BouncingScrollPhysics(),
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, place, i) {
         return Column(children: [PlaceTile(place), Divider(height: 0.5)]);

@@ -181,25 +181,17 @@ goodbye tabs
 
 ### todos
 
-* event page
-  + appbar: move event name to below image?
-* place page
-  + rework appbar
-  + for events in event list, hide venue?
-  + ~~add image from wikipedia/site?~~
-* actor page
-  + rework appbar
-  + make more like event/place pages?
-
-    -
-
-  + ~~add image from wikipedia?~~
+* create ScrollBehavior to set BouncingScrollPhysics everywhere
 
 * actor carousel card: add color
   + random from logo? dark theme -> just use default dark color
 
-* [all pages] pull down to dismiss page
-  + instead of navigator page, just a stack layer above page?
+* place page: for events in event list, hide venue?
+* [event, place pages] inkwell in expanded SliverAppBar
+
+* icons: stick with outlines
+  + venue icon vs address icon (currently pin vs map)
+  + event icon (currently music note)
 
 * search
   + search suggestions: sort by edit distance?
@@ -250,10 +242,22 @@ goodbye tabs
     - https://flutter.dev/docs/development/ui/assets-and-images#updating-the-launch-screen
     - https://flutter.dev/docs/development/ui/splash-screen/android-splash-screen
 
-* pull to refresh on pagewise lists, pages
+* support for web
+  + remove packages that depend on sqflite
+    - flutter_map -> map https://pub.dev/packages/map
+      * doesn't support pins but you can just stack a pin on top? lmao
+    - flutter_cache_manager -> just remove entirely?
+    - cached_network_image -> Image.network https://api.flutter.dev/flutter/widgets/Image-class.html
+
+* named routes: https://medium.com/flutter/flutter-web-navigating-urls-using-named-routes-307e1b1e2050
+* allow for opening arbitrary eventernote links in app
+  + rearchitect json handling to handle pages based on url
+    - https://www.eventernote.com/api/events/search?event_id=id
+    - ^ doesn't work for actors or places...
+
+* enable pull to refresh on pagewise lists, pages
   + https://api.flutter.dev/flutter/material/RefreshIndicator-class.html
   + https://github.com/AbdulRahmanAlHamali/flutter_pagewise/issues/12
-  + or maybe pull down to close single item pages
 
 * administrative
   + app name
