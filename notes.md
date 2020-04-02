@@ -181,32 +181,53 @@ goodbye tabs
 
 ### todos
 
-* create ScrollBehavior to set BouncingScrollPhysics everywhere
+#### v0
 
-* actor carousel card: add color
-  + random from logo? dark theme -> just use default dark color
+* create ScrollBehavior to set BouncingScrollPhysics everywhere
+  + will hopefully work with TabBarView in search results
+
+* calendar
+  + today = black/dark grey circle border
+  + selected = gray transparency? circle
+  + both = both
 
 * place page: for events in event list, hide venue?
 * [event, place pages] inkwell in expanded SliverAppBar
 
-* icons: stick with outlines
-  + venue icon vs address icon (currently pin vs map)
-  + event icon (currently music note)
+* about/settings page
+  + licenses
+  + cache duration
 
-* search
-  + search suggestions: sort by edit distance?
-  + reimplement search page (searchdelegate)
-    - use OpenContainer for transition between searchbar and search page
-    - results: save selected tab on navigator back
+* administrative
+  + app name
+  + error handling
+  + general code organization/naming
+  + tests
+  + readme
+  + license
+  + ask about data use
 
 * calendar page
   + add animation to horizontal swipe
 
-* loading animations: skeleton views
-  + https://www.filledstacks.com/snippet/using-shimmer-for-loading-indication-in-flutter/
+#### v1+
 
-* theming......... 
-  + color of selected/today on calendar
+* support for web
+  + remove packages that depend on sqflite
+    - flutter_map -> map https://pub.dev/packages/map
+      * doesn't support pins but you can just stack a pin on top? lmao
+    - flutter_cache_manager -> just remove entirely?
+    - cached_network_image -> Image.network https://api.flutter.dev/flutter/widgets/Image-class.html
+
+* custom statusbar + navigation bar background color
+  + generally make sure works with various hole punches etc
+  + https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
+
+* actor carousel card: add color
+  + random from logo?
+  + dark theme -> just use default dark canvas color?
+
+* theme selector
   + custom themes based on colors in logo?
     - https://pub.dev/packages/flutter_material_color_picker
     - (site or twitter)
@@ -221,17 +242,8 @@ goodbye tabs
     - #FFE100 or #F2DD42
     - #ED86B3 or #F49ED0
     - #6CBA5A or #59F35E
-  + textstyles, custom fonts?
-  + how to indicate past events on event tile? (and what about dark theme?)
-  + custom statusbar + navigation bar background color
-    - https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
 
-* settings page?
-  + theme selector
-  + customize event card: what fields to show?
-  + cache duration
-  + app locale / english translation
-  + licenses
+* how to indicate past events on event tile? (and what about dark theme?)
 
 * launch/splash screen
   + use https://pub.dev/packages/flutter_native_splash to set static launch image
@@ -242,28 +254,35 @@ goodbye tabs
     - https://flutter.dev/docs/development/ui/assets-and-images#updating-the-launch-screen
     - https://flutter.dev/docs/development/ui/splash-screen/android-splash-screen
 
-* support for web
-  + remove packages that depend on sqflite
-    - flutter_map -> map https://pub.dev/packages/map
-      * doesn't support pins but you can just stack a pin on top? lmao
-    - flutter_cache_manager -> just remove entirely?
-    - cached_network_image -> Image.network https://api.flutter.dev/flutter/widgets/Image-class.html
+* loading animations: skeleton views
+  + https://www.filledstacks.com/snippet/using-shimmer-for-loading-indication-in-flutter/
 
-* named routes: https://medium.com/flutter/flutter-web-navigating-urls-using-named-routes-307e1b1e2050
+* allow users to select which fields to show in event card
+
+#### wont do / currently not possible
+
+* icons: stick with outlines
+  + venue icon vs address icon (currently pin vs map)
+  + event icon (currently music note)
+
+* search
+  + search suggestions: sort by edit distance?
+    - having api support would be better
+  + reimplement search page (searchdelegate)
+    - use OpenContainer for transition between searchbar and search page
+    - results: save selected tab on navigator back
+
 * allow for opening arbitrary eventernote links in app
   + rearchitect json handling to handle pages based on url
     - https://www.eventernote.com/api/events/search?event_id=id
     - ^ doesn't work for actors or places...
+  + named routes: https://medium.com/flutter/flutter-web-navigating-urls-using-named-routes-307e1b1e2050
+
+* textstyles, custom fonts?
+  + http://blog.gskinner.com/archives/2020/03/flutter-tame-those-textstyles.html
 
 * enable pull to refresh on pagewise lists, pages
   + https://api.flutter.dev/flutter/material/RefreshIndicator-class.html
   + https://github.com/AbdulRahmanAlHamali/flutter_pagewise/issues/12
 
-* administrative
-  + app name
-  + error handling
-  + general code organization
-  + tests
-  + readme
-  + license
-  + ask about data use
+* app locale / english translation

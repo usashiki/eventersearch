@@ -115,6 +115,8 @@ class _PlaceHeader extends StatelessWidget {
       ));
     }
 
+    children.add(SizedBox(height: 12));
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: children,
