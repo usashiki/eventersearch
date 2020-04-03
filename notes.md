@@ -194,13 +194,11 @@ goodbye tabs
   + app name
   + error handling
   + general code organization/naming
+  + documentation
   + tests
   + readme
   + license
   + ask about data use
-
-* calendar page
-  + add animation to horizontal swipe
 
 #### v1+
 

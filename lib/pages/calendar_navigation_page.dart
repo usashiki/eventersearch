@@ -11,35 +11,49 @@ class CalendarNavigationPage extends StatefulWidget {
 }
 
 class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
+  CalendarController _cc;
+  PagewiseLoadController _plc;
+
+  /// List of holidays from [HolidaysService.all].
   Map<DateTime, List> _holidays;
+
+  /// TableCalendar will not call markersBuilder unless events is populated for
+  /// said date, so whenever new dates are shown [_populateEvents] is called.
   Map<DateTime, List> _events;
-  DateTime _selectedDate; // used by PagewiseLoadController
-  CalendarController _calendarController;
-  PagewiseLoadController _pagewiseLoadController;
+
+  /// The selected date, used mainly by PagewiseLoadController [_plc]
+  /// (for whatever reason PagewiseLoadController doesn't like
+  /// CalendarController.selectedDate).
+  DateTime _selected;
+
+  /// The difference in x (horizontal axis). Used to animate the swipe animation
+  /// of the event list when switching days.
+  double _dx;
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = DateTime.now();
+    _selected = DateTime.now();
     _events = {};
     _populateEvents(
-      _selectedDate.subtract(Duration(days: 40)),
-      _selectedDate.add(Duration(days: 40)),
+      _selected.subtract(Duration(days: 40)),
+      _selected.add(Duration(days: 40)),
     );
-    HolidaysService().isHoliday(_selectedDate); // populates holidays
+    HolidaysService().isHoliday(_selected); // populates holidays
     _holidays = HolidaysService().all;
-    _calendarController = CalendarController();
-    _pagewiseLoadController = PagewiseLoadController(
+    _cc = CalendarController();
+    _plc = PagewiseLoadController(
       pageSize: EventernoteService.PAGE_SIZE,
       pageFuture: (page) =>
-          EventernoteService().getEventsForDate(_selectedDate, page),
+          EventernoteService().getEventsForDate(_cc.selectedDay, page),
     );
+    _dx = 0;
   }
 
   @override
   void dispose() {
     // _pagewiseLoadController.dispose(); // seems to break other pagewise pages?
-    _calendarController.dispose();
+    _cc.dispose();
     super.dispose();
   }
 
@@ -54,33 +68,46 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
           _buildCalendar(),
           SizedBox(height: 8.0),
           Expanded(
-            child: Dismissible(
-              key: ValueKey(_selectedDate.toIso8601String()),
-              resizeDuration: null,
-              direction: DismissDirection.horizontal,
-              onDismissed: (direction) {
-                if (direction == DismissDirection.startToEnd) {
-                  _calendarController.setSelectedDay(
-                    _selectedDate.subtract(Duration(days: 1)),
-                    runCallback: true,
-                  );
-                } else {
-                  _calendarController.setSelectedDay(
-                    _selectedDate.add(Duration(days: 1)),
-                    runCallback: true,
-                  );
-                }
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 350),
+              switchInCurve: Curves.decelerate,
+              transitionBuilder: (child, animation) {
+                return SlideTransition(
+                  child: child,
+                  position:
+                      Tween<Offset>(begin: Offset(_dx, 0), end: Offset(0, 0))
+                          .animate(animation),
+                );
               },
-              child: PagewiseListView(
-                pageLoadController: _pagewiseLoadController,
-                itemBuilder: (context, event, i) {
-                  return Column(
-                    children: <Widget>[
-                      Divider(height: 0.5),
-                      EventTile(event, animated: true),
-                    ],
-                  );
+              layoutBuilder: (currentChild, _) => currentChild,
+              child: Dismissible(
+                key: ValueKey(_selected.toIso8601String()),
+                resizeDuration: null,
+                direction: DismissDirection.horizontal,
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.startToEnd) {
+                    _cc.setSelectedDay(
+                      _selected.subtract(Duration(days: 1)),
+                      runCallback: true,
+                    );
+                  } else {
+                    _cc.setSelectedDay(
+                      _selected.add(Duration(days: 1)),
+                      runCallback: true,
+                    );
+                  }
                 },
+                child: PagewiseListView(
+                  pageLoadController: _plc,
+                  itemBuilder: (context, event, i) {
+                    return Column(
+                      children: <Widget>[
+                        Divider(height: 0.5),
+                        EventTile(event, animated: true),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -90,13 +117,13 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
   }
 
   // these are unnecessary reimplementations
-  bool _isOutside(date) => date.month != _calendarController.focusedDay.month;
+  bool _isOutside(date) => date.month != _cc.focusedDay.month;
   bool _isHoliday(date) => HolidaysService().isHoliday(date);
 
   Widget _buildCalendar() {
     return TableCalendar(
       locale: 'ja_jp',
-      calendarController: _calendarController,
+      calendarController: _cc,
       events: _events,
       holidays: _holidays,
       initialCalendarFormat: CalendarFormat.week,
@@ -118,12 +145,12 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
           locale: Localizations.localeOf(context), // TODO: set app locale to jp
         ).then((selected) {
           if (selected != null) {
-            _calendarController.setSelectedDay(selected, runCallback: true);
+            _cc.setSelectedDay(selected, runCallback: true);
           }
         });
       },
       onHeaderLongPressed: (_) {
-        _calendarController.setSelectedDay(DateTime.now(), runCallback: true);
+        _cc.setSelectedDay(DateTime.now(), runCallback: true);
       },
       builders: CalendarBuilders(
         dowWeekendBuilder: (context, dow) => _DowWeekendBuilder(dow),
@@ -132,13 +159,16 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
           date,
           holiday: _isHoliday(date),
           outside: _isOutside(date),
-          selected: _calendarController.isSelected(date),
-          today: _calendarController.isToday(date),
+          selected: _cc.isSelected(date),
+          today: _cc.isToday(date),
         ),
       ),
       onDaySelected: (date, _) {
-        setState(() => _selectedDate = date);
-        _pagewiseLoadController.reset();
+        setState(() {
+          _dx = date.isBefore(_selected) ? -1 : 1;
+          _selected = date;
+        });
+        _plc.reset();
       },
       onVisibleDaysChanged: (first, last, _) => setState(() {
         _populateEvents(first, last);
