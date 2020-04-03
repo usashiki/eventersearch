@@ -28,10 +28,10 @@ class HolidaysService {
 
   bool isHoliday(DateTime date) {
     // jan 1 is always 元日
-    if (_holidays[DateTime(date.year, 1, 1)] == null) {
+    if (_holidays[DateTime.utc(date.year, 1, 1)] == null) {
       _update(date.year);
     }
-    return _holidays[date] != null;
+    return _holidays[DateTime.utc(date.year, date.month, date.day)] != null;
   }
 
   void _update(int year) async {
@@ -41,10 +41,12 @@ class HolidaysService {
       json = jsonDecode(await file.readAsString());
     } else {
       print('failed to find holidays for year $year');
-      json = {DateTime(year, 1, 1).toIso8601String(): '元日'};
+      json = {DateTime.utc(year, 1, 1).toIso8601String(): '元日'};
     }
     for (var mapEntry in json.entries) {
-      _holidays[DateTime.parse(mapEntry.key)] = [mapEntry.value.toString()];
+      _holidays[DateTime.parse('${mapEntry.key}T00Z')] = [
+        mapEntry.value.toString()
+      ];
     }
   }
 }

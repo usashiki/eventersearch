@@ -183,11 +183,6 @@ goodbye tabs
 
 #### v0
 
-* calendar
-  + today = black/dark grey circle border
-  + selected = gray transparency? circle
-  + both = both
-
 * place page: for events in event list, hide venue?
 * [event, place pages] inkwell in expanded SliverAppBar
 

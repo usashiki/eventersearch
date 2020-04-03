@@ -89,6 +89,10 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
     );
   }
 
+  // these are unnecessary reimplementations
+  bool _isOutside(date) => date.month != _calendarController.focusedDay.month;
+  bool _isHoliday(date) => HolidaysService().isHoliday(date);
+
   Widget _buildCalendar() {
     return TableCalendar(
       locale: 'ja_jp',
@@ -104,10 +108,6 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
         // CalendarFormat.twoWeeks: '2週', // TODO: issue #17 + visible day issues
         CalendarFormat.week: '週',
       },
-      // calendarStyle: CalendarStyle(
-      //   todayColor: Theme.of(context).colorScheme.secondaryVariant,
-      //   selectedColor: Theme.of(context).colorScheme.secondary,
-      // ),
       headerStyle: HeaderStyle(formatButtonShowsNext: false),
       onHeaderTapped: (current) {
         showDatePicker(
@@ -127,19 +127,14 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
       },
       builders: CalendarBuilders(
         dowWeekendBuilder: (context, dow) => _DowWeekendBuilder(dow),
-        // dayBuilder: (context, date, _) => _dayCellBuilder(date),
-        weekendDayBuilder: (context, date, _) => _WeekendDateCell(
-          date,
-          selected: _calendarController.isSelected(date),
-          today: _calendarController.isToday(date),
-        ),
-        outsideWeekendDayBuilder: (context, date, _) => _WeekendDateCell(
-          date,
-          selected: _calendarController.isSelected(date),
-          today: _calendarController.isToday(date),
-          outside: true,
-        ),
         markersBuilder: (context, date, _, __) => [_EventCountMarker(date)],
+        dayBuilder: (context, date, _) => _DayCell(
+          date,
+          holiday: _isHoliday(date),
+          outside: _isOutside(date),
+          selected: _calendarController.isSelected(date),
+          today: _calendarController.isToday(date),
+        ),
       ),
       onDaySelected: (date, _) {
         setState(() => _selectedDate = date);
@@ -182,42 +177,55 @@ class _DowWeekendBuilder extends StatelessWidget {
   }
 }
 
-// TODO: create custom DateCells
-class _WeekendDateCell extends StatelessWidget {
+class _DayCell extends StatelessWidget {
   final DateTime date;
-  final bool outside, selected, today;
+  final bool outside, holiday, selected, today;
 
-  const _WeekendDateCell(
+  const _DayCell(
     this.date, {
-    @required this.selected,
-    @required this.today,
+    this.holiday = false,
     this.outside = false,
+    this.selected = false,
+    this.today = false,
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Color boxColor;
-    var cellTextStyle = TextStyle(
-      color: date.weekday == DateTime.saturday
-          ? Colors.blue[outside ? 200 : 500]
-          : Colors.red[outside ? 200 : 500],
-    );
-
+    Color textColor;
     if (selected) {
-      boxColor = Colors.indigo[400];
-      cellTextStyle = TextStyle(fontSize: 16.0, color: Colors.grey[50]);
-    } else if (today) {
-      boxColor = Colors.indigo[200];
-      cellTextStyle = TextStyle(fontSize: 16.0, color: Colors.grey[50]);
+      textColor = Colors.white;
+    } else if (holiday || date.weekday == DateTime.sunday) {
+      textColor = Colors.red[outside ? 200 : 500];
+    } else if (date.weekday == DateTime.saturday) {
+      textColor = Colors.blue[outside ? 200 : 500];
+    } else {
+      final textTheme = Theme.of(context).textTheme;
+      textColor = outside ? textTheme.caption.color : textTheme.body1.color;
+    }
+    double fontSize = Theme.of(context).textTheme.body1.fontSize;
+    if (selected) {
+      fontSize += 2;
     }
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      decoration: BoxDecoration(shape: BoxShape.circle, color: boxColor),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: selected ? Color(0x80000000) : null,
+        border: Border.all(
+          width: 2,
+          color: today
+              ? Theme.of(context).textTheme.caption.color
+              : Colors.transparent,
+        ),
+      ),
       margin: EdgeInsets.all(6.0),
       alignment: Alignment.center,
-      child: Text("${date.day}", style: cellTextStyle),
+      child: Text(
+        '${date.day}',
+        style: TextStyle(color: textColor, fontSize: fontSize),
+      ),
     );
   }
 }
@@ -235,7 +243,7 @@ class _EventCountMarker extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(6),
           color: Theme.of(context).primaryColor,
         ),
         width: 26.0,
