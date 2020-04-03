@@ -1,5 +1,6 @@
-import 'package:eventernote/pages/calendar_navigation_page.dart';
-import 'package:eventernote/pages/search_navigation_page.dart';
+import 'package:eventernote/pages/calendar_page.dart';
+import 'package:eventernote/pages/search_page.dart';
+import 'package:eventernote/pages/settings_page.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,9 @@ class EventernoteApp extends StatefulWidget {
 
 class _EventernoteAppState extends State<EventernoteApp> {
   final List<Widget> pages = [
-    SearchNavigationPage(),
-    CalendarNavigationPage(),
-    Icon(Icons.warning),
+    SearchPage(),
+    CalendarPage(),
+    SettingsPage(),
   ];
   int _index;
 

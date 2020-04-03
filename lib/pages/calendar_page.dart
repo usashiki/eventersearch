@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarNavigationPage extends StatefulWidget {
+class CalendarPage extends StatefulWidget {
   @override
-  _CalendarNavigationPageState createState() => _CalendarNavigationPageState();
+  _CalendarPageState createState() => _CalendarPageState();
 }
 
-class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
+class _CalendarPageState extends State<CalendarPage> {
   CalendarController _cc;
   PagewiseLoadController _plc;
 
@@ -60,8 +60,6 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // empty appbar
-      appBar: PreferredSize(preferredSize: Size(0, 0), child: Container()),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

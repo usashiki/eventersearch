@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
-class SearchNavigationPage extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   @override
-  _SearchNavigationPageState createState() => _SearchNavigationPageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _SearchNavigationPageState extends State<SearchNavigationPage> {
+class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

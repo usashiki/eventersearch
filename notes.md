@@ -189,6 +189,7 @@ goodbye tabs
 * about/settings page
   + licenses
   + cache duration
+  + clear cache
 
 * administrative
   + app name
