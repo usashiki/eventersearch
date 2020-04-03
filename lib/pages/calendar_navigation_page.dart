@@ -72,7 +72,6 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
                 }
               },
               child: PagewiseListView(
-                physics: const BouncingScrollPhysics(),
                 pageLoadController: _pagewiseLoadController,
                 itemBuilder: (context, event, i) {
                   return Column(
@@ -127,55 +126,20 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
         _calendarController.setSelectedDay(DateTime.now(), runCallback: true);
       },
       builders: CalendarBuilders(
-        dowWeekendBuilder: (context, str) {
-          return Center(
-            child: Text(
-              str,
-              style: TextStyle()
-                  .copyWith(color: str == '土' ? Colors.blue : Colors.red),
-            ),
-          );
-        },
-        weekendDayBuilder: (context, date, events) {
-          return _dayCellBuilder(date);
-        },
-        outsideWeekendDayBuilder: (context, date, events) {
-          return _dayCellBuilder(date, outside: true);
-        },
-        markersBuilder: (context, date, events, _) {
-          return [
-            Positioned(
-              right: 1,
-              bottom: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).primaryColor,
-                ),
-                width: 26.0,
-                height: 18.0,
-                child: Center(
-                  child: FutureBuilder<int>(
-                    future: EventernoteService().getNumEventsForDate(date),
-                    builder: (context, snapshot) {
-                      var text = '?';
-                      if (snapshot.hasData) {
-                        text = "${snapshot.data}";
-                      } else if (snapshot.hasError) {
-                        text = '-';
-                      }
-                      return Text(
-                        text,
-                        style: TextStyle(color: Colors.white, fontSize: 12.0),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ];
-        },
+        dowWeekendBuilder: (context, dow) => _DowWeekendBuilder(dow),
+        // dayBuilder: (context, date, _) => _dayCellBuilder(date),
+        weekendDayBuilder: (context, date, _) => _WeekendDateCell(
+          date,
+          selected: _calendarController.isSelected(date),
+          today: _calendarController.isToday(date),
+        ),
+        outsideWeekendDayBuilder: (context, date, _) => _WeekendDateCell(
+          date,
+          selected: _calendarController.isSelected(date),
+          today: _calendarController.isToday(date),
+          outside: true,
+        ),
+        markersBuilder: (context, date, _, __) => [_EventCountMarker(date)],
       ),
       onDaySelected: (date, _) {
         setState(() => _selectedDate = date);
@@ -199,8 +163,40 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
       cur = cur.add(Duration(days: 1));
     }
   }
+}
 
-  Widget _dayCellBuilder(DateTime date, {bool outside = false}) {
+class _DowWeekendBuilder extends StatelessWidget {
+  final String dayOfWeek;
+
+  const _DowWeekendBuilder(this.dayOfWeek, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        dayOfWeek,
+        style: TextStyle()
+            .copyWith(color: dayOfWeek == '土' ? Colors.blue : Colors.red),
+      ),
+    );
+  }
+}
+
+// TODO: create custom DateCells
+class _WeekendDateCell extends StatelessWidget {
+  final DateTime date;
+  final bool outside, selected, today;
+
+  const _WeekendDateCell(
+    this.date, {
+    @required this.selected,
+    @required this.today,
+    this.outside = false,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     Color boxColor;
     var cellTextStyle = TextStyle(
       color: date.weekday == DateTime.saturday
@@ -208,10 +204,10 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
           : Colors.red[outside ? 200 : 500],
     );
 
-    if (_calendarController.isSelected(date)) {
+    if (selected) {
       boxColor = Colors.indigo[400];
       cellTextStyle = TextStyle(fontSize: 16.0, color: Colors.grey[50]);
-    } else if (_calendarController.isToday(date)) {
+    } else if (today) {
       boxColor = Colors.indigo[200];
       cellTextStyle = TextStyle(fontSize: 16.0, color: Colors.grey[50]);
     }
@@ -222,6 +218,46 @@ class _CalendarNavigationPageState extends State<CalendarNavigationPage> {
       margin: EdgeInsets.all(6.0),
       alignment: Alignment.center,
       child: Text("${date.day}", style: cellTextStyle),
+    );
+  }
+}
+
+class _EventCountMarker extends StatelessWidget {
+  final DateTime date;
+
+  const _EventCountMarker(this.date, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 1,
+      bottom: 1,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(4),
+          color: Theme.of(context).primaryColor,
+        ),
+        width: 26.0,
+        height: 18.0,
+        child: Center(
+          child: FutureBuilder<int>(
+            future: EventernoteService().getNumEventsForDate(date),
+            builder: (context, snapshot) {
+              var text = '?';
+              if (snapshot.hasData) {
+                text = "${snapshot.data}";
+              } else if (snapshot.hasError) {
+                text = '-';
+              }
+              return Text(
+                text,
+                style: TextStyle(color: Colors.white, fontSize: 12.0),
+              );
+            },
+          ),
+        ),
+      ),
     );
   }
 }

@@ -18,7 +18,6 @@ class ActorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
           PageAppBar(url: actor.eventernoteUrl),
           SliverToBoxAdapter(child: _ActorHeader(actor)),

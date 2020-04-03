@@ -18,7 +18,6 @@ class _SearchNavigationPageState extends State<SearchNavigationPage> {
     return Scaffold(
       appBar: _SearchBarButton(),
       body: ListView(
-        physics: const BouncingScrollPhysics(),
         children: <Widget>[
           HeaderTile(
             icon: Icons.fiber_new,
@@ -89,7 +88,6 @@ class _ActorsRanking extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 150.0,
       child: PagewiseListView(
-        physics: const BouncingScrollPhysics(),
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, actor, i) => ActorCarouselCard(actor, rank: i),
@@ -106,7 +104,6 @@ class _NewActors extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 150.0,
       child: PagewiseListView(
-        physics: const BouncingScrollPhysics(),
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, actor, i) => ActorCarouselCard(actor),
@@ -123,7 +120,6 @@ class _TodaysEvents extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 180.0,
       child: PagewiseListView(
-        physics: const BouncingScrollPhysics(),
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, event, i) => EventCarouselCard(event),

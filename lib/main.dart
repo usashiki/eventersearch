@@ -49,6 +49,12 @@ class _EventernoteAppState extends State<EventernoteApp> {
       //     secondaryVariant: Colors.blue[700],
       //   ),
       // ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: _BouncingScrollPhysicsBehavior(),
+          child: child,
+        );
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
         canvasColor: Colors.white,
@@ -101,5 +107,20 @@ class _EventernoteAppState extends State<EventernoteApp> {
         },
       ),
     );
+  }
+}
+
+class _BouncingScrollPhysicsBehavior extends ScrollBehavior {
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) {
+    // sets BouncingScrollPhysics for all Scrollables
+    return const BouncingScrollPhysics();
+  }
+
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    // removes overglow (appears in TabView)
+    return child;
   }
 }

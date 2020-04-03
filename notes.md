@@ -183,9 +183,6 @@ goodbye tabs
 
 #### v0
 
-* create ScrollBehavior to set BouncingScrollPhysics everywhere
-  + will hopefully work with TabBarView in search results
-
 * calendar
   + today = black/dark grey circle border
   + selected = gray transparency? circle
