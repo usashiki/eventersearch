@@ -229,9 +229,9 @@ class _DayCell extends StatelessWidget {
       textColor = Colors.blue[outside ? 200 : 500];
     } else {
       final textTheme = Theme.of(context).textTheme;
-      textColor = outside ? textTheme.caption.color : textTheme.body1.color;
+      textColor = outside ? textTheme.caption.color : textTheme.bodyText2.color;
     }
-    double fontSize = Theme.of(context).textTheme.body1.fontSize;
+    double fontSize = Theme.of(context).textTheme.bodyText2.fontSize;
     if (selected) {
       fontSize += 2;
     }

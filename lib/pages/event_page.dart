@@ -11,6 +11,7 @@ import 'package:eventernote/widgets/launchable_header_tile.dart';
 import 'package:eventernote/widgets/page_app_bar.dart';
 import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mdi/mdi.dart';
 
 class EventPage extends StatelessWidget {
@@ -21,6 +22,44 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).canvasColor,
+        child: Icon(
+          Icons.star_border,
+          color: Theme.of(context).textTheme.headline6.color,
+        ),
+        tooltip: 'このイベントに参加(ノート作成)', // お気に入り声優/アーティストから外す
+        onPressed: () {},
+      ),
+      // floatingActionButton: SpeedDial(
+      //   child: Icon(Icons.star, color: Colors.amber, size: 28.0),
+      //   backgroundColor: Theme.of(context).canvasColor,
+      //   children: [
+      //     SpeedDialChild(
+      //       child: Icon(Icons.cancel),
+      //       backgroundColor: Colors.red,
+      //       label: '参加しない(ノート削除)',
+      //       labelStyle: Theme.of(context).textTheme.bodyText2,
+      //       labelBackgroundColor: Theme.of(context).canvasColor,
+      //       onTap: () {},
+      //     ),
+      //     SpeedDialChild(
+      //       child: Icon(Mdi.shareOutline),
+      //       backgroundColor: Colors.green,
+      //       label: '参加ツイートする',
+      //       labelStyle: Theme.of(context).textTheme.bodyText2,
+      //       labelBackgroundColor: Theme.of(context).canvasColor,
+      //       onTap: () {},
+      //     ),
+      //     SpeedDialChild(
+      //       child: Icon(Icons.edit),
+      //       label: 'ノートを編集する',
+      //       labelStyle: Theme.of(context).textTheme.bodyText2,
+      //       labelBackgroundColor: Theme.of(context).canvasColor,
+      //       onTap: () {},
+      //     ),
+      //   ],
+      // ),
       body: CustomScrollView(
         slivers: <Widget>[
           PageAppBar(
@@ -57,7 +96,7 @@ class _EventHeader extends StatelessWidget {
         icon: Mdi.calendarOutline,
         child: DateText(
           event.date,
-          style: Theme.of(context).textTheme.body1,
+          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
       HeaderTile(

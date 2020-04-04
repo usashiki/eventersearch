@@ -17,6 +17,24 @@ class ActorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Theme.of(context).canvasColor,
+      //   child: Icon(
+      //     Icons.favorite,
+      //     color: Colors.red,
+      //   ),
+      //   tooltip: 'お気に入り声優/アーティストから外す',
+      //   onPressed: () {},
+      // ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).canvasColor,
+        child: Icon(
+          Icons.favorite_border,
+          color: Theme.of(context).textTheme.headline6.color,
+        ),
+        tooltip: 'お気に入り声優/ｱｰﾃｨｽﾄに登録する',
+        onPressed: () {},
+      ),
       body: CustomScrollView(
         slivers: <Widget>[
           PageAppBar(url: actor.eventernoteUrl),

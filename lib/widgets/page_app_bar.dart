@@ -32,7 +32,7 @@ class PageAppBar extends StatelessWidget {
           tooltip: 'サイトで見る',
           onPressed: () async => await launch(url),
         ),
-        SizedBox(width: 6),
+        SizedBox(width: 10),
       ],
       expandedHeight: background != null ? 200.0 : null,
       stretch: true,

@@ -27,7 +27,7 @@ class BoldNumber extends StatelessWidget {
     }
     return RichText(
       text: TextSpan(
-        style: style ?? Theme.of(context).textTheme.body1,
+        style: style ?? Theme.of(context).textTheme.bodyText2,
         children: spans,
       ),
     );

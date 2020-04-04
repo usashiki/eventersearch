@@ -121,7 +121,7 @@ class _SearchResultsState extends State<SearchResults>
         child: Container(
           child: TabBar(
             controller: _tabController,
-            labelColor: Theme.of(context).textTheme.title.color,
+            labelColor: Theme.of(context).textTheme.headline6.color,
             unselectedLabelColor: Theme.of(context).textTheme.caption.color,
             tabs: [
               FutureBuilder<int>(

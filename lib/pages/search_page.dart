@@ -81,22 +81,6 @@ class _SearchBarButton extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class _ActorsRanking extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12),
-      height: 150.0,
-      child: PagewiseListView(
-        pageSize: EventernoteService.PAGE_SIZE,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (_, actor, i) => ActorCarouselCard(actor, rank: i),
-        pageFuture: (page) => EventernoteService().getPopularActors(page),
-      ),
-    );
-  }
-}
-
 class _NewActors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -106,8 +90,26 @@ class _NewActors extends StatelessWidget {
       child: PagewiseListView(
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
+        loadingBuilder: (_) => const _HorizontalLoadingCircle(),
         itemBuilder: (_, actor, i) => ActorCarouselCard(actor),
         pageFuture: (page) => EventernoteService().getNewActors(page),
+      ),
+    );
+  }
+}
+
+class _ActorsRanking extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      height: 150.0,
+      child: PagewiseListView(
+        pageSize: EventernoteService.PAGE_SIZE,
+        scrollDirection: Axis.horizontal,
+        loadingBuilder: (_) => const _HorizontalLoadingCircle(),
+        itemBuilder: (_, actor, i) => ActorCarouselCard(actor, rank: i),
+        pageFuture: (page) => EventernoteService().getPopularActors(page),
       ),
     );
   }
@@ -122,9 +124,25 @@ class _TodaysEvents extends StatelessWidget {
       child: PagewiseListView(
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
+        loadingBuilder: (_) => const _HorizontalLoadingCircle(),
         itemBuilder: (_, event, i) => EventCarouselCard(event),
         pageFuture: (page) =>
             EventernoteService().getEventsForDate(DateTime.now(), page),
+      ),
+    );
+  }
+}
+
+class _HorizontalLoadingCircle extends StatelessWidget {
+  const _HorizontalLoadingCircle({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: const Align(
+        alignment: Alignment.center,
+        child: CircularProgressIndicator(),
       ),
     );
   }

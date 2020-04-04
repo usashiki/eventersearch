@@ -183,8 +183,15 @@ goodbye tabs
 
 #### v0
 
-* place page: for events in event list, hide venue?
-* [event, place pages] inkwell in expanded SliverAppBar
+* add some state: store fav actors/events in sharedprefs?
+
+* favorites page
+  + my artists
+    - from state
+  + my artists' events
+    - https://www.eventernote.com/api/events/search?actor_id=2890,18709
+
+* fabs: background color?
 
 * about/settings page
   + licenses
@@ -203,12 +210,9 @@ goodbye tabs
 
 #### v1+
 
-* support for web
-  + remove packages that depend on sqflite
-    - flutter_map -> map https://pub.dev/packages/map
-      * doesn't support pins but you can just stack a pin on top? lmao
-    - flutter_cache_manager -> just remove entirely?
-    - cached_network_image -> Image.network https://api.flutter.dev/flutter/widgets/Image-class.html
+* place page: for events in event list, hide venue?
+
+* [event, place pages] inkwell in expanded SliverAppBar
 
 * custom statusbar + navigation bar background color
   + generally make sure works with various hole punches etc
@@ -277,3 +281,10 @@ goodbye tabs
   + https://github.com/AbdulRahmanAlHamali/flutter_pagewise/issues/12
 
 * app locale / english translation
+
+* ~~support for web~~ cannot support due to cors
+  + remove packages that depend on sqflite
+    - flutter_map -> map https://pub.dev/packages/map
+      * doesn't support pins but you can just stack a pin on top? lmao
+    - flutter_cache_manager -> just remove entirely?
+    - cached_network_image -> Image.network https://api.flutter.dev/flutter/widgets/Image-class.html

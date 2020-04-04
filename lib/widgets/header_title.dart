@@ -9,7 +9,7 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      child: Text(text, style: Theme.of(context).textTheme.title),
+      child: Text(text, style: Theme.of(context).textTheme.headline6),
     );
   }
 }

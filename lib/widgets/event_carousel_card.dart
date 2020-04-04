@@ -25,20 +25,15 @@ class EventCarouselCard extends StatelessWidget {
         ),
         closedBuilder: (context, open) {
           return CachedNetworkImage(
-            placeholder: (context, url) => _EventCarouselCardText(event, open),
             alignment: Alignment.topLeft,
             imageUrl: event.imageUrl,
+            placeholder: (context, url) => _EventCarouselCardText(event, open),
             imageBuilder: (context, provider) {
               return Ink.image(
                 image: provider,
                 fit: BoxFit.cover,
                 child: _EventCarouselCardText(event, open, background: true),
               );
-            },
-            fit: BoxFit.cover,
-            errorWidget: (context, url, error) {
-              print(error);
-              return Icon(Icons.error);
             },
           );
         },
@@ -101,11 +96,11 @@ class _EventCarouselCardText extends StatelessWidget {
                         event.name,
                         style: Theme.of(context)
                             .textTheme
-                            .title
+                            .headline6
                             .copyWith(color: background ? Colors.white : null),
                         maxLines: 3,
                         presetFontSizes: [
-                          Theme.of(context).textTheme.title.fontSize,
+                          Theme.of(context).textTheme.headline6.fontSize,
                         ],
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -115,7 +110,7 @@ class _EventCarouselCardText extends StatelessWidget {
                         suffix: '人参加',
                         style: Theme.of(context)
                             .textTheme
-                            .body1
+                            .bodyText2
                             .copyWith(color: background ? Colors.white : null),
                       ),
                     ],

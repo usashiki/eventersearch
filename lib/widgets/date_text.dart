@@ -2,7 +2,6 @@ import 'package:eventernote/services/holidays_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-// TODO: this doesn't need to really be a widget? (only need the textspans)
 class DateText extends StatelessWidget {
   final DateTime date;
   final TextStyle style;

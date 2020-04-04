@@ -1,6 +1,6 @@
 import 'package:eventernote/pages/calendar_page.dart';
+import 'package:eventernote/pages/favorites_page.dart';
 import 'package:eventernote/pages/search_page.dart';
-import 'package:eventernote/pages/settings_page.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class _EventernoteAppState extends State<EventernoteApp> {
   final List<Widget> pages = [
     SearchPage(),
     CalendarPage(),
-    SettingsPage(),
+    FavoritesPage(),
   ];
   int _index;
 
@@ -35,21 +35,8 @@ class _EventernoteAppState extends State<EventernoteApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // debugShowCheckedModeBanner: false,
       title: 'イベンターノート',
-      // theme: ThemeData.from(
-      //   colorScheme: ColorScheme.light(
-      //     primary: Colors.blue,
-      //     primaryVariant: Colors.blueAccent,
-      //     secondary: Colors.indigo[200], // calendar today, loading circles
-      //     secondaryVariant: Colors.indigo[400], // calendar select
-      //   ),
-      // ),
-      // darkTheme: ThemeData.from(
-      //   colorScheme: ColorScheme.dark(
-      //     secondary: Colors.blue,
-      //     secondaryVariant: Colors.blue[700],
-      //   ),
-      // ),
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: _BouncingScrollPhysicsBehavior(),
@@ -57,8 +44,8 @@ class _EventernoteAppState extends State<EventernoteApp> {
         );
       },
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        canvasColor: Colors.white,
+        primaryColor: Colors.blue,
+        // canvasColor: Colors.white,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -95,8 +82,8 @@ class _EventernoteAppState extends State<EventernoteApp> {
                     title: Text('カレンダー'),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Mdi.cogOutline),
-                    title: Text('設定'),
+                    icon: Icon(Icons.favorite_border),
+                    title: Text('お気に入り'),
                   ),
                 ],
                 // backgroundColor: Theme.of(context).primaryColor,

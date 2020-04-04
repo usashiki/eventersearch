@@ -45,44 +45,47 @@ class ActorCarouselCard extends StatelessWidget {
                       ),
                       Align(
                         alignment: Alignment(-1.0, 1.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AutoSizeText(
-                              rank != null
-                                  ? '${rank + 1}. ${actor.name}'
-                                  : actor.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .title
-                                  .copyWith(fontSize: 18),
-                              maxLines: 2,
-                            ),
-                            BoldNumber(
-                              prefix: 'ファン',
-                              number: '${actor.favoriteCount}',
-                              suffix: '人',
-                            ),
-                            FutureBuilder<int>(
-                              future: EventernoteService()
-                                  .getNumEventsForActor(actor.id),
-                              builder: (context, snapshot) {
-                                var text = '?';
-                                if (snapshot.hasData) {
-                                  text = "${snapshot.data}";
-                                } else if (snapshot.hasError) {
-                                  text = '-';
-                                }
-                                return BoldNumber(
-                                  number: text,
-                                  suffix: 'イベント',
-                                );
-                              },
-                            ),
-                          ],
+                        child: SizedBox(
+                          height: 100,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ConstrainedBox(
+                                constraints: BoxConstraints(maxHeight: 55),
+                                child: AutoSizeText(
+                                  rank != null
+                                      ? '${rank + 1}. ${actor.name}'
+                                      : actor.name,
+                                  style: Theme.of(context).textTheme.headline6,
+                                  maxLines: 2,
+                                ),
+                              ),
+                              BoldNumber(
+                                prefix: 'ファン',
+                                number: '${actor.favoriteCount}',
+                                suffix: '人',
+                              ),
+                              FutureBuilder<int>(
+                                future: EventernoteService()
+                                    .getNumEventsForActor(actor.id),
+                                builder: (context, snapshot) {
+                                  var text = '?';
+                                  if (snapshot.hasData) {
+                                    text = "${snapshot.data}";
+                                  } else if (snapshot.hasError) {
+                                    text = '-';
+                                  }
+                                  return BoldNumber(
+                                    number: text,
+                                    suffix: 'イベント',
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
