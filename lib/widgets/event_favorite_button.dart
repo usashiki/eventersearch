@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 class EventFavoriteButton extends StatelessWidget {
   final Event event;
 
+  /// [IconButton] for favoriting an [event] in a stateful way, rebuilding based
+  /// on [FavoriteState] (empty ☆ when not favorited, filled-in ★ when
+  /// favorited).
   const EventFavoriteButton(this.event, {Key key}) : super(key: key);
 
   @override

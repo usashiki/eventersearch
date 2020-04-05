@@ -13,7 +13,9 @@ class ActorTile extends StatelessWidget {
   /// favorite the actor.
   final bool showCount;
 
-  ///
+  /// A [ListTile] listing an [actor]'s name and reading with either the actor's
+  /// number of fans or a favorite button trailing.
+  /// When tapped opens an [ActorDetailsPage] for [actor].
   const ActorTile(
     this.actor, {
     this.showCount = true,

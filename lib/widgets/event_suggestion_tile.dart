@@ -7,6 +7,7 @@ import 'package:mdi/mdi.dart';
 class EventSuggestionTile extends StatelessWidget {
   final Event event;
 
+  /// A minimal [ListTile] listing an [event]'s name with a leading icon.
   const EventSuggestionTile(this.event, {Key key}) : super(key: key);
 
   @override

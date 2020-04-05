@@ -5,9 +5,18 @@ import 'package:url_launcher/url_launcher.dart';
 import 'icon_button_circle.dart';
 
 class PageAppBar extends StatelessWidget {
+  /// The url to open when the "open in browser" button on the right side of the
+  /// app bar is pressed. Required.
   final String url;
+
+  /// If provided, the widget which is displayed in 200px tall
+  /// [FlexibleSpaceBar.background] of the expanded app bar.
+  /// If not provided, the app bar is transparent and not expandable.
   final Widget background;
 
+  /// A [SliverAppBar] with a close button on the left and an "open in browser"
+  /// button on the right linking to [url]. Can optionally be provided with a
+  /// [background] image.
   const PageAppBar({
     @required this.url,
     this.background,

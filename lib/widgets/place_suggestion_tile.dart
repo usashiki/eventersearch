@@ -6,6 +6,7 @@ import 'package:mdi/mdi.dart';
 class PlaceSuggestionTile extends StatelessWidget {
   final Place place;
 
+  /// A minimal [ListTile] listing a [place]'s name with a keading icon.
   const PlaceSuggestionTile(this.place, {Key key}) : super(key: key);
 
   @override

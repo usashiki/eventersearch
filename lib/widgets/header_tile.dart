@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
 
-/// Essentially a reimplementation of ListTile
 class HeaderTile extends StatelessWidget {
+  /// The leading icon displayed on the left-hand side of the tile. Required.
   final IconData icon;
+
+  /// The widget contained in the tile. Required.
   final Widget child;
-  final VoidCallback onTap, onLongPress;
-  final bool omitBottomPadding;
+
+  /// Callback for when the tile is tapped.
+  final VoidCallback onTap;
+
+  /// Callback for when the tile is long pressed.
+  final VoidCallback onLongPress;
+
+  /// The trailing widget displayed on the right-hand side of the tile.
   final Widget trailing;
 
+  /// Flag to omit the bottom 8px of padding. Used when nesting
+  /// [HeaderTile]s.
+  final bool omitBottomPadding;
+
+  /// An informational tile for use in the header of a details page. Comes with
+  /// a leading [icon], [child] widget, callbacks [onTap] and [onLongPress], and
+  /// optionally a [trailing] widget.
+  ///
+  /// See also: [ExpandableHeaderTile], [LaunchableHeaderTile].
+  ///
+  /// Essentially a reimplementation of ListTile.
   const HeaderTile({
     @required this.icon,
     @required this.child,

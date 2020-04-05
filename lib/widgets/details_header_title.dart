@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HeaderTitle extends StatelessWidget {
+class DetailsHeaderTitle extends StatelessWidget {
   final String text;
 
-  const HeaderTitle(this.text, {Key key}) : super(key: key);
+  /// The title text for the header of a details page (one of
+  /// [ActorDetailsPage], [EventDetailsPage]. [PlaceDetailsPage]).
+  const DetailsHeaderTitle(this.text, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

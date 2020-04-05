@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 class AnimatedIndexedStack extends StatefulWidget {
-  final int index;
   final List<Widget> children;
+  final int index;
 
-  const AnimatedIndexedStack({
+  /// An [IndexedStack] which fades out and in child widgets.
+  ///
+  /// Original source:
+  /// https://github.com/flutter/flutter/issues/48217#issuecomment-582535377
+  AnimatedIndexedStack({
     Key key,
-    this.index,
-    this.children,
-  }) : super(key: key);
+    @required this.children,
+    @required this.index,
+  })  : assert(children.isNotEmpty),
+        assert(-1 < index && index < children.length),
+        super(key: key);
 
   @override
   _AnimatedIndexedStackState createState() => _AnimatedIndexedStackState();

@@ -3,9 +3,21 @@ import 'package:eventersearch/widgets/header_tile.dart';
 import 'package:flutter/material.dart';
 
 class ExpandableHeaderTile extends StatelessWidget {
+  /// Same as [HeaderTile.icon]. Required.
   final IconData icon;
-  final Widget child, openWidget, trailing;
 
+  /// Same as [HeaderTile.child]. Required.
+  final Widget child;
+
+  /// Same as [HeaderTile.trailing].
+  final Widget trailing;
+
+  /// The widget which should open on tap in an expanding animated fashion.
+  /// Required.
+  final Widget openWidget;
+
+  /// A [HeaderTile] with [icon], [child], and [trailing] which expands to
+  /// [openWidget] animated with [OpenContainer] on tap.
   const ExpandableHeaderTile({
     @required this.icon,
     @required this.child,

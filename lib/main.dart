@@ -22,7 +22,7 @@ class EventersearchApp extends StatefulWidget {
 }
 
 class _EventersearchAppState extends State<EventersearchApp> {
-  final List<Widget> pages = [
+  final _pages = const <Widget>[
     SearchPage(),
     CalendarPage(),
     FavoritesPage(),
@@ -59,7 +59,7 @@ class _EventersearchAppState extends State<EventersearchApp> {
         builder: (context) {
           return Scaffold(
             body: SafeArea(
-              child: AnimatedIndexedStack(index: _index, children: pages),
+              child: AnimatedIndexedStack(index: _index, children: _pages),
             ),
             bottomNavigationBar: SafeArea(
               child: BottomNavigationBar(

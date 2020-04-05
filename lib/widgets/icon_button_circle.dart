@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class IconButtonCircle extends StatelessWidget {
   final Widget iconButton;
 
+  /// A simple helper widget which wraps a [iconButton] in a40px diameter
+  /// semi-transparent gray circle. Works best when [iconButton] is the default
+  /// [iconSize] = 24.0.
   const IconButtonCircle(this.iconButton, {Key key}) : super(key: key);
 
   @override

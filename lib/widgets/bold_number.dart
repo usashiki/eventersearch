@@ -4,6 +4,9 @@ class BoldNumber extends StatelessWidget {
   final String prefix, number, suffix;
   final TextStyle style;
 
+  /// A simple widget which, given strings [prefix], [number], and [suffix],
+  /// places them in a [RichText] in order with [number] bolded, optionally
+  /// applying [style] if present.
   const BoldNumber({
     this.prefix,
     @required this.number,

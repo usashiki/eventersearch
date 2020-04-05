@@ -7,7 +7,7 @@ import 'package:eventersearch/widgets/bold_number.dart';
 import 'package:eventersearch/widgets/date_text.dart';
 import 'package:eventersearch/widgets/expandable_header_tile.dart';
 import 'package:eventersearch/widgets/header_tile.dart';
-import 'package:eventersearch/widgets/header_title.dart';
+import 'package:eventersearch/widgets/details_header_title.dart';
 import 'package:eventersearch/widgets/launchable_header_tile.dart';
 import 'package:eventersearch/widgets/page_app_bar.dart';
 import 'package:eventersearch/widgets/place_map.dart';
@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 class EventDetailsPage extends StatelessWidget {
   final Event event;
 
+  /// A page for showing the details for a specific [Event].
   const EventDetailsPage(this.event, {Key key}) : super(key: key);
 
   @override
@@ -96,7 +97,7 @@ class _EventHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final children = [
       const SizedBox(height: 4),
-      HeaderTitle(event.name),
+      DetailsHeaderTitle(event.name),
       HeaderTile(
         icon: Mdi.calendarOutline,
         child: DateText(

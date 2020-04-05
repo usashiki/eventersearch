@@ -4,11 +4,22 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LaunchableHeaderTile extends StatelessWidget {
+  /// Same as [HeaderTile.icon]. Required.
   final IconData icon;
+
+  /// Same as [HeaderTile.child]. Required.
   final Widget child;
+
+  /// The URI to launch on tap. Required.
   final String uri;
+
+  /// If provided, the text to copy on long press.
+  /// If not provided, [uri] is copied instead.
   final String copyableText; // if different from uri
 
+  /// A [HeaderTile] with [icon] and [child] which can be tapped to launch [uri]
+  /// and long-pressed to copy [copyableText] ([uri] if not present) to
+  /// clipboard,
   LaunchableHeaderTile({
     @required this.icon,
     @required this.child,

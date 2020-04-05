@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 class EventCarouselCard extends StatelessWidget {
   final Event event;
 
+  /// Carousel card for [Actor]. Note that only width is specified (240px),
+  /// height is specified by the parent. Suggested height is 180px.
   const EventCarouselCard(this.event, {Key key}) : super(key: key);
 
   @override

@@ -9,6 +9,10 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesPage extends StatefulWidget {
+  /// A tabbed page with tabs for the user's favorite [Actor]s, those actors'
+  /// events, and favotire [Event]s as stored in [FavoritesState].
+  const FavoritesPage({Key key}) : super(key: key);
+
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
 }

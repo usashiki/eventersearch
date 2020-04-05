@@ -9,7 +9,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 class EventTile extends StatelessWidget {
   final Event event;
 
-  /// Whether the tile should be animated with OpenContainer. Defaults to false.
+  /// Whether the tile should be animated with [OpenContainer].
+  /// Defaults to false.
   /// Because this includes an open and close animation, only use if the tile
   /// will still be present on close.
   final bool animated;
@@ -20,22 +21,26 @@ class EventTile extends StatelessWidget {
   /// Whether the time of the event should be displayed. Defaults to true.
   final bool showTime;
 
+  /// Whether the place of the event should be displayed. Defaults to true.
+  final bool showPlace;
+
   /// Whether the noteCount should be shown on trailing (right-hand) side of the
   /// tile. Defaults to true.
   /// If false, instead shows a star [IconButton] button to allow the user to
   /// favorite the event.
   final bool showCount;
 
-  /// Whether the place of the event should be displayed. Defaults to true.
-  final bool showPlace;
-
+  /// A [ListTile] listing an [event]'s name, and optionally date, time, and
+  /// place, with either the number of attendees or a favorite button trailing.
+  /// When tapped opens an [EventDetailsPage] for [event], optionally with an
+  /// animation.
   const EventTile(
     this.event, {
     this.animated = false,
-    this.showCount = true,
     this.showDate = true,
     this.showTime = true,
     this.showPlace = true,
+    this.showCount = true,
     Key key,
   }) : super(key: key);
 
@@ -69,15 +74,15 @@ class EventTile extends StatelessWidget {
 class _BaseEventTile extends StatelessWidget {
   final Event event;
   final VoidCallback tap;
-  final bool showCount, showDate, showTime, showPlace;
+  final bool showDate, showTime, showPlace, showCount;
 
   const _BaseEventTile(
     this.event, {
     this.tap,
-    this.showCount,
     this.showDate,
     this.showTime,
     this.showPlace,
+    this.showCount,
     Key key,
   }) : super(key: key);
 

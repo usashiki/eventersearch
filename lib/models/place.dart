@@ -10,7 +10,7 @@ class Place {
   @JsonKey(name: 'place_name')
   final String name;
 
-  final int prefecture; // enum?
+  final int prefecture; // ISO 3166-2:JP enum with 90 = 海外
   final String address;
   final String postalcode;
   final String tel;
@@ -56,6 +56,9 @@ class Place {
   static String _doubleToString(double d) => '$d';
 
   String get eventernoteUrl => 'https://www.eventernote.com/places/$id';
+
+  /// The [LatLng] coordinates of the place. Returns [null] if coordinates are
+  /// missing or invalid.
   LatLng get latLng {
     if (latitude != null &&
         longitude != null &&
@@ -72,9 +75,14 @@ class Place {
     return null;
   }
 
+  /// The name of the prefecture the place is in.
   String get prefectureStr => _prefectures[prefecture];
+
+  /// The Geo URI of the place. See https://en.wikipedia.org/wiki/Geo_URI_scheme
   String get geoUri =>
       'geo:$latitude,$longitude?q=${Uri.encodeQueryComponent(name)}';
+
+  /// The telephone URI of the place,
   String get telUri => 'tel:$tel';
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);

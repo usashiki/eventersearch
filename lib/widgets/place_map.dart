@@ -5,13 +5,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 class PlaceMap extends StatelessWidget {
   final Place place;
-  final Color color;
 
-  const PlaceMap(
-    this.place, {
-    this.color,
-    Key key,
-  }) : super(key: key);
+  /// Given a [place], displays a [FlutterMap] centered on the coordinates of
+  /// [place] with a pin in the middle which can be tapped to open the the place
+  /// in a map app (see [Place.geoUri]).
+  ///
+  /// If [place]'s coordinates are invalid, instead displays a plain blue
+  /// [Container] with an error message.
+  const PlaceMap(this.place, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class PlaceMap extends StatelessWidget {
                   point: place.latLng,
                   builder: (ctx) => Icon(
                     Icons.place,
-                    color: color ?? Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ],

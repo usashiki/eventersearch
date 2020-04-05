@@ -3,7 +3,7 @@ import 'package:eventersearch/models/place.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/widgets/event_tile.dart';
 import 'package:eventersearch/widgets/header_tile.dart';
-import 'package:eventersearch/widgets/header_title.dart';
+import 'package:eventersearch/widgets/details_header_title.dart';
 import 'package:eventersearch/widgets/launchable_header_tile.dart';
 import 'package:eventersearch/widgets/page_app_bar.dart';
 import 'package:eventersearch/widgets/place_map.dart';
@@ -14,6 +14,8 @@ import 'package:mdi/mdi.dart';
 class PlaceDetailsPage extends StatelessWidget {
   final Place place;
 
+  /// A page for showing the details for a specific [Place], along with [Event]s
+  /// taking place at that place.
   const PlaceDetailsPage(this.place, {Key key}) : super(key: key);
 
   @override
@@ -54,7 +56,7 @@ class _PlaceHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final children = [
       const SizedBox(height: 4),
-      HeaderTitle(place.name),
+      DetailsHeaderTitle(place.name),
     ];
 
     if (place.postalcode != null &&

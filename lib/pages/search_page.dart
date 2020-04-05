@@ -10,6 +10,10 @@ import 'package:mdi/mdi.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 class SearchPage extends StatefulWidget {
+  /// A search/explore page with a search bar at the top and carousels for newly
+  /// added [Actor]s, popular [Actor]s, and today's [Event]s.
+  const SearchPage({Key key}) : super(key: key);
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }

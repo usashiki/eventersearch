@@ -16,7 +16,7 @@ class ActorCarouselCard extends StatelessWidget {
   final int rank;
 
   /// Carousel card for [Actor]. Note that only width is specified (200px),
-  /// height is specified by the parent.
+  /// height is specified by the parent. Suggested height is 150px.
   const ActorCarouselCard(this.actor, {this.rank, Key key}) : super(key: key);
 
   @override

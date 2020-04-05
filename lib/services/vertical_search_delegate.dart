@@ -13,6 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
 class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
+  /// A [SearchDelegate] for searching https://www.eventernote.com. Search
+  /// suggestions are from vertical search results (similar to the persistent
+  /// search bar on the site), but search results search each of [Actor],
+  /// [Event], and [Place] individually.
+  @override
+  VerticalSearchDelegate() : super();
+
   @override
   String get searchFieldLabel => '声優やイベント名を入力';
 
@@ -41,14 +48,8 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
     );
   }
 
-  @override
-  Widget buildResults(BuildContext context) {
-    if (query.isEmpty) {
-      return Container();
-    }
-    return SearchResults(query);
-  }
-
+  /// Suggestions are from vertical search results. Currently suggestions are
+  /// always sorted [Actor]s → [Event]s → [Place]s, with maximum of 5 each.
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) {
@@ -89,18 +90,29 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
       },
     );
   }
+
+  /// Displays the search results of a keyword query on each of [Actor],
+  /// [Event], and [Place] individually in separate tabs titled with the result
+  /// counts for each search.
+  @override
+  Widget buildResults(BuildContext context) {
+    if (query.isEmpty) {
+      return Container();
+    }
+    return _SearchResults(query);
+  }
 }
 
-class SearchResults extends StatefulWidget {
+class _SearchResults extends StatefulWidget {
   final String query;
 
-  const SearchResults(this.query, {Key key}) : super(key: key);
+  const _SearchResults(this.query, {Key key}) : super(key: key);
 
   @override
   _SearchResultsState createState() => _SearchResultsState();
 }
 
-class _SearchResultsState extends State<SearchResults>
+class _SearchResultsState extends State<_SearchResults>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
@@ -163,7 +175,10 @@ class _ActorResults extends StatelessWidget {
     return PagewiseListView<Actor>(
       pageSize: EventernoteService.pageSize,
       itemBuilder: (_, actor, i) {
-        return Column(children: [ActorTile(actor), const Divider(height: 0.5)]);
+        return Column(children: [
+          ActorTile(actor),
+          const Divider(height: 0.5),
+        ]);
       },
       pageFuture: (page) =>
           EventernoteService().getActorsForKeyword(query, page),
@@ -204,7 +219,10 @@ class _PlaceResults extends StatelessWidget {
     return PagewiseListView<Place>(
       pageSize: EventernoteService.pageSize,
       itemBuilder: (_, place, i) {
-        return Column(children: [PlaceTile(place), const Divider(height: 0.5)]);
+        return Column(children: [
+          PlaceTile(place),
+          const Divider(height: 0.5),
+        ]);
       },
       pageFuture: (page) =>
           EventernoteService().getPlacesForKeyword(query, page),

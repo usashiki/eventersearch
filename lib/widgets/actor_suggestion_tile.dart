@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 class ActorSuggestionTile extends StatelessWidget {
   final Actor actor;
 
-  /// [ListTile] for displaying [Actor] with name a leading icon for a list of
-  /// search suggestions.
+  /// A minimal [ListTile] listing an [actor]'s name with a keading icon.
   const ActorSuggestionTile(this.actor, {Key key}) : super(key: key);
 
   @override

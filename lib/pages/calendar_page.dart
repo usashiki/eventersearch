@@ -7,6 +7,11 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
+  /// A page showing a week or month calendar. Selecting a day on the calendar
+  /// will list the [Event]s taking place on that day.
+  /// Based off https://www.eventernote.com/events/calendar.
+  const CalendarPage({Key key}) : super(key: key);
+
   @override
   _CalendarPageState createState() => _CalendarPageState();
 }

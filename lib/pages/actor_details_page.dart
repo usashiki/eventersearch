@@ -5,7 +5,7 @@ import 'package:eventersearch/services/favorites_state.dart';
 import 'package:eventersearch/widgets/bold_number.dart';
 import 'package:eventersearch/widgets/event_tile.dart';
 import 'package:eventersearch/widgets/header_tile.dart';
-import 'package:eventersearch/widgets/header_title.dart';
+import 'package:eventersearch/widgets/details_header_title.dart';
 import 'package:eventersearch/widgets/page_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 class ActorDetailsPage extends StatelessWidget {
   final Actor actor;
 
+  /// A page for showing the details for a specific [Actor], along with [Event]s
+  /// they are performing in.
   const ActorDetailsPage(this.actor, {Key key}) : super(key: key);
 
   @override
@@ -76,7 +78,7 @@ class _ActorHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        HeaderTitle(actor.name),
+        DetailsHeaderTitle(actor.name),
         HeaderTile(
           icon: Mdi.syllabaryHiragana,
           child: Text(actor.kana),

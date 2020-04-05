@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class PlaceTile extends StatelessWidget {
   final Place place;
 
+  /// A [ListTile] listing a [place]'s name and prefecture.
+  /// When tapped opens a [PlaceDetailsPage] for [place].
   const PlaceTile(this.place, {Key key}) : super(key: key);
 
   @override

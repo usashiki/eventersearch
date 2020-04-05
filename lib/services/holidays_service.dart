@@ -14,14 +14,24 @@ class HolidaysService {
 
   static HolidaysService _instance;
 
+  /// Singleton class for checking whether given dates are (Japanese) holidays.
+  /// Holidays are stored in [HolidaysService] by year as needed.
+  ///
+  /// Data is from https://holidays-jp.github.io (API documentation) /
+  /// https://github.com/holidays-jp/api (GitHub repo), with query results
+  /// cached for 30 days.
   factory HolidaysService() => _instance ??= HolidaysService._();
 
   HolidaysService._()
       : _holidays = {},
         _cache = _HolidaysCacheManager();
 
+  /// List all stored holidays. Note that holidays are loaded into
+  /// HolidaysService from the API/cache as needed, so not all previously
+  /// queried/cached holidays may be returned on app reset.
   Map<DateTime, List> get all => _holidays;
 
+  /// Given a [date], checks whether [date] is a Japanese holiday.
   bool isHoliday(DateTime date) {
     // jan 1 is always 元日
     if (_holidays[DateTime.utc(date.year, 1, 1)] == null) {
@@ -58,7 +68,7 @@ class _HolidaysCacheManager extends BaseCacheManager {
 
   _HolidaysCacheManager._()
       : super(key,
-            maxAgeCacheObject: const Duration(days: 365),
+            maxAgeCacheObject: const Duration(days: 30),
             fileFetcher: _customHttpGetter);
 
   @override

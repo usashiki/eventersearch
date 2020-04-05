@@ -22,6 +22,7 @@ class User {
   final String twitterScreenName;
   final int officialFlag;
 
+  /// (unused)
   const User({
     this.id,
     this.screenName,

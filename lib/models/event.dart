@@ -2,7 +2,6 @@ import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:eventersearch/models/actor.dart';
 import 'package:eventersearch/models/place.dart';
-import 'package:eventersearch/models/user.dart';
 
 part 'event.g.dart';
 
@@ -16,7 +15,7 @@ class Event {
   final DateTime date;
 
   // final int userId;
-  // final String actorId; // comma-sep list of ids
+  // final String actorId; // comma-delimited list of ids
   // final int placeId;
   final String link;
   final String description;
