@@ -1,19 +1,30 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eventernote/models/actor.dart';
 import 'package:eventernote/pages/actor_page.dart';
+import 'package:eventernote/services/favorites_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ActorTile extends StatelessWidget {
   final Actor actor;
 
-  const ActorTile(this.actor, {Key key}) : super(key: key);
+  /// Whether the noteCount should be shown on trailing (right-hand) side of the
+  /// tile. Defaults to true.
+  /// If false, instead shows a heart [IconButton] button to allow the user to
+  /// favorite the actor.
+  final bool showCount;
+
+  const ActorTile(
+    this.actor, {
+    this.showCount = true,
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: AutoSizeText(actor.name, maxLines: 1),
-      subtitle: AutoSizeText(actor.kana, maxLines: 1),
-      trailing: Container(
+    Widget trailing;
+    if (showCount) {
+      trailing = Container(
         constraints: BoxConstraints(maxHeight: 35, maxWidth: 40),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
@@ -21,11 +32,32 @@ class ActorTile extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            actor.favoriteCount.toString(),
+            '${actor.favoriteCount}',
             style: TextStyle(color: Colors.white),
           ),
         ),
-      ),
+      );
+    } else {
+      trailing = Consumer<FavoritesState>(
+        builder: (_, state, __) {
+          if (state.containsActor(actor)) {
+            return IconButton(
+              icon: Icon(Icons.favorite, color: Colors.red),
+              onPressed: () => state.removeActor(actor),
+            );
+          }
+          return IconButton(
+            icon: Icon(Icons.favorite_border),
+            onPressed: () => state.addActor(actor),
+          );
+        },
+      );
+    }
+
+    return ListTile(
+      title: AutoSizeText(actor.name, maxLines: 1),
+      subtitle: AutoSizeText(actor.kana, maxLines: 1),
+      trailing: trailing,
       dense: true,
       onTap: () => Navigator.push(
         context,

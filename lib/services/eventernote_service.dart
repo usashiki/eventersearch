@@ -17,18 +17,16 @@ import 'package:path_provider/path_provider.dart';
 class EventernoteService {
   static const PAGE_SIZE = 10; // eventernote default
   static const _baseUrl = 'https://www.eventernote.com/api';
-  static const _actorsUrl = "$_baseUrl/actors/search";
-  static const _eventsUrl = "$_baseUrl/events/search";
-  static const _placesUrl = "$_baseUrl/places/search";
-  static const _verticalUrl = "$_baseUrl/vertical/search";
+  static const _actorsUrl = '$_baseUrl/actors/search';
+  static const _eventsUrl = '$_baseUrl/events/search';
+  static const _placesUrl = '$_baseUrl/places/search';
+  static const _verticalUrl = '$_baseUrl/vertical/search';
   final _EventernoteCacheManager _cache;
 
   static EventernoteService _instance;
 
   factory EventernoteService() {
-    if (_instance == null) {
-      _instance = EventernoteService._();
-    }
+    _instance ??= EventernoteService._();
     return _instance;
   }
 
@@ -91,20 +89,27 @@ class EventernoteService {
     return EventsSearch.fromJson(json).results;
   }
 
-  Future<int> getNumEventsForActor(int actorId) async {
-    final json = await _get('$_eventsUrl?actor_id=$actorId&offset=1');
+  Future<int> getNumEventsForActor(Actor actor) async {
+    final json = await _get('$_eventsUrl?actor_id=${actor.id}&offset=1');
     return EventsSearch.fromJson(json).info.total;
   }
 
-  Future<List<Event>> getEventsForActor(int actorId, int page) async {
+  Future<List<Event>> getEventsForActor(Actor actor, int page) async {
     final json =
-        await _get('$_eventsUrl?actor_id=$actorId&offset=${_offset(page)}');
+        await _get('$_eventsUrl?actor_id=${actor.id}&offset=${_offset(page)}');
     return EventsSearch.fromJson(json).results;
   }
 
-  Future<List<Event>> getEventsForPlace(int placeId, int page) async {
+  Future<List<Event>> getEventsForActors(List<Actor> actors, int page) async {
+    final ids = [for (final a in actors) '${a.id}'].join(',');
     final json =
-        await _get('$_eventsUrl?place_id=$placeId&offset=${_offset(page)}');
+        await _get('$_eventsUrl?actor_id=$ids&offset=${_offset(page)}');
+    return EventsSearch.fromJson(json).results;
+  }
+
+  Future<List<Event>> getEventsForPlace(Place place, int page) async {
+    final json =
+        await _get('$_eventsUrl?place_id=${place.id}&offset=${_offset(page)}');
     return EventsSearch.fromJson(json).results;
   }
 
@@ -126,14 +131,12 @@ class EventernoteService {
 }
 
 class _EventernoteCacheManager extends BaseCacheManager {
-  static const key = "eventernoteCache";
+  static const key = 'eventernoteCache';
 
   static _EventernoteCacheManager _instance;
 
   factory _EventernoteCacheManager() {
-    if (_instance == null) {
-      _instance = _EventernoteCacheManager._();
-    }
+    _instance ??= _EventernoteCacheManager._();
     return _instance;
   }
 

@@ -14,9 +14,7 @@ class HolidaysService {
   static HolidaysService _instance;
 
   factory HolidaysService() {
-    if (_instance == null) {
-      _instance = HolidaysService._();
-    }
+    _instance ??= HolidaysService._();
     return _instance;
   }
 
@@ -52,14 +50,12 @@ class HolidaysService {
 }
 
 class _HolidaysCacheManager extends BaseCacheManager {
-  static const key = "holidaysCache";
+  static const key = 'holidaysCache';
 
   static _HolidaysCacheManager _instance;
 
   factory _HolidaysCacheManager() {
-    if (_instance == null) {
-      _instance = _HolidaysCacheManager._();
-    }
+    _instance ??= _HolidaysCacheManager._();
     return _instance;
   }
 

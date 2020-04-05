@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class ExpandableHeaderTile extends StatelessWidget {
   final IconData icon;
-  final Widget child;
-  final Widget openWidget;
+  final Widget child, openWidget, trailing;
 
   ExpandableHeaderTile({
     @required this.icon,
     @required this.child,
     @required this.openWidget,
+    this.trailing,
     Key key,
   }) : super(key: key);
 
@@ -20,11 +20,8 @@ class ExpandableHeaderTile extends StatelessWidget {
       // closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       closedElevation: 0.0,
       closedColor: Theme.of(context).canvasColor,
-      closedBuilder: (context, open) => HeaderTile(
-        icon: icon,
-        child: child,
-        onTap: open,
-      ),
+      closedBuilder: (context, open) =>
+          HeaderTile(icon: icon, child: child, onTap: open, trailing: trailing),
       openBuilder: (context, _) => openWidget,
     );
   }

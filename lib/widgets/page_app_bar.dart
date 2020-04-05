@@ -36,8 +36,7 @@ class PageAppBar extends StatelessWidget {
       ],
       expandedHeight: background != null ? 200.0 : null,
       stretch: true,
-      flexibleSpace: FlexibleSpaceBar(
-          background: background != null ? background : Container()),
+      flexibleSpace: FlexibleSpaceBar(background: background ?? Container()),
     );
   }
 }

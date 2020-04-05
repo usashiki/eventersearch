@@ -183,14 +183,6 @@ goodbye tabs
 
 #### v0
 
-* add some state: store fav actors/events in sharedprefs?
-
-* favorites page
-  + my artists
-    - from state
-  + my artists' events
-    - https://www.eventernote.com/api/events/search?actor_id=2890,18709
-
 * fabs: background color?
 
 * about/settings page
@@ -242,7 +234,7 @@ goodbye tabs
 
 * launch/splash screen
   + use https://pub.dev/packages/flutter_native_splash to set static launch image
-  + transition launch image into same image in flutter, then play animation implemented in flutter ("splash screen")
+  + transition launch image into same image in flutter, then play animation implemented in flutter ('splash screen")
     - as described: https://stackoverflow.com/a/12916167
   + alternatively: https://pub.dev/packages/flare_splash_screen
   + docs

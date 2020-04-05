@@ -14,7 +14,7 @@ class BoldNumber extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<InlineSpan> spans = [];
+    final spans = <InlineSpan>[];
     if (prefix != null) {
       spans.add(TextSpan(text: '$prefix '));
     }

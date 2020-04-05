@@ -53,9 +53,9 @@ class Place {
     // this.hasImage,
   });
 
-  static String _doubleToString(double d) => "$d";
+  static String _doubleToString(double d) => '$d';
 
-  String get eventernoteUrl => "https://www.eventernote.com/places/$id";
+  String get eventernoteUrl => 'https://www.eventernote.com/places/$id';
   LatLng get latLng {
     if (latitude != null &&
         longitude != null &&
@@ -74,8 +74,8 @@ class Place {
 
   String get prefectureStr => _prefectures[prefecture];
   String get geoUri =>
-      "geo:$latitude,$longitude?q=${Uri.encodeQueryComponent(name)}";
-  String get telUri => "tel:$tel";
+      'geo:$latitude,$longitude?q=${Uri.encodeQueryComponent(name)}';
+  String get telUri => 'tel:$tel';
 
   factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
   Map<String, dynamic> toJson() => _$PlaceToJson(this);

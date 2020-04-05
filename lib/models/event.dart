@@ -82,10 +82,21 @@ class Event {
   static int _boolToInt(bool b) => b ? 1 : 0;
 
   String get timesString =>
-      "開場 ${openTime ?? '-'} 開演 ${startTime ?? '-'} 終演 ${endTime ?? '-'}";
-  String get eventernoteUrl => "https://www.eventernote.com/events/$id";
-  List<String> get links => link?.split(RegExp(r"(\r)?\n"));
-  String get hashtagUrl => "https://www.twitter.com/search/?q=%23$hashtag";
+      '開場 ${openTime ?? '-'} 開演 ${startTime ?? '-'} 終演 ${endTime ?? '-'}';
+  String get eventernoteUrl => 'https://www.eventernote.com/events/$id';
+  List<String> get links => link?.split(RegExp(r'(\r)?\n'));
+  String get hashtagUrl => 'https://www.twitter.com/search/?q=%23$hashtag';
+
+  // https://dart.dev/guides/libraries/library-tour#implementing-map-keys
+  @override
+  int get hashCode => 37 * (17 + id.hashCode);
+
+  @override
+  bool operator ==(dynamic other) {
+    if (other is! Event) return false;
+    Event e = other;
+    return id == e.id;
+  }
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
   Map<String, dynamic> toJson() => _$EventToJson(this);

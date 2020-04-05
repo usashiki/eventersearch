@@ -57,8 +57,8 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
         if (snapshot.hasData) {
           List<VerticalSearchResult> results = snapshot.data;
           if (results != null && results.isNotEmpty) {
-            VerticalSearchResult result = results[0];
-            List<Widget> children = [];
+            final result = results[0];
+            final children = <Widget>[];
             if (result.actors != null) {
               for (final actor in result.actors) {
                 children.add(ActorSuggestionTile(actor));
@@ -207,7 +207,12 @@ class _EventResults extends StatelessWidget {
     return PagewiseListView(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, event, i) {
-        return Column(children: [EventTile(event), Divider(height: 0.5)]);
+        return Column(
+          children: [
+            EventTile(event, showTime: false),
+            Divider(height: 0.5),
+          ],
+        );
       },
       pageFuture: (page) =>
           EventernoteService().getEventsForKeyword(query, page),

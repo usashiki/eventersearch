@@ -36,8 +36,19 @@ class Actor {
     // this.hasImage,
   });
 
-  String get eventernoteUrl => "https://www.eventernote.com/actors/$id";
-  String get wikiUrl => "https://ja.wikipedia.org/wiki/$name";
+  String get eventernoteUrl => 'https://www.eventernote.com/actors/$id';
+  String get wikiUrl => 'https://ja.wikipedia.org/wiki/$name';
+
+  // https://dart.dev/guides/libraries/library-tour#implementing-map-keys
+  @override
+  int get hashCode => 37 * (17 + id.hashCode);
+
+  @override
+  bool operator ==(dynamic other) {
+    if (other is! Actor) return false;
+    Actor a = other;
+    return id == a.id;
+  }
 
   factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
   Map<String, dynamic> toJson() => _$ActorToJson(this);

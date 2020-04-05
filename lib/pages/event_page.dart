@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventernote/models/event.dart';
 import 'package:eventernote/pages/actor_page.dart';
 import 'package:eventernote/pages/place_page.dart';
+import 'package:eventernote/services/favorites_state.dart';
 import 'package:eventernote/widgets/bold_number.dart';
 import 'package:eventernote/widgets/date_text.dart';
 import 'package:eventernote/widgets/expandable_header_tile.dart';
@@ -13,6 +14,7 @@ import 'package:eventernote/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mdi/mdi.dart';
+import 'package:provider/provider.dart';
 
 class EventPage extends StatelessWidget {
   final Event event;
@@ -21,45 +23,51 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
+    Widget fab = Consumer<FavoritesState>(builder: (_, state, __) {
+      if (state.containsEvent(event)) {
+        return SpeedDial(
+          child: Icon(Icons.star, color: Colors.amber, size: 28.0),
+          backgroundColor: Theme.of(context).canvasColor,
+          children: [
+            SpeedDialChild(
+              child: Icon(Icons.cancel),
+              backgroundColor: Colors.red,
+              label: '参加しない(ノート削除)',
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelBackgroundColor: Theme.of(context).canvasColor,
+              onTap: () => state.removeEvent(event),
+            ),
+            SpeedDialChild(
+              child: Icon(Mdi.shareOutline),
+              backgroundColor: Colors.green,
+              label: '参加ツイートする',
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelBackgroundColor: Theme.of(context).canvasColor,
+              onTap: () {},
+            ),
+            SpeedDialChild(
+              child: Icon(Icons.edit),
+              label: 'ノートを編集する',
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelBackgroundColor: Theme.of(context).canvasColor,
+              onTap: () {},
+            ),
+          ],
+        );
+      }
+      return FloatingActionButton(
         backgroundColor: Theme.of(context).canvasColor,
         child: Icon(
           Icons.star_border,
           color: Theme.of(context).textTheme.headline6.color,
         ),
-        tooltip: 'このイベントに参加(ノート作成)', // お気に入り声優/アーティストから外す
-        onPressed: () {},
-      ),
-      // floatingActionButton: SpeedDial(
-      //   child: Icon(Icons.star, color: Colors.amber, size: 28.0),
-      //   backgroundColor: Theme.of(context).canvasColor,
-      //   children: [
-      //     SpeedDialChild(
-      //       child: Icon(Icons.cancel),
-      //       backgroundColor: Colors.red,
-      //       label: '参加しない(ノート削除)',
-      //       labelStyle: Theme.of(context).textTheme.bodyText2,
-      //       labelBackgroundColor: Theme.of(context).canvasColor,
-      //       onTap: () {},
-      //     ),
-      //     SpeedDialChild(
-      //       child: Icon(Mdi.shareOutline),
-      //       backgroundColor: Colors.green,
-      //       label: '参加ツイートする',
-      //       labelStyle: Theme.of(context).textTheme.bodyText2,
-      //       labelBackgroundColor: Theme.of(context).canvasColor,
-      //       onTap: () {},
-      //     ),
-      //     SpeedDialChild(
-      //       child: Icon(Icons.edit),
-      //       label: 'ノートを編集する',
-      //       labelStyle: Theme.of(context).textTheme.bodyText2,
-      //       labelBackgroundColor: Theme.of(context).canvasColor,
-      //       onTap: () {},
-      //     ),
-      //   ],
-      // ),
+        tooltip: 'このイベントに参加(ノート作成)',
+        onPressed: () => state.addEvent(event),
+      );
+    });
+
+    return Scaffold(
+      floatingActionButton: fab,
       body: CustomScrollView(
         slivers: <Widget>[
           PageAppBar(
@@ -89,7 +97,7 @@ class _EventHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = [
+    final children = [
       SizedBox(height: 4),
       HeaderTitle(event.name),
       HeaderTile(
@@ -146,6 +154,10 @@ class _EventHeader extends StatelessWidget {
               icon: Icons.person_outline,
               child: Text(actor.name),
               openWidget: ActorPage(actor),
+              trailing: Provider.of<FavoritesState>(context, listen: false)
+                      .containsActor(actor)
+                  ? Icon(Icons.favorite, color: Colors.red)
+                  : null,
             ),
         ],
       ),

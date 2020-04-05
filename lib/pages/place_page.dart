@@ -36,7 +36,7 @@ class PlacePage extends StatelessWidget {
               );
             },
             pageFuture: (page) =>
-                EventernoteService().getEventsForPlace(place.id, page),
+                EventernoteService().getEventsForPlace(place, page),
           ),
         ],
       ),
@@ -51,7 +51,7 @@ class _PlaceHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = [
+    final children = [
       SizedBox(height: 4),
       HeaderTitle(place.name),
     ];

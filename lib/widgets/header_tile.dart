@@ -6,6 +6,7 @@ class HeaderTile extends StatelessWidget {
   final Widget child;
   final VoidCallback onTap, onLongPress;
   final bool omitBottomPadding;
+  final Widget trailing;
 
   const HeaderTile({
     @required this.icon,
@@ -13,6 +14,7 @@ class HeaderTile extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.omitBottomPadding = false,
+    this.trailing,
     Key key,
   }) : super(key: key);
 
@@ -46,10 +48,10 @@ class HeaderTile extends StatelessWidget {
                   child: child,
                 ),
               ),
-              // Align(
-              //   alignment: Alignment.topCenter,
-              //   child: Icon(icon),
-              // ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: trailing,
+              ),
             ],
           ),
         ),

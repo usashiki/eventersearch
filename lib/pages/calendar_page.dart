@@ -101,7 +101,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     return Column(
                       children: <Widget>[
                         Divider(height: 0.5),
-                        EventTile(event, animated: true),
+                        EventTile(event, animated: true, showDate: false),
                       ],
                     );
                   },
@@ -231,7 +231,7 @@ class _DayCell extends StatelessWidget {
       final textTheme = Theme.of(context).textTheme;
       textColor = outside ? textTheme.caption.color : textTheme.bodyText2.color;
     }
-    double fontSize = Theme.of(context).textTheme.bodyText2.fontSize;
+    var fontSize = Theme.of(context).textTheme.bodyText2.fontSize;
     if (selected) {
       fontSize += 2;
     }
@@ -282,7 +282,7 @@ class _EventCountMarker extends StatelessWidget {
             builder: (context, snapshot) {
               var text = '?';
               if (snapshot.hasData) {
-                text = "${snapshot.data}";
+                text = '${snapshot.data}';
               } else if (snapshot.hasError) {
                 text = '-';
               }

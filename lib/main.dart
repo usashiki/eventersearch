@@ -1,15 +1,18 @@
 import 'package:eventernote/pages/calendar_page.dart';
 import 'package:eventernote/pages/favorites_page.dart';
 import 'package:eventernote/pages/search_page.dart';
+import 'package:eventernote/services/favorites_state.dart';
 import 'package:eventernote/services/vertical_search_delegate.dart';
 import 'package:eventernote/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mdi/mdi.dart';
+import 'package:provider/provider.dart';
 
 void main() =>
-    initializeDateFormatting('ja_jp').then((_) => runApp(EventernoteApp()));
+    initializeDateFormatting('ja_jp').then((_) => runApp(ChangeNotifierProvider(
+        create: (_) => FavoritesState(), child: EventernoteApp())));
 
 class EventernoteApp extends StatefulWidget {
   EventernoteApp({Key key}) : super(key: key);
