@@ -39,7 +39,7 @@ class EventernoteService {
   Future<Map<String, dynamic>> _get(String url) async {
     // _cache.emptyCache(); // uncomment to not cache
     final file = await _cache.getSingleFile(url);
-    return jsonDecode(await file.readAsString());
+    return jsonDecode(await file.readAsString()) as Map<String, dynamic>;
   }
 
   Future<List<Actor>> getActorsForKeyword(String keyword, int page) async {

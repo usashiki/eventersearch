@@ -13,7 +13,7 @@ class PlaceTile extends StatelessWidget {
       title: Text(place.name),
       subtitle: Text(place.prefectureStr),
       dense: true,
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.push<Widget>(
         context,
         MaterialPageRoute(builder: (context) => PlacePage(place)),
       ),

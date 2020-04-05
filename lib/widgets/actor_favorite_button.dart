@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 class ActorFavoriteButton extends StatelessWidget {
   final Actor actor;
 
-  ActorFavoriteButton(this.actor, {Key key}) : super(key: key);
+  /// [IconButton] for favoriting [Actor]s in a stateful way rebuilding based on
+  /// [FavoriteState] (empty ♡ when not favorited, filled-in ♥ when favorited).
+  const ActorFavoriteButton(this.actor, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,5 @@
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/event.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/services/vertical_search_delegate.dart';
 import 'package:eventersearch/widgets/actor_carousel_card.dart';
@@ -101,7 +103,7 @@ class _NewActors extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 150.0,
-      child: PagewiseListView(
+      child: PagewiseListView<Actor>(
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         loadingBuilder: (_) => const _HorizontalLoadingCircle(),
@@ -118,7 +120,7 @@ class _ActorsRanking extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 150.0,
-      child: PagewiseListView(
+      child: PagewiseListView<Actor>(
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         loadingBuilder: (_) => const _HorizontalLoadingCircle(),
@@ -135,7 +137,7 @@ class _TodaysEvents extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: 180.0,
-      child: PagewiseListView(
+      child: PagewiseListView<Event>(
         pageSize: EventernoteService.PAGE_SIZE,
         scrollDirection: Axis.horizontal,
         loadingBuilder: (_) => const _HorizontalLoadingCircle(),

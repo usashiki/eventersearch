@@ -144,7 +144,7 @@ class _BaseEventTile extends StatelessWidget {
       dense: true,
       trailing: trailing,
       onTap: tap ??
-          () => Navigator.push(
+          () => Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(builder: (context) => EventPage(event)),
               ),

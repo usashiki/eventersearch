@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class ActorSuggestionTile extends StatelessWidget {
   final Actor actor;
 
+  /// [ListTile] for displaying [Actor] with name a leading icon for a list of
+  /// search suggestions.
   const ActorSuggestionTile(this.actor, {Key key}) : super(key: key);
 
   @override
@@ -14,7 +16,7 @@ class ActorSuggestionTile extends StatelessWidget {
       leading: Icon(Icons.person_outline),
       title: AutoSizeText(actor.name, maxLines: 1),
       dense: true,
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.push<Widget>(
         context,
         MaterialPageRoute(builder: (context) => ActorPage(actor)),
       ),

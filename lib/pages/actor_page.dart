@@ -1,4 +1,5 @@
 import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/event.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/services/favorites_state.dart';
 import 'package:eventersearch/widgets/bold_number.dart';
@@ -46,7 +47,7 @@ class ActorPage extends StatelessWidget {
         slivers: <Widget>[
           PageAppBar(url: actor.eventernoteUrl),
           SliverToBoxAdapter(child: _ActorHeader(actor)),
-          PagewiseSliverList(
+          PagewiseSliverList<Event>(
             pageSize: EventernoteService.PAGE_SIZE,
             itemBuilder: (context, event, i) {
               return Column(

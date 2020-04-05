@@ -21,7 +21,7 @@ class EventSuggestionTile extends StatelessWidget {
         ),
       ),
       dense: true,
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.push<Widget>(
         context,
         MaterialPageRoute(builder: (context) => EventPage(event)),
       ),

@@ -46,8 +46,7 @@ class Actor {
   @override
   bool operator ==(dynamic other) {
     if (other is! Actor) return false;
-    Actor a = other;
-    return id == a.id;
+    return id == (other as Actor).id;
   }
 
   factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);

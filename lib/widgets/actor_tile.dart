@@ -13,6 +13,7 @@ class ActorTile extends StatelessWidget {
   /// favorite the actor.
   final bool showCount;
 
+  ///
   const ActorTile(
     this.actor, {
     this.showCount = true,
@@ -45,7 +46,7 @@ class ActorTile extends StatelessWidget {
       subtitle: AutoSizeText(actor.kana, maxLines: 1),
       trailing: trailing,
       dense: true,
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.push<Widget>(
         context,
         MaterialPageRoute(builder: (context) => ActorPage(actor)),
       ),

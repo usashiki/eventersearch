@@ -1,3 +1,4 @@
+import 'package:eventersearch/models/event.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/services/holidays_service.dart';
 import 'package:eventersearch/widgets/event_tile.dart';
@@ -12,7 +13,7 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   CalendarController _cc;
-  PagewiseLoadController _plc;
+  PagewiseLoadController<Event> _plc;
 
   /// List of holidays from [HolidaysService.all].
   Map<DateTime, List> _holidays;
@@ -42,7 +43,7 @@ class _CalendarPageState extends State<CalendarPage> {
     HolidaysService().isHoliday(_selected); // populates holidays
     _holidays = HolidaysService().all;
     _cc = CalendarController();
-    _plc = PagewiseLoadController(
+    _plc = PagewiseLoadController<Event>(
       pageSize: EventernoteService.PAGE_SIZE,
       pageFuture: (page) =>
           EventernoteService().getEventsForDate(_cc.selectedDay, page),
@@ -95,7 +96,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     );
                   }
                 },
-                child: PagewiseListView(
+                child: PagewiseListView<Event>(
                   pageLoadController: _plc,
                   itemBuilder: (context, event, i) {
                     return Column(
@@ -115,8 +116,8 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   // these are unnecessary reimplementations
-  bool _isOutside(date) => date.month != _cc.focusedDay.month;
-  bool _isHoliday(date) => HolidaysService().isHoliday(date);
+  bool _isOutside(DateTime date) => date.month != _cc.focusedDay.month;
+  bool _isHoliday(DateTime date) => HolidaysService().isHoliday(date);
 
   Widget _buildCalendar() {
     return TableCalendar(
@@ -181,7 +182,7 @@ class _CalendarPageState extends State<CalendarPage> {
     var cur = start;
     while (cur.isBefore(end.add(Duration(days: 1)))) {
       if (_events[cur] == null) {
-        _events[cur] = [];
+        _events[cur] = <dynamic>[];
       }
       cur = cur.add(Duration(days: 1));
     }

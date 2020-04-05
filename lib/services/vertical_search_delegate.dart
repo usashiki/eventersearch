@@ -1,3 +1,6 @@
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/models/place.dart';
 import 'package:eventersearch/models/vertical_search_result.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/widgets/actor_suggestion_tile.dart';
@@ -55,7 +58,7 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
       future: EventernoteService().getVertical(query),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          List<VerticalSearchResult> results = snapshot.data;
+          var results = snapshot.data as List<VerticalSearchResult>;
           if (results != null && results.isNotEmpty) {
             final result = results[0];
             final children = <Widget>[];
@@ -186,7 +189,7 @@ class _ActorResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PagewiseListView(
+    return PagewiseListView<Actor>(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, actor, i) {
         return Column(children: [ActorTile(actor), Divider(height: 0.5)]);
@@ -204,7 +207,7 @@ class _EventResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PagewiseListView(
+    return PagewiseListView<Event>(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, event, i) {
         return Column(
@@ -227,7 +230,7 @@ class _PlaceResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PagewiseListView(
+    return PagewiseListView<Place>(
       pageSize: EventernoteService.PAGE_SIZE,
       itemBuilder: (_, place, i) {
         return Column(children: [PlaceTile(place), Divider(height: 0.5)]);

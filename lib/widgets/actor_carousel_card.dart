@@ -10,8 +10,13 @@ import 'package:flutter/material.dart';
 
 class ActorCarouselCard extends StatelessWidget {
   final Actor actor;
+
+  /// If present, prepends the actor name with the rank. Assumes zero-based
+  /// numbering (so for actor i, displays i + 1).
   final int rank;
 
+  /// Carousel card for [Actor]. Note that only width is specified (200px),
+  /// height is specified by the parent.
   const ActorCarouselCard(this.actor, {this.rank, Key key}) : super(key: key);
 
   @override

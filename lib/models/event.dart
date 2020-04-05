@@ -95,8 +95,7 @@ class Event {
   @override
   bool operator ==(dynamic other) {
     if (other is! Event) return false;
-    Event e = other;
-    return id == e.id;
+    return id == (other as Event).id;
   }
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);

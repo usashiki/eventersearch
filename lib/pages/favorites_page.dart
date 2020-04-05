@@ -88,7 +88,7 @@ class _FavoriteActorEventsTab extends StatelessWidget {
         if (favoriteActors.isEmpty) {
           return Container();
         }
-        return PagewiseListView(
+        return PagewiseListView<Event>(
           pageSize: EventernoteService.PAGE_SIZE,
           itemBuilder: (_, event, i) => Column(children: [
             EventTile(event, showCount: false),

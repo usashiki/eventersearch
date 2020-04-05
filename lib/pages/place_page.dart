@@ -1,3 +1,4 @@
+import 'package:eventersearch/models/event.dart';
 import 'package:eventersearch/models/place.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/widgets/event_tile.dart';
@@ -25,7 +26,7 @@ class PlacePage extends StatelessWidget {
             background: place.latLng == null ? null : PlaceMap(place),
           ),
           SliverToBoxAdapter(child: _PlaceHeader(place)),
-          PagewiseSliverList(
+          PagewiseSliverList<Event>(
             pageSize: EventernoteService.PAGE_SIZE,
             itemBuilder: (context, event, i) {
               return Column(

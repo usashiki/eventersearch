@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 class HolidaysService {
   static const _baseUrl = 'https://holidays-jp.github.io/api/v1';
-  final Map<DateTime, List> _holidays;
+  final Map<DateTime, List<String>> _holidays;
   final _HolidaysCacheManager _cache;
 
   static HolidaysService _instance;
@@ -36,10 +36,12 @@ class HolidaysService {
     final file = await _cache.getSingleFile('$_baseUrl/$year/date.json');
     Map<String, dynamic> json;
     if (file != null) {
-      json = jsonDecode(await file.readAsString());
+      json = jsonDecode(await file.readAsString()) as Map<String, dynamic>;
     } else {
       print('failed to find holidays for year $year');
-      json = {DateTime.utc(year, 1, 1).toIso8601String(): '元日'};
+      json = <String, dynamic>{
+        DateTime.utc(year, 1, 1).toIso8601String(): '元日',
+      };
     }
     for (var mapEntry in json.entries) {
       _holidays[DateTime.parse('${mapEntry.key}T00Z')] = [

@@ -14,7 +14,7 @@ class PlaceSuggestionTile extends StatelessWidget {
       leading: Icon(Mdi.mapMarkerOutline),
       title: Text(place.name),
       dense: true,
-      onTap: () => Navigator.push(
+      onTap: () => Navigator.push<Widget>(
         context,
         MaterialPageRoute(builder: (context) => PlacePage(place)),
       ),
