@@ -3,7 +3,7 @@ import 'package:eventersearch/widgets/date_text.dart';
 import 'package:eventersearch/widgets/event_favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:eventersearch/models/event.dart';
-import 'package:eventersearch/pages/event_page.dart';
+import 'package:eventersearch/pages/event_details_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class EventTile extends StatelessWidget {
@@ -53,7 +53,7 @@ class EventTile extends StatelessWidget {
           showTime: showTime,
           showPlace: showPlace,
         ),
-        openBuilder: (context, _) => EventPage(event),
+        openBuilder: (context, _) => EventDetailsPage(event),
       );
     }
     return _BaseEventTile(
@@ -143,7 +143,8 @@ class _BaseEventTile extends StatelessWidget {
       onTap: tap ??
           () => Navigator.push<Widget>(
                 context,
-                MaterialPageRoute(builder: (context) => EventPage(event)),
+                MaterialPageRoute(
+                    builder: (context) => EventDetailsPage(event)),
               ),
     );
   }

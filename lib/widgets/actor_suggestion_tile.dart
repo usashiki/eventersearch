@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eventersearch/models/actor.dart';
-import 'package:eventersearch/pages/actor_page.dart';
+import 'package:eventersearch/pages/actor_details_page.dart';
 import 'package:flutter/material.dart';
 
 class ActorSuggestionTile extends StatelessWidget {
@@ -18,7 +18,7 @@ class ActorSuggestionTile extends StatelessWidget {
       dense: true,
       onTap: () => Navigator.push<Widget>(
         context,
-        MaterialPageRoute(builder: (context) => ActorPage(actor)),
+        MaterialPageRoute(builder: (context) => ActorDetailsPage(actor)),
       ),
     );
   }

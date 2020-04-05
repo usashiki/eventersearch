@@ -16,13 +16,13 @@ class ActorFavoriteButton extends StatelessWidget {
       builder: (_, state, __) {
         if (state.containsActor(actor)) {
           return IconButton(
-            icon: Icon(Icons.favorite, color: Colors.red),
+            icon: const Icon(Icons.favorite, color: Colors.red),
             onPressed: () => state.removeActor(actor),
             tooltip: 'お気に入り声優/アーティストから外す',
           );
         }
         return IconButton(
-          icon: Icon(Icons.favorite_border),
+          icon: const Icon(Icons.favorite_border),
           onPressed: () => state.addActor(actor),
           tooltip: 'お気に入り声優/ｱｰﾃｨｽﾄに登録する',
         );

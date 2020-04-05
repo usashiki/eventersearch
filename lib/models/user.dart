@@ -10,9 +10,9 @@ class User {
   final String description;
   final String profileImageUrl;
   final String coverImageUrl;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final int deleteFlag;
+  // final DateTime createdAt;
+  // final DateTime updatedAt;
+  // final int deleteFlag;
   final int followingCount;
   final int followerCount;
   final int noteCount;
@@ -22,16 +22,16 @@ class User {
   final String twitterScreenName;
   final int officialFlag;
 
-  User({
+  const User({
     this.id,
     this.screenName,
     this.name,
     this.description,
     this.profileImageUrl,
     this.coverImageUrl,
-    this.createdAt,
-    this.updatedAt,
-    this.deleteFlag,
+    // this.createdAt,
+    // this.updatedAt,
+    // this.deleteFlag,
     this.followingCount,
     this.followerCount,
     this.noteCount,

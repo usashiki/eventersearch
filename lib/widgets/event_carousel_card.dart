@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventersearch/models/event.dart';
-import 'package:eventersearch/pages/event_page.dart';
+import 'package:eventersearch/pages/event_details_page.dart';
 import 'package:eventersearch/widgets/bold_number.dart';
 import 'package:eventersearch/widgets/event_favorite_button.dart';
 import 'package:eventersearch/widgets/icon_button_circle.dart';
@@ -38,7 +38,7 @@ class EventCarouselCard extends StatelessWidget {
             },
           );
         },
-        openBuilder: (context, _) => EventPage(event),
+        openBuilder: (context, _) => EventDetailsPage(event),
       ),
     );
   }

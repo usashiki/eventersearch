@@ -1,5 +1,5 @@
 import 'package:eventersearch/models/place.dart';
-import 'package:eventersearch/pages/place_page.dart';
+import 'package:eventersearch/pages/place_details_page.dart';
 import 'package:flutter/material.dart';
 
 class PlaceTile extends StatelessWidget {
@@ -15,7 +15,7 @@ class PlaceTile extends StatelessWidget {
       dense: true,
       onTap: () => Navigator.push<Widget>(
         context,
-        MaterialPageRoute(builder: (context) => PlacePage(place)),
+        MaterialPageRoute(builder: (context) => PlaceDetailsPage(place)),
       ),
     );
   }

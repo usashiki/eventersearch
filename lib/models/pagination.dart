@@ -10,7 +10,7 @@ class Pagination {
   final int page;
   final int totalPage;
 
-  Pagination({
+  const Pagination({
     this.total,
     this.returnCount,
     this.offset,

@@ -1,7 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:eventersearch/models/actor.dart';
-import 'package:eventersearch/pages/actor_page.dart';
+import 'package:eventersearch/pages/actor_details_page.dart';
 import 'package:eventersearch/services/eventernote_service.dart';
 import 'package:eventersearch/widgets/actor_favorite_button.dart';
 import 'package:eventersearch/widgets/bold_number.dart';
@@ -84,7 +84,7 @@ class ActorCarouselCard extends StatelessWidget {
             ),
           );
         },
-        openBuilder: (context, _) => ActorPage(actor),
+        openBuilder: (context, _) => ActorDetailsPage(actor),
       ),
     );
   }

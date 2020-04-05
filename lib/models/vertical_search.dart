@@ -9,7 +9,7 @@ class VerticalSearch {
   final Pagination info;
   final List<VerticalSearchResult> results;
 
-  VerticalSearch({this.info, this.results});
+  const VerticalSearch({this.info, this.results});
 
   factory VerticalSearch.fromJson(Map<String, dynamic> json) =>
       _$VerticalSearchFromJson(json);

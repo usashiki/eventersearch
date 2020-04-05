@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventersearch/models/event.dart';
-import 'package:eventersearch/pages/actor_page.dart';
-import 'package:eventersearch/pages/place_page.dart';
+import 'package:eventersearch/pages/actor_details_page.dart';
+import 'package:eventersearch/pages/place_details_page.dart';
 import 'package:eventersearch/services/favorites_state.dart';
 import 'package:eventersearch/widgets/bold_number.dart';
 import 'package:eventersearch/widgets/date_text.dart';
@@ -16,10 +16,10 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mdi/mdi.dart';
 import 'package:provider/provider.dart';
 
-class EventPage extends StatelessWidget {
+class EventDetailsPage extends StatelessWidget {
   final Event event;
 
-  const EventPage(this.event, {Key key}) : super(key: key);
+  const EventDetailsPage(this.event, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _EventHeader extends StatelessWidget {
     if (event.place != null) {
       children.add(ExpandableHeaderTile(
         icon: Mdi.mapMarkerOutline,
-        openWidget: PlacePage(event.place),
+        openWidget: PlaceDetailsPage(event.place),
         child: Text(event.place.name),
       ));
       if (event.place.latLng != null) {
@@ -150,7 +150,7 @@ class _EventHeader extends StatelessWidget {
           for (final actor in event.actors)
             ExpandableHeaderTile(
               icon: Icons.person_outline,
-              openWidget: ActorPage(actor),
+              openWidget: ActorDetailsPage(actor),
               trailing:
                   Provider.of<FavoritesState>(context).containsActor(actor)
                       ? Icon(Icons.favorite, color: Colors.red)

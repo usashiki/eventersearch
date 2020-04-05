@@ -12,10 +12,10 @@ import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:mdi/mdi.dart';
 import 'package:provider/provider.dart';
 
-class ActorPage extends StatelessWidget {
+class ActorDetailsPage extends StatelessWidget {
   final Actor actor;
 
-  const ActorPage(this.actor, {Key key}) : super(key: key);
+  const ActorDetailsPage(this.actor, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

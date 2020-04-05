@@ -1,7 +1,7 @@
 import 'package:eventersearch/widgets/date_text.dart';
 import 'package:flutter/material.dart';
 import 'package:eventersearch/models/event.dart';
-import 'package:eventersearch/pages/event_page.dart';
+import 'package:eventersearch/pages/event_details_page.dart';
 import 'package:mdi/mdi.dart';
 
 class EventSuggestionTile extends StatelessWidget {
@@ -23,7 +23,7 @@ class EventSuggestionTile extends StatelessWidget {
       dense: true,
       onTap: () => Navigator.push<Widget>(
         context,
-        MaterialPageRoute(builder: (context) => EventPage(event)),
+        MaterialPageRoute(builder: (context) => EventDetailsPage(event)),
       ),
     );
   }

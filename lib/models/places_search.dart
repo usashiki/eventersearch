@@ -9,7 +9,7 @@ class PlacesSearch {
   final Pagination info;
   final List<Place> results;
 
-  PlacesSearch({this.info, this.results});
+  const PlacesSearch({this.info, this.results});
 
   factory PlacesSearch.fromJson(Map<String, dynamic> json) =>
       _$PlacesSearchFromJson(json);

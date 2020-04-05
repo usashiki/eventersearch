@@ -15,22 +15,22 @@ class Event {
   @JsonKey(name: 'event_date', fromJson: _stringToDate, toJson: _dateToString)
   final DateTime date;
 
-  final int userId;
-  final String actorId; // comma-sep list of ids
-  final int placeId;
+  // final int userId;
+  // final String actorId; // comma-sep list of ids
+  // final int placeId;
   final String link;
   final String description;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  // final DateTime createdAt;
+  // final DateTime updatedAt;
   // final int deleteFlag;
-  final int draftFlag;
+  // final int draftFlag;
   final int noteCount;
   final String hashtag;
   final String startTime; // DateTime?
   final String endTime; // DateTime?
   final String openTime; // DateTime?
   // final String reserveTime;
-  final DateTime editedAt;
+  // final DateTime editedAt;
 
   @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
   final bool hasImage;
@@ -42,28 +42,28 @@ class Event {
   final String thumbUrl;
   final List<Actor> actors;
   final Place place;
-  final User user;
+  // final User user;
 
-  Event({
+  const Event({
     this.id,
     this.name,
     this.date,
-    this.userId,
-    this.actorId,
-    this.placeId,
+    // this.userId,
+    // this.actorId,
+    // this.placeId,
     this.link,
     this.description,
-    this.createdAt,
-    this.updatedAt,
+    // this.createdAt,
+    // this.updatedAt,
     // this.deleteFlag,
-    this.draftFlag,
+    // this.draftFlag,
     this.noteCount,
     this.hashtag,
     this.startTime,
     this.endTime,
     this.openTime,
     // this.reserveTime,
-    this.editedAt,
+    // this.editedAt,
     this.hasImage,
     // this.aniutaFlag,
     // this.anisodonHashtag,
@@ -72,7 +72,7 @@ class Event {
     this.thumbUrl,
     this.actors,
     this.place,
-    this.user,
+    // this.user,
   });
 
   static DateTime _stringToDate(String s) => DateTime.parse(s);

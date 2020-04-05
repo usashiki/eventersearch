@@ -11,7 +11,7 @@ class VerticalSearchResult {
   final List<Actor> actors;
   final List<Place> places;
 
-  VerticalSearchResult({this.events, this.actors, this.places});
+  const VerticalSearchResult({this.events, this.actors, this.places});
 
   factory VerticalSearchResult.fromJson(Map<String, dynamic> json) =>
       _$VerticalSearchResultFromJson(json);

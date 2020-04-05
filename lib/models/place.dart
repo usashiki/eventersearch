@@ -21,18 +21,18 @@ class Place {
   @JsonKey(fromJson: double.tryParse, toJson: _doubleToString)
   final double latitude;
 
-  final int userId;
+  // final int userId;
   final String capacity;
   final String webUrl;
   final String seatUrl;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  // final DateTime createdAt;
+  // final DateTime updatedAt;
   // final int deleteFlag;
   final String tips;
-  final DateTime editedAt;
+  // final DateTime editedAt;
   // final int hasImage;
 
-  Place({
+  const Place({
     this.id,
     this.name,
     this.prefecture,
@@ -41,15 +41,15 @@ class Place {
     this.tel,
     this.longitude,
     this.latitude,
-    this.userId,
+    // this.userId,
     this.capacity,
     this.webUrl,
     this.seatUrl,
-    this.createdAt,
-    this.updatedAt,
+    // this.createdAt,
+    // this.updatedAt,
     // this.deleteFlag,
     this.tips,
-    this.editedAt,
+    // this.editedAt,
     // this.hasImage,
   });
 

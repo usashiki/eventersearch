@@ -9,7 +9,7 @@ class EventsSearch {
   final Pagination info;
   final List<Event> results;
 
-  EventsSearch({this.info, this.results});
+  const EventsSearch({this.info, this.results});
 
   factory EventsSearch.fromJson(Map<String, dynamic> json) =>
       _$EventsSearchFromJson(json);

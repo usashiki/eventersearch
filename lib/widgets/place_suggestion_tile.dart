@@ -1,5 +1,5 @@
 import 'package:eventersearch/models/place.dart';
-import 'package:eventersearch/pages/place_page.dart';
+import 'package:eventersearch/pages/place_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
@@ -16,7 +16,7 @@ class PlaceSuggestionTile extends StatelessWidget {
       dense: true,
       onTap: () => Navigator.push<Widget>(
         context,
-        MaterialPageRoute(builder: (context) => PlacePage(place)),
+        MaterialPageRoute(builder: (context) => PlaceDetailsPage(place)),
       ),
     );
   }
