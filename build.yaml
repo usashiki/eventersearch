@@ -1,11 +1,12 @@
 targets:
   $default:
     builders:
-      source_gen|combining_builder:
-        options:
-          ignore_for_file:
-          - implicit_dynamic_parameter
       json_serializable:
         options:
           explicit_to_json: true
           field_rename: snake
+      # https://github.com/dart-lang/json_serializable/issues/557
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+          - implicit_dynamic_parameter

@@ -23,16 +23,16 @@ class LaunchableHeaderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return HeaderTile(
       icon: icon,
-      child: child,
-      onTap: () async => await launch(uri),
+      onTap: () => launch(uri),
       onLongPress: () {
-        print('copying ${copyableText ?? uri} to clipboard');
+        debugPrint('copying ${copyableText ?? uri} to clipboard');
         Clipboard.setData(ClipboardData(text: copyableText ?? uri));
-        Scaffold.of(context).showSnackBar(SnackBar(
+        Scaffold.of(context).showSnackBar(const SnackBar(
           content: Text('クリップボードにコピーしました。'),
           duration: Duration(seconds: 1),
         ));
       },
+      child: child,
     );
   }
 }

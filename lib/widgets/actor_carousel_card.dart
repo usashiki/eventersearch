@@ -23,74 +23,63 @@ class ActorCarouselCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 200.0,
-      padding: EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4.0),
       child: OpenContainer(
         closedColor: Theme.of(context).cardColor,
         closedElevation: 4.0,
-        closedShape: RoundedRectangleBorder(
+        closedShape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         closedBuilder: (context, open) {
-          return Container(
-            // color: Color(0x90F6C8DD), // TODO: color
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment(1.0, -1.0),
-                        child: IconButtonCircle(ActorFavoriteButton(actor)),
-                      ),
-                      Align(
-                        alignment: Alignment(-1.0, 1.0),
-                        child: SizedBox(
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: 50),
-                                child: AutoSizeText(
-                                  rank != null
-                                      ? '${rank + 1}. ${actor.name}'
-                                      : actor.name,
-                                  style: Theme.of(context).textTheme.headline6,
-                                  maxLines: 2,
-                                ),
+          return Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: open,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  children: <Widget>[
+                    Align(
+                      alignment: const Alignment(1.0, -1.0),
+                      child: IconButtonCircle(ActorFavoriteButton(actor)),
+                    ),
+                    Align(
+                      alignment: const Alignment(-1.0, 1.0),
+                      child: SizedBox(
+                        height: 100,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(maxHeight: 50),
+                              child: AutoSizeText(
+                                rank != null
+                                    ? '${rank + 1}. ${actor.name}'
+                                    : actor.name,
+                                style: Theme.of(context).textTheme.headline6,
+                                maxLines: 2,
                               ),
-                              BoldNumber(
-                                prefix: 'ファン',
-                                number: '${actor.favoriteCount}',
-                                suffix: '人',
+                            ),
+                            BoldNumber(
+                              prefix: 'ファン',
+                              number: '${actor.favoriteCount}',
+                              suffix: '人',
+                            ),
+                            FutureBuilder<int>(
+                              future: EventernoteService()
+                                  .getNumEventsForActor(actor),
+                              builder: (_, ss) => BoldNumber(
+                                number: futureInt(ss),
+                                suffix: 'イベント',
                               ),
-                              FutureBuilder<int>(
-                                future: EventernoteService()
-                                    .getNumEventsForActor(actor),
-                                builder: (context, snapshot) {
-                                  var text = '?';
-                                  if (snapshot.hasData) {
-                                    text = '${snapshot.data}';
-                                  } else if (snapshot.hasError) {
-                                    text = '-';
-                                  }
-                                  return BoldNumber(
-                                    number: text,
-                                    suffix: 'イベント',
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                onTap: open,
               ),
             ),
           );

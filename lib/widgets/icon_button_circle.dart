@@ -11,7 +11,7 @@ class IconButtonCircle extends StatelessWidget {
       height: 40.0,
       width: 40.0,
       child: DecoratedBox(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Color(0x3A000000),
         ),

@@ -25,15 +25,15 @@ class ActorTile extends StatelessWidget {
     Widget trailing;
     if (showCount) {
       trailing = Container(
-        constraints: BoxConstraints(maxHeight: 35, maxWidth: 40),
+        constraints: const BoxConstraints(maxHeight: 35, maxWidth: 40),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(6)),
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
         ),
         child: Center(
           child: Text(
             '${actor.favoriteCount}',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       );

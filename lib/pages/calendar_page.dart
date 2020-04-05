@@ -37,14 +37,14 @@ class _CalendarPageState extends State<CalendarPage> {
     _selected = DateTime.now();
     _events = {};
     _populateEvents(
-      _selected.subtract(Duration(days: 40)),
-      _selected.add(Duration(days: 40)),
+      _selected.subtract(const Duration(days: 40)),
+      _selected.add(const Duration(days: 40)),
     );
     HolidaysService().isHoliday(_selected); // populates holidays
     _holidays = HolidaysService().all;
     _cc = CalendarController();
     _plc = PagewiseLoadController<Event>(
-      pageSize: EventernoteService.PAGE_SIZE,
+      pageSize: EventernoteService.pageSize,
       pageFuture: (page) =>
           EventernoteService().getEventsForDate(_cc.selectedDay, page),
     );
@@ -65,17 +65,17 @@ class _CalendarPageState extends State<CalendarPage> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           _buildCalendar(),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Expanded(
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 350),
               switchInCurve: Curves.decelerate,
               transitionBuilder: (child, animation) {
                 return SlideTransition(
+                  position: Tween<Offset>(
+                          begin: Offset(_dx, 0), end: const Offset(0, 0))
+                      .animate(animation),
                   child: child,
-                  position:
-                      Tween<Offset>(begin: Offset(_dx, 0), end: Offset(0, 0))
-                          .animate(animation),
                 );
               },
               layoutBuilder: (currentChild, _) => currentChild,
@@ -86,12 +86,12 @@ class _CalendarPageState extends State<CalendarPage> {
                 onDismissed: (direction) {
                   if (direction == DismissDirection.startToEnd) {
                     _cc.setSelectedDay(
-                      _selected.subtract(Duration(days: 1)),
+                      _selected.subtract(const Duration(days: 1)),
                       runCallback: true,
                     );
                   } else {
                     _cc.setSelectedDay(
-                      _selected.add(Duration(days: 1)),
+                      _selected.add(const Duration(days: 1)),
                       runCallback: true,
                     );
                   }
@@ -101,7 +101,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   itemBuilder: (context, event, i) {
                     return Column(
                       children: <Widget>[
-                        Divider(height: 0.5),
+                        const Divider(height: 0.5),
                         EventTile(event, animated: true, showDate: false),
                       ],
                     );
@@ -129,18 +129,18 @@ class _CalendarPageState extends State<CalendarPage> {
       formatAnimation: FormatAnimation.slide,
       startingDayOfWeek: StartingDayOfWeek.monday,
       availableGestures: AvailableGestures.all,
-      availableCalendarFormats: {
+      availableCalendarFormats: const {
         CalendarFormat.month: '月',
         // CalendarFormat.twoWeeks: '2週', // TODO: issue #17 + visible day issues
         CalendarFormat.week: '週',
       },
-      headerStyle: HeaderStyle(formatButtonShowsNext: false),
+      headerStyle: const HeaderStyle(formatButtonShowsNext: false),
       onHeaderTapped: (current) {
         showDatePicker(
           context: context,
           initialDate: current,
           firstDate: DateTime(1980),
-          lastDate: DateTime.now().add(Duration(days: 365 * 2)),
+          lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
           locale: Localizations.localeOf(context), // TODO: set app locale to jp
         ).then((selected) {
           if (selected != null) {
@@ -180,11 +180,11 @@ class _CalendarPageState extends State<CalendarPage> {
   // TableCalendar will not call markersBuilder unless events[date] is populated
   void _populateEvents(DateTime start, DateTime end) {
     var cur = start;
-    while (cur.isBefore(end.add(Duration(days: 1)))) {
+    while (cur.isBefore(end.add(const Duration(days: 1)))) {
       if (_events[cur] == null) {
         _events[cur] = <dynamic>[];
       }
-      cur = cur.add(Duration(days: 1));
+      cur = cur.add(const Duration(days: 1));
     }
   }
 }
@@ -199,7 +199,7 @@ class _DowWeekendBuilder extends StatelessWidget {
     return Center(
       child: Text(
         dayOfWeek,
-        style: TextStyle()
+        style: const TextStyle()
             .copyWith(color: dayOfWeek == '土' ? Colors.blue : Colors.red),
       ),
     );
@@ -241,7 +241,7 @@ class _DayCell extends StatelessWidget {
       duration: const Duration(milliseconds: 250),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: selected ? Color(0x80000000) : null,
+        color: selected ? const Color(0x80000000) : null,
         border: Border.all(
           width: 2,
           color: today
@@ -249,7 +249,7 @@ class _DayCell extends StatelessWidget {
               : Colors.transparent,
         ),
       ),
-      margin: EdgeInsets.all(6.0),
+      margin: const EdgeInsets.all(6.0),
       alignment: Alignment.center,
       child: Text(
         '${date.day}',
@@ -280,18 +280,10 @@ class _EventCountMarker extends StatelessWidget {
         child: Center(
           child: FutureBuilder<int>(
             future: EventernoteService().getNumEventsForDate(date),
-            builder: (context, snapshot) {
-              var text = '?';
-              if (snapshot.hasData) {
-                text = '${snapshot.data}';
-              } else if (snapshot.hasError) {
-                text = '-';
-              }
-              return Text(
-                text,
-                style: TextStyle(color: Colors.white, fontSize: 12.0),
-              );
-            },
+            builder: (_, ss) => Text(
+              futureInt(ss),
+              style: const TextStyle(color: Colors.white, fontSize: 12.0),
+            ),
           ),
         ),
       ),

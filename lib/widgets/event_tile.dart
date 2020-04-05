@@ -87,13 +87,13 @@ class _BaseEventTile extends StatelessWidget {
     if (showDate) {
       info.addAll([
         for (var t in DateText(event.date).spans) t,
-        TextSpan(text: '\n'),
+        const TextSpan(text: '\n'),
       ]);
     }
     if (showTime) {
       info.addAll([
         TextSpan(text: event.timesString),
-        TextSpan(text: '\n'),
+        const TextSpan(text: '\n'),
       ]);
     }
     if (showPlace) {
@@ -103,10 +103,10 @@ class _BaseEventTile extends StatelessWidget {
     Widget trailing;
     if (showCount) {
       trailing = Container(
-        constraints: BoxConstraints(maxHeight: 35, maxWidth: 40),
+        constraints: const BoxConstraints(maxHeight: 35, maxWidth: 40),
         decoration: BoxDecoration(
           color: Colors.grey[300],
-          borderRadius: BorderRadius.all(Radius.circular(6)),
+          borderRadius: const BorderRadius.all(Radius.circular(6)),
         ),
         child: Center(
           child: Text(
@@ -125,12 +125,9 @@ class _BaseEventTile extends StatelessWidget {
         height: 60,
         child: CachedNetworkImage(
           placeholder: (context, url) =>
-              Center(child: CircularProgressIndicator()),
+              const Center(child: CircularProgressIndicator()),
           imageUrl: event.thumbUrl,
-          errorWidget: (context, url, error) {
-            print(error);
-            return Icon(Icons.error);
-          },
+          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       ),
       title: Text(event.name),

@@ -17,11 +17,11 @@ class EventCarouselCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 240.0,
-      padding: EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4.0),
       child: OpenContainer(
         closedColor: Theme.of(context).cardColor,
         closedElevation: 4.0,
-        closedShape: RoundedRectangleBorder(
+        closedShape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         closedBuilder: (context, open) {
@@ -59,6 +59,7 @@ class _EventCarouselCardText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: open,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -66,24 +67,24 @@ class _EventCarouselCardText extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
-                end: Alignment(0, -0.9),
+                end: const Alignment(0, -0.9),
                 colors: <Color>[
                   Color(background ? 0xFF000000 : 0x00000000),
-                  Color(0x00000000),
+                  const Color(0x00000000),
                 ],
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: <Widget>[
                 Align(
-                  alignment: Alignment(1.0, -1.0),
+                  alignment: const Alignment(1.0, -1.0),
                   child: IconButtonCircle(EventFavoriteButton(event)),
                 ),
                 Align(
-                  alignment: Alignment(-1.0, 1.0),
+                  alignment: const Alignment(-1.0, 1.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +118,6 @@ class _EventCarouselCardText extends StatelessWidget {
           )
         ],
       ),
-      onTap: open,
     );
   }
 }

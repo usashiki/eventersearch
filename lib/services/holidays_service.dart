@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
@@ -13,10 +14,7 @@ class HolidaysService {
 
   static HolidaysService _instance;
 
-  factory HolidaysService() {
-    _instance ??= HolidaysService._();
-    return _instance;
-  }
+  factory HolidaysService() => _instance ??= HolidaysService._();
 
   HolidaysService._()
       : _holidays = {},
@@ -38,12 +36,12 @@ class HolidaysService {
     if (file != null) {
       json = jsonDecode(await file.readAsString()) as Map<String, dynamic>;
     } else {
-      print('failed to find holidays for year $year');
+      debugPrint('failed to find holidays for year $year');
       json = <String, dynamic>{
         DateTime.utc(year, 1, 1).toIso8601String(): '元日',
       };
     }
-    for (var mapEntry in json.entries) {
+    for (final mapEntry in json.entries) {
       _holidays[DateTime.parse('${mapEntry.key}T00Z')] = [
         mapEntry.value.toString()
       ];
@@ -56,25 +54,22 @@ class _HolidaysCacheManager extends BaseCacheManager {
 
   static _HolidaysCacheManager _instance;
 
-  factory _HolidaysCacheManager() {
-    _instance ??= _HolidaysCacheManager._();
-    return _instance;
-  }
+  factory _HolidaysCacheManager() => _instance ??= _HolidaysCacheManager._();
 
   _HolidaysCacheManager._()
       : super(key,
-            maxAgeCacheObject: Duration(days: 365),
+            maxAgeCacheObject: const Duration(days: 365),
             fileFetcher: _customHttpGetter);
 
   @override
   Future<String> getFilePath() async {
-    var directory = await getTemporaryDirectory();
+    final directory = await getTemporaryDirectory();
     return p.join(directory.path, key);
   }
 
   static Future<FileFetcherResponse> _customHttpGetter(String url,
       {Map<String, String> headers}) async {
-    print('HolidaysService: fetching $url');
+    debugPrint('HolidaysService: fetching $url');
     return HttpFileFetcherResponse(await http.get(url, headers: headers));
   }
 }

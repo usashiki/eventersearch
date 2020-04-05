@@ -44,10 +44,7 @@ class Actor {
   int get hashCode => 37 * (17 + id.hashCode);
 
   @override
-  bool operator ==(dynamic other) {
-    if (other is! Actor) return false;
-    return id == (other as Actor).id;
-  }
+  bool operator ==(dynamic other) => other is Actor && id == other.id;
 
   factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
   Map<String, dynamic> toJson() => _$ActorToJson(this);

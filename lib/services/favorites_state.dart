@@ -8,10 +8,7 @@ class FavoritesState extends ChangeNotifier {
 
   static FavoritesState _instance;
 
-  factory FavoritesState() {
-    _instance ??= FavoritesState._();
-    return _instance;
-  }
+  factory FavoritesState() => _instance ??= FavoritesState._();
 
   FavoritesState._()
       : _favoriteActors = {},

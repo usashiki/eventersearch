@@ -12,10 +12,10 @@ import 'package:provider/provider.dart';
 
 void main() =>
     initializeDateFormatting('ja_jp').then((_) => runApp(ChangeNotifierProvider(
-        create: (_) => FavoritesState(), child: EventersearchApp())));
+        create: (_) => FavoritesState(), child: const EventersearchApp())));
 
 class EventersearchApp extends StatefulWidget {
-  EventersearchApp({Key key}) : super(key: key);
+  const EventersearchApp({Key key}) : super(key: key);
 
   @override
   _EventersearchAppState createState() => _EventersearchAppState();
@@ -78,15 +78,15 @@ class _EventersearchAppState extends State<EventersearchApp> {
                 items: [
                   BottomNavigationBarItem(
                     icon: Icon(Icons.search),
-                    title: Text('検索'),
+                    title: const Text('検索'),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Mdi.calendarOutline),
-                    title: Text('カレンダー'),
+                    title: const Text('カレンダー'),
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.favorite_border),
-                    title: Text('お気に入り'),
+                    title: const Text('お気に入り'),
                   ),
                 ],
                 // backgroundColor: Theme.of(context).primaryColor,

@@ -6,7 +6,7 @@ class ExpandableHeaderTile extends StatelessWidget {
   final IconData icon;
   final Widget child, openWidget, trailing;
 
-  ExpandableHeaderTile({
+  const ExpandableHeaderTile({
     @required this.icon,
     @required this.child,
     @required this.openWidget,
@@ -21,7 +21,7 @@ class ExpandableHeaderTile extends StatelessWidget {
       closedElevation: 0.0,
       closedColor: Theme.of(context).canvasColor,
       closedBuilder: (context, open) =>
-          HeaderTile(icon: icon, child: child, onTap: open, trailing: trailing),
+          HeaderTile(icon: icon, onTap: open, trailing: trailing, child: child),
       openBuilder: (context, _) => openWidget,
     );
   }

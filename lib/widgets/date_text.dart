@@ -19,12 +19,12 @@ class DateText extends StatelessWidget {
 
     return [
       TextSpan(text: DateFormat('yyyy-MM-dd', 'ja_jp').format(date)),
-      TextSpan(text: ' ('),
+      const TextSpan(text: ' ('),
       TextSpan(
         text: DateFormat('E', 'ja_jp').format(date),
         style: TextStyle(color: c),
       ),
-      TextSpan(text: ')'),
+      const TextSpan(text: ')'),
     ];
   }
 

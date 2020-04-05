@@ -19,11 +19,14 @@ class PlaceMap extends StatelessWidget {
       return Container(
         color: Colors.blue[200],
         alignment: Alignment.center,
-        child: Text('緯度経度はございません。', style: TextStyle(color: Colors.white)),
+        child: const Text(
+          '緯度経度はございません。',
+          style: TextStyle(color: Colors.white),
+        ),
       );
     } else {
       return GestureDetector(
-        onTap: () async => await launch(place.geoUri),
+        onTap: () => launch(place.geoUri),
         child: FlutterMap(
           options: MapOptions(
             center: place.latLng,
@@ -39,11 +42,9 @@ class PlaceMap extends StatelessWidget {
               markers: [
                 Marker(
                   point: place.latLng,
-                  builder: (ctx) => Container(
-                    child: Icon(
-                      Icons.place,
-                      color: color ?? Theme.of(context).primaryColor,
-                    ),
+                  builder: (ctx) => Icon(
+                    Icons.place,
+                    color: color ?? Theme.of(context).primaryColor,
                   ),
                 ),
               ],

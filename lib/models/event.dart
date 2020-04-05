@@ -93,10 +93,7 @@ class Event {
   int get hashCode => 37 * (17 + id.hashCode);
 
   @override
-  bool operator ==(dynamic other) {
-    if (other is! Event) return false;
-    return id == (other as Event).id;
-  }
+  bool operator ==(dynamic other) => other is Event && id == other.id;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
   Map<String, dynamic> toJson() => _$EventToJson(this);

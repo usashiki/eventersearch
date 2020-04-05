@@ -27,11 +27,11 @@ class PlacePage extends StatelessWidget {
           ),
           SliverToBoxAdapter(child: _PlaceHeader(place)),
           PagewiseSliverList<Event>(
-            pageSize: EventernoteService.PAGE_SIZE,
+            pageSize: EventernoteService.pageSize,
             itemBuilder: (context, event, i) {
               return Column(
                 children: <Widget>[
-                  Divider(height: 0.5),
+                  const Divider(height: 0.5),
                   EventTile(event, animated: true, showPlace: false),
                 ],
               );
@@ -53,7 +53,7 @@ class _PlaceHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final children = [
-      SizedBox(height: 4),
+      const SizedBox(height: 4),
       HeaderTitle(place.name),
     ];
 
@@ -63,9 +63,9 @@ class _PlaceHeader extends StatelessWidget {
         place.address.isNotEmpty) {
       children.add(LaunchableHeaderTile(
         icon: Mdi.mapOutline,
-        child: Text('${place.postalcode} ${place.address}'),
         uri: place.geoUri,
         copyableText: '${place.postalcode} ${place.address}',
+        child: Text('${place.postalcode} ${place.address}'),
       ));
       // children.add(PlaceMap(place));
     }
@@ -73,20 +73,20 @@ class _PlaceHeader extends StatelessWidget {
     if (place.tel != null && place.tel.isNotEmpty) {
       children.add(LaunchableHeaderTile(
         icon: Mdi.phoneOutline,
-        child: Text(place.tel),
         uri: place.telUri,
         copyableText: place.tel,
+        child: Text(place.tel),
       ));
     }
 
     if (place.webUrl != null && place.webUrl.isNotEmpty) {
       children.add(LaunchableHeaderTile(
         icon: Mdi.web,
+        uri: place.webUrl,
         child: Text(
           place.webUrl,
           style: TextStyle(decoration: TextDecoration.underline),
         ),
-        uri: place.webUrl,
       ));
     }
 
@@ -100,11 +100,11 @@ class _PlaceHeader extends StatelessWidget {
     if (place.seatUrl != null && place.seatUrl.isNotEmpty) {
       children.add(LaunchableHeaderTile(
         icon: Mdi.seatOutline,
+        uri: place.seatUrl,
         child: Text(
           place.seatUrl,
           style: TextStyle(decoration: TextDecoration.underline),
         ),
-        uri: place.seatUrl,
       ));
     }
 
@@ -115,7 +115,7 @@ class _PlaceHeader extends StatelessWidget {
       ));
     }
 
-    children.add(SizedBox(height: 12));
+    children.add(const SizedBox(height: 12));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

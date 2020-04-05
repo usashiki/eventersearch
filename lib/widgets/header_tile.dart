@@ -20,12 +20,10 @@ class HeaderTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsetsGeometry padding = EdgeInsets.symmetric(
-      horizontal: 16,
-      vertical: 8,
-    );
+    EdgeInsetsGeometry padding =
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
     if (omitBottomPadding) {
-      padding = padding.subtract(EdgeInsets.only(bottom: 8));
+      padding = padding.subtract(const EdgeInsets.only(bottom: 8));
     }
 
     return InkWell(
@@ -41,7 +39,7 @@ class HeaderTile extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: Icon(icon, color: Colors.grey),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,

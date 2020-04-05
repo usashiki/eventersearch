@@ -33,13 +33,13 @@ class _FavoritesPageState extends State<FavoritesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(0, 80),
+        preferredSize: const Size(0, 80),
         child: TabBar(
           controller: _tabController,
           isScrollable: true,
           labelColor: Theme.of(context).textTheme.headline6.color,
           unselectedLabelColor: Theme.of(context).textTheme.caption.color,
-          tabs: <Widget>[
+          tabs: const <Widget>[
             Tab(text: '声優/ｱｰﾃｨｽﾄ'),
             Tab(text: '声優/ｱｰﾃｨｽﾄのイベント'),
             Tab(text: 'ノートしたイベント'),
@@ -48,10 +48,10 @@ class _FavoritesPageState extends State<FavoritesPage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
-          const _FavoriteActorTab(),
-          const _FavoriteActorEventsTab(),
-          const _FavoriteEventTab(),
+        children: const <Widget>[
+          _FavoriteActorTab(),
+          _FavoriteActorEventsTab(),
+          _FavoriteEventTab(),
         ],
       ),
     );
@@ -70,7 +70,7 @@ class _FavoriteActorTab extends StatelessWidget {
           itemCount: favoriteActors.length,
           itemBuilder: (context, i) =>
               ActorTile(favoriteActors[i], showCount: false),
-          separatorBuilder: (_, __) => Divider(height: 0.5),
+          separatorBuilder: (_, __) => const Divider(height: 0.5),
         );
       },
     );
@@ -89,10 +89,10 @@ class _FavoriteActorEventsTab extends StatelessWidget {
           return Container();
         }
         return PagewiseListView<Event>(
-          pageSize: EventernoteService.PAGE_SIZE,
+          pageSize: EventernoteService.pageSize,
           itemBuilder: (_, event, i) => Column(children: [
             EventTile(event, showCount: false),
-            Divider(height: 0.5),
+            const Divider(height: 0.5),
           ]),
           pageFuture: (page) =>
               EventernoteService().getEventsForActors(favoriteActors, page),
@@ -114,7 +114,7 @@ class _FavoriteEventTab extends StatelessWidget {
           itemCount: favoriteEvents.length,
           itemBuilder: (context, i) =>
               EventTile(favoriteEvents[i], showCount: false),
-          separatorBuilder: (_, __) => Divider(height: 0.5),
+          separatorBuilder: (_, __) => const Divider(height: 0.5),
         );
       },
     );

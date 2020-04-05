@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class EventFavoriteButton extends StatelessWidget {
   final Event event;
 
-  EventFavoriteButton(this.event, {Key key}) : super(key: key);
+  const EventFavoriteButton(this.event, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

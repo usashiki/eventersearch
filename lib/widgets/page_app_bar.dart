@@ -20,7 +20,7 @@ class PageAppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       leading: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: IconButtonCircle(IconButton(
           icon: Icon(Icons.close),
           onPressed: () => Navigator.pop(context),
@@ -30,9 +30,9 @@ class PageAppBar extends StatelessWidget {
         IconButtonCircle(IconButton(
           icon: Icon(Mdi.web),
           tooltip: 'サイトで見る',
-          onPressed: () async => await launch(url),
+          onPressed: () => launch(url),
         )),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
       ],
       expandedHeight: background != null ? 200.0 : null,
       stretch: true,

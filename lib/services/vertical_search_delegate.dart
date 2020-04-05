@@ -58,26 +58,26 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
       future: EventernoteService().getVertical(query),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          var results = snapshot.data as List<VerticalSearchResult>;
+          final results = snapshot.data as List<VerticalSearchResult>;
           if (results != null && results.isNotEmpty) {
             final result = results[0];
             final children = <Widget>[];
             if (result.actors != null) {
               for (final actor in result.actors) {
                 children.add(ActorSuggestionTile(actor));
-                children.add(Divider(height: 0.5));
+                children.add(const Divider(height: 0.5));
               }
             }
             if (result.events != null) {
               for (final event in result.events) {
                 children.add(EventSuggestionTile(event));
-                children.add(Divider(height: 0.5));
+                children.add(const Divider(height: 0.5));
               }
             }
             if (result.places != null) {
               for (final place in result.places) {
                 children.add(PlaceSuggestionTile(place));
-                children.add(Divider(height: 0.5));
+                children.add(const Divider(height: 0.5));
               }
             }
             return ListView(
@@ -85,7 +85,7 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
             );
           }
         }
-        return Container(child: Center(child: CircularProgressIndicator()));
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
@@ -94,7 +94,7 @@ class VerticalSearchDelegate extends SearchDelegate<VerticalSearchResult> {
 class SearchResults extends StatefulWidget {
   final String query;
 
-  SearchResults(this.query, {Key key}) : super(key: key);
+  const SearchResults(this.query, {Key key}) : super(key: key);
 
   @override
   _SearchResultsState createState() => _SearchResultsState();
@@ -120,54 +120,25 @@ class _SearchResultsState extends State<SearchResults>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size(0, 80),
-        child: Container(
-          child: TabBar(
-            controller: _tabController,
-            labelColor: Theme.of(context).textTheme.headline6.color,
-            unselectedLabelColor: Theme.of(context).textTheme.caption.color,
-            tabs: [
-              FutureBuilder<int>(
-                future:
-                    EventernoteService().getNumActorsForKeyword(widget.query),
-                builder: (context, snapshot) {
-                  var text = '(?)';
-                  if (snapshot.hasData) {
-                    text = '(${snapshot.data})';
-                  } else if (snapshot.hasError) {
-                    text = '(-)';
-                  }
-                  return Tab(text: '声優/ｱｰﾃｨｽﾄ' + text);
-                },
-              ),
-              FutureBuilder<int>(
-                future:
-                    EventernoteService().getNumEventsForKeyword(widget.query),
-                builder: (context, snapshot) {
-                  var text = '(?)';
-                  if (snapshot.hasData) {
-                    text = '(${snapshot.data})';
-                  } else if (snapshot.hasError) {
-                    text = '(-)';
-                  }
-                  return Tab(text: 'イベント' + text);
-                },
-              ),
-              FutureBuilder<int>(
-                future:
-                    EventernoteService().getNumPlacesForKeyword(widget.query),
-                builder: (context, snapshot) {
-                  var text = '(?)';
-                  if (snapshot.hasData) {
-                    text = '(${snapshot.data})';
-                  } else if (snapshot.hasError) {
-                    text = '(-)';
-                  }
-                  return Tab(text: '会場' + text);
-                },
-              ),
-            ],
-          ),
+        preferredSize: const Size(0, 80),
+        child: TabBar(
+          controller: _tabController,
+          labelColor: Theme.of(context).textTheme.headline6.color,
+          unselectedLabelColor: Theme.of(context).textTheme.caption.color,
+          tabs: [
+            FutureBuilder<int>(
+              future: EventernoteService().getNumActorsForKeyword(widget.query),
+              builder: (_, ss) => Tab(text: '声優/ｱｰﾃｨｽﾄ(${futureInt(ss)})'),
+            ),
+            FutureBuilder<int>(
+              future: EventernoteService().getNumEventsForKeyword(widget.query),
+              builder: (_, ss) => Tab(text: 'イベント(${futureInt(ss)})'),
+            ),
+            FutureBuilder<int>(
+              future: EventernoteService().getNumPlacesForKeyword(widget.query),
+              builder: (_, ss) => Tab(text: '会場(${futureInt(ss)})'),
+            ),
+          ],
         ),
       ),
       body: TabBarView(
@@ -190,9 +161,9 @@ class _ActorResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PagewiseListView<Actor>(
-      pageSize: EventernoteService.PAGE_SIZE,
+      pageSize: EventernoteService.pageSize,
       itemBuilder: (_, actor, i) {
-        return Column(children: [ActorTile(actor), Divider(height: 0.5)]);
+        return Column(children: [ActorTile(actor), const Divider(height: 0.5)]);
       },
       pageFuture: (page) =>
           EventernoteService().getActorsForKeyword(query, page),
@@ -208,12 +179,12 @@ class _EventResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PagewiseListView<Event>(
-      pageSize: EventernoteService.PAGE_SIZE,
+      pageSize: EventernoteService.pageSize,
       itemBuilder: (_, event, i) {
         return Column(
           children: [
             EventTile(event, showTime: false),
-            Divider(height: 0.5),
+            const Divider(height: 0.5),
           ],
         );
       },
@@ -231,9 +202,9 @@ class _PlaceResults extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PagewiseListView<Place>(
-      pageSize: EventernoteService.PAGE_SIZE,
+      pageSize: EventernoteService.pageSize,
       itemBuilder: (_, place, i) {
-        return Column(children: [PlaceTile(place), Divider(height: 0.5)]);
+        return Column(children: [PlaceTile(place), const Divider(height: 0.5)]);
       },
       pageFuture: (page) =>
           EventernoteService().getPlacesForKeyword(query, page),

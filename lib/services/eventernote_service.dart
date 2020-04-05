@@ -9,13 +9,14 @@ import 'package:eventersearch/models/place.dart';
 import 'package:eventersearch/models/places_search.dart';
 import 'package:eventersearch/models/vertical_search.dart';
 import 'package:eventersearch/models/vertical_search_result.dart';
+import 'package:flutter/widgets.dart' show AsyncSnapshot, debugPrint;
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 class EventernoteService {
-  static const PAGE_SIZE = 10; // eventernote default
+  static const pageSize = 10; // eventernote default
   static const _baseUrl = 'https://www.eventernote.com/api';
   static const _actorsUrl = '$_baseUrl/actors/search';
   static const _eventsUrl = '$_baseUrl/events/search';
@@ -25,15 +26,12 @@ class EventernoteService {
 
   static EventernoteService _instance;
 
-  factory EventernoteService() {
-    _instance ??= EventernoteService._();
-    return _instance;
-  }
+  factory EventernoteService() => _instance ??= EventernoteService._();
 
   EventernoteService._() : _cache = _EventernoteCacheManager();
 
   int _offset(int page) {
-    return page * PAGE_SIZE + 1;
+    return page * pageSize + 1;
   }
 
   Future<Map<String, dynamic>> _get(String url) async {
@@ -135,25 +133,32 @@ class _EventernoteCacheManager extends BaseCacheManager {
 
   static _EventernoteCacheManager _instance;
 
-  factory _EventernoteCacheManager() {
-    _instance ??= _EventernoteCacheManager._();
-    return _instance;
-  }
+  factory _EventernoteCacheManager() =>
+      _instance ??= _EventernoteCacheManager._();
 
   _EventernoteCacheManager._()
       : super(key,
-            maxAgeCacheObject: Duration(hours: 8),
+            maxAgeCacheObject: const Duration(hours: 8),
             fileFetcher: _customHttpGetter);
 
   @override
   Future<String> getFilePath() async {
-    var directory = await getTemporaryDirectory();
+    final directory = await getTemporaryDirectory();
     return p.join(directory.path, key);
   }
 
   static Future<FileFetcherResponse> _customHttpGetter(String url,
       {Map<String, String> headers}) async {
-    print('EventernoteService: fetching $url');
+    debugPrint('EventernoteService: fetching $url');
     return HttpFileFetcherResponse(await http.get(url, headers: headers));
   }
+}
+
+String futureInt(AsyncSnapshot<int> snapshot) {
+  if (snapshot.hasData) {
+    return '${snapshot.data}';
+  } else if (snapshot.hasError) {
+    return '-';
+  }
+  return '?';
 }

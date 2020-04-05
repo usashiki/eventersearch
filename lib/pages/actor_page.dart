@@ -19,24 +19,24 @@ class ActorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget fab = Consumer<FavoritesState>(
+    final Widget fab = Consumer<FavoritesState>(
       builder: (_, state, __) {
         if (state.containsActor(actor)) {
           return FloatingActionButton(
             backgroundColor: Theme.of(context).canvasColor,
-            child: Icon(Icons.favorite, color: Colors.red),
             tooltip: 'お気に入り声優/アーティストから外す',
             onPressed: () => state.removeActor(actor),
+            child: Icon(Icons.favorite, color: Colors.red),
           );
         }
         return FloatingActionButton(
           backgroundColor: Theme.of(context).canvasColor,
+          tooltip: 'お気に入り声優/ｱｰﾃｨｽﾄに登録する',
+          onPressed: () => state.addActor(actor),
           child: Icon(
             Icons.favorite_border,
             color: Theme.of(context).textTheme.headline6.color,
           ),
-          tooltip: 'お気に入り声優/ｱｰﾃｨｽﾄに登録する',
-          onPressed: () => state.addActor(actor),
         );
       },
     );
@@ -48,11 +48,11 @@ class ActorPage extends StatelessWidget {
           PageAppBar(url: actor.eventernoteUrl),
           SliverToBoxAdapter(child: _ActorHeader(actor)),
           PagewiseSliverList<Event>(
-            pageSize: EventernoteService.PAGE_SIZE,
+            pageSize: EventernoteService.pageSize,
             itemBuilder: (context, event, i) {
               return Column(
                 children: <Widget>[
-                  Divider(height: 0.5),
+                  const Divider(height: 0.5),
                   EventTile(event, animated: true),
                 ],
               );
@@ -93,18 +93,10 @@ class _ActorHeader extends StatelessWidget {
           icon: Mdi.musicNoteOutline,
           child: FutureBuilder<int>(
             future: EventernoteService().getNumEventsForActor(actor),
-            builder: (context, snapshot) {
-              var text = '?';
-              if (snapshot.hasData) {
-                text = '${snapshot.data}';
-              } else if (snapshot.hasError) {
-                text = '-';
-              }
-              return BoldNumber(
-                number: text,
-                suffix: 'イベント',
-              );
-            },
+            builder: (_, ss) => BoldNumber(
+              number: futureInt(ss),
+              suffix: 'イベント',
+            ),
           ),
         ),
       ],

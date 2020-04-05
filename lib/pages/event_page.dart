@@ -23,10 +23,9 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget fab = Consumer<FavoritesState>(builder: (context, state, __) {
+    final Widget fab = Consumer<FavoritesState>(builder: (context, state, __) {
       if (state.containsEvent(event)) {
         return SpeedDial(
-          child: Icon(Icons.star, color: Colors.amber, size: 28.0),
           backgroundColor: Theme.of(context).canvasColor,
           children: [
             SpeedDialChild(
@@ -53,16 +52,17 @@ class EventPage extends StatelessWidget {
               onTap: () {},
             ),
           ],
+          child: const Icon(Icons.star, color: Colors.amber, size: 28.0),
         );
       }
       return FloatingActionButton(
         backgroundColor: Theme.of(context).canvasColor,
+        tooltip: '参加する(ノート作成)',
+        onPressed: () => state.addEvent(event),
         child: Icon(
           Icons.star_border,
           color: Theme.of(context).textTheme.headline6.color,
         ),
-        tooltip: '参加する(ノート作成)',
-        onPressed: () => state.addEvent(event),
       );
     });
 
@@ -77,10 +77,7 @@ class EventPage extends StatelessWidget {
               imageUrl: event.imageUrl,
               alignment: Alignment.topCenter,
               fit: BoxFit.cover,
-              errorWidget: (context, url, error) {
-                print(error);
-                return Icon(Icons.error);
-              },
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
           SliverToBoxAdapter(child: _EventHeader(event)),
@@ -98,7 +95,7 @@ class _EventHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final children = [
-      SizedBox(height: 4),
+      const SizedBox(height: 4),
       HeaderTitle(event.name),
       HeaderTile(
         icon: Mdi.calendarOutline,
@@ -116,12 +113,12 @@ class _EventHeader extends StatelessWidget {
     if (event.place != null) {
       children.add(ExpandableHeaderTile(
         icon: Mdi.mapMarkerOutline,
-        child: Text(event.place.name),
         openWidget: PlacePage(event.place),
+        child: Text(event.place.name),
       ));
       if (event.place.latLng != null) {
         children.add(Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: SizedBox(height: 100, child: PlaceMap(event.place)),
         ));
       }
@@ -138,11 +135,12 @@ class _EventHeader extends StatelessWidget {
 
     children.add(HeaderTile(
       icon: Mdi.accountMultipleOutline,
+      omitBottomPadding: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 2, bottom: 4),
+            padding: const EdgeInsets.only(top: 2, bottom: 4),
             child: BoldNumber(
               prefix: '出演者',
               number: '${event.actors.length}',
@@ -152,27 +150,26 @@ class _EventHeader extends StatelessWidget {
           for (final actor in event.actors)
             ExpandableHeaderTile(
               icon: Icons.person_outline,
-              child: Text(actor.name),
               openWidget: ActorPage(actor),
               trailing:
                   Provider.of<FavoritesState>(context).containsActor(actor)
                       ? Icon(Icons.favorite, color: Colors.red)
                       : null,
+              child: Text(actor.name),
             ),
         ],
       ),
-      omitBottomPadding: true,
     ));
 
     for (final link in event.links) {
       if (link != null && link.isNotEmpty) {
         children.add(LaunchableHeaderTile(
           icon: Mdi.linkVariant,
+          uri: link,
           child: Text(
             link,
             style: TextStyle(decoration: TextDecoration.underline),
           ),
-          uri: link,
         ));
       }
     }
@@ -187,13 +184,13 @@ class _EventHeader extends StatelessWidget {
     if (event.hashtag != null && event.hashtag.isNotEmpty) {
       children.add(LaunchableHeaderTile(
         icon: Mdi.pound,
-        child: Text(event.fullHashtag),
         uri: event.hashtagUrl,
         copyableText: event.fullHashtag,
+        child: Text(event.fullHashtag),
       ));
     }
 
-    children.add(SizedBox(height: 16));
+    children.add(const SizedBox(height: 16));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
