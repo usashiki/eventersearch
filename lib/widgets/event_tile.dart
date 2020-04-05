@@ -1,11 +1,10 @@
 import 'package:animations/animations.dart';
-import 'package:eventernote/services/favorites_state.dart';
-import 'package:eventernote/widgets/date_text.dart';
+import 'package:eventersearch/widgets/date_text.dart';
+import 'package:eventersearch/widgets/event_favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/pages/event_page.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/pages/event_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:provider/provider.dart';
 
 class EventTile extends StatelessWidget {
   final Event event;
@@ -108,20 +107,7 @@ class _BaseEventTile extends StatelessWidget {
         ),
       );
     } else {
-      trailing = Consumer<FavoritesState>(
-        builder: (_, state, __) {
-          if (state.containsEvent(event)) {
-            return IconButton(
-              icon: Icon(Icons.star, color: Colors.amber),
-              onPressed: () => state.removeEvent(event),
-            );
-          }
-          return IconButton(
-            icon: Icon(Icons.star_border),
-            onPressed: () => state.addEvent(event),
-          );
-        },
-      );
+      trailing = EventFavoriteButton(event);
     }
 
     return ListTile(

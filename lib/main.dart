@@ -1,9 +1,9 @@
-import 'package:eventernote/pages/calendar_page.dart';
-import 'package:eventernote/pages/favorites_page.dart';
-import 'package:eventernote/pages/search_page.dart';
-import 'package:eventernote/services/favorites_state.dart';
-import 'package:eventernote/services/vertical_search_delegate.dart';
-import 'package:eventernote/widgets/animated_indexed_stack.dart';
+import 'package:eventersearch/pages/calendar_page.dart';
+import 'package:eventersearch/pages/favorites_page.dart';
+import 'package:eventersearch/pages/search_page.dart';
+import 'package:eventersearch/services/favorites_state.dart';
+import 'package:eventersearch/services/vertical_search_delegate.dart';
+import 'package:eventersearch/widgets/animated_indexed_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -12,16 +12,16 @@ import 'package:provider/provider.dart';
 
 void main() =>
     initializeDateFormatting('ja_jp').then((_) => runApp(ChangeNotifierProvider(
-        create: (_) => FavoritesState(), child: EventernoteApp())));
+        create: (_) => FavoritesState(), child: EventersearchApp())));
 
-class EventernoteApp extends StatefulWidget {
-  EventernoteApp({Key key}) : super(key: key);
+class EventersearchApp extends StatefulWidget {
+  EventersearchApp({Key key}) : super(key: key);
 
   @override
-  _EventernoteAppState createState() => _EventernoteAppState();
+  _EventersearchAppState createState() => _EventersearchAppState();
 }
 
-class _EventernoteAppState extends State<EventernoteApp> {
+class _EventersearchAppState extends State<EventersearchApp> {
   final List<Widget> pages = [
     SearchPage(),
     CalendarPage(),

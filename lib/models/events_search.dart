@@ -1,5 +1,5 @@
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/models/pagination.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/models/pagination.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'events_search.g.dart';

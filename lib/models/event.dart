@@ -1,8 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/models/place.dart';
-import 'package:eventernote/models/user.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/place.dart';
+import 'package:eventersearch/models/user.dart';
 
 part 'event.g.dart';
 
@@ -83,9 +83,10 @@ class Event {
 
   String get timesString =>
       '開場 ${openTime ?? '-'} 開演 ${startTime ?? '-'} 終演 ${endTime ?? '-'}';
-  String get eventernoteUrl => 'https://www.eventernote.com/events/$id';
+  String get eventernoteUrl => 'https://www.eventersearch.com/events/$id';
   List<String> get links => link?.split(RegExp(r'(\r)?\n'));
-  String get hashtagUrl => 'https://www.twitter.com/search/?q=%23$hashtag';
+  String get fullHashtag => hashtag.startsWith('#') ? hashtag : '#$hashtag';
+  String get hashtagUrl => 'https://www.twitter.com/search/?q=$fullHashtag';
 
   // https://dart.dev/guides/libraries/library-tour#implementing-map-keys
   @override

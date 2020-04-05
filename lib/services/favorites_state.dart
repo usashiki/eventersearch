@@ -1,5 +1,5 @@
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/models/event.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/event.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesState extends ChangeNotifier {

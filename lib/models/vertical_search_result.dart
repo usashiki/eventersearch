@@ -1,6 +1,6 @@
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/models/place.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/models/place.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'vertical_search_result.g.dart';

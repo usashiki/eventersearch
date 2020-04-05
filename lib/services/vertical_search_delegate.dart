@@ -1,11 +1,11 @@
-import 'package:eventernote/models/vertical_search_result.dart';
-import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/widgets/actor_suggestion_tile.dart';
-import 'package:eventernote/widgets/actor_tile.dart';
-import 'package:eventernote/widgets/event_suggestion_tile.dart';
-import 'package:eventernote/widgets/event_tile.dart';
-import 'package:eventernote/widgets/place_suggestion_tile.dart';
-import 'package:eventernote/widgets/place_tile.dart';
+import 'package:eventersearch/models/vertical_search_result.dart';
+import 'package:eventersearch/services/eventernote_service.dart';
+import 'package:eventersearch/widgets/actor_suggestion_tile.dart';
+import 'package:eventersearch/widgets/actor_tile.dart';
+import 'package:eventersearch/widgets/event_suggestion_tile.dart';
+import 'package:eventersearch/widgets/event_tile.dart';
+import 'package:eventersearch/widgets/place_suggestion_tile.dart';
+import 'package:eventersearch/widgets/place_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 

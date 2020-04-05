@@ -1,5 +1,5 @@
-import 'package:eventernote/models/place.dart';
-import 'package:eventernote/pages/place_page.dart';
+import 'package:eventersearch/models/place.dart';
+import 'package:eventersearch/pages/place_page.dart';
 import 'package:flutter/material.dart';
 
 class PlaceTile extends StatelessWidget {

@@ -1,13 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/pages/event_page.dart';
-import 'package:eventernote/services/favorites_state.dart';
-import 'package:eventernote/widgets/bold_number.dart';
-import 'package:eventernote/widgets/icon_button_circle.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/pages/event_page.dart';
+import 'package:eventersearch/widgets/bold_number.dart';
+import 'package:eventersearch/widgets/event_favorite_button.dart';
+import 'package:eventersearch/widgets/icon_button_circle.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EventCarouselCard extends StatelessWidget {
   final Event event;
@@ -59,21 +58,6 @@ class _EventCarouselCardText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget favoriteButton = Consumer<FavoritesState>(
-      builder: (_, state, __) {
-        if (state.containsEvent(event)) {
-          return IconButtonCircle(
-            icon: Icon(Icons.star, color: Colors.amber),
-            onPressed: () => state.removeEvent(event),
-          );
-        }
-        return IconButtonCircle(
-          icon: Icon(Icons.star_border, color: Colors.white),
-          onPressed: () => state.addEvent(event),
-        );
-      },
-    );
-
     return InkWell(
       child: Stack(
         fit: StackFit.expand,
@@ -96,7 +80,7 @@ class _EventCarouselCardText extends StatelessWidget {
               children: <Widget>[
                 Align(
                   alignment: Alignment(1.0, -1.0),
-                  child: favoriteButton,
+                  child: IconButtonCircle(EventFavoriteButton(event)),
                 ),
                 Align(
                   alignment: Alignment(-1.0, 1.0),

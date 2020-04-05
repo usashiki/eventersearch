@@ -1,16 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/pages/actor_page.dart';
-import 'package:eventernote/services/favorites_state.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/pages/actor_page.dart';
+import 'package:eventersearch/widgets/actor_favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ActorTile extends StatelessWidget {
   final Actor actor;
 
   /// Whether the noteCount should be shown on trailing (right-hand) side of the
   /// tile. Defaults to true.
-  /// If false, instead shows a heart [IconButton] button to allow the user to
+  /// If false, instead shows an [ActorFavoriteButton] to allow the user to
   /// favorite the actor.
   final bool showCount;
 
@@ -38,20 +37,7 @@ class ActorTile extends StatelessWidget {
         ),
       );
     } else {
-      trailing = Consumer<FavoritesState>(
-        builder: (_, state, __) {
-          if (state.containsActor(actor)) {
-            return IconButton(
-              icon: Icon(Icons.favorite, color: Colors.red),
-              onPressed: () => state.removeActor(actor),
-            );
-          }
-          return IconButton(
-            icon: Icon(Icons.favorite_border),
-            onPressed: () => state.addActor(actor),
-          );
-        },
-      );
+      trailing = ActorFavoriteButton(actor);
     }
 
     return ListTile(

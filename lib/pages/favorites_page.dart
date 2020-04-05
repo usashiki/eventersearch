@@ -1,9 +1,9 @@
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/services/favorites_state.dart';
-import 'package:eventernote/widgets/actor_tile.dart';
-import 'package:eventernote/widgets/event_tile.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/services/eventernote_service.dart';
+import 'package:eventersearch/services/favorites_state.dart';
+import 'package:eventersearch/widgets/actor_tile.dart';
+import 'package:eventersearch/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:provider/provider.dart';

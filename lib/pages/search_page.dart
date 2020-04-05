@@ -1,8 +1,8 @@
-import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/services/vertical_search_delegate.dart';
-import 'package:eventernote/widgets/actor_carousel_card.dart';
-import 'package:eventernote/widgets/event_carousel_card.dart';
-import 'package:eventernote/widgets/header_tile.dart';
+import 'package:eventersearch/services/eventernote_service.dart';
+import 'package:eventersearch/services/vertical_search_delegate.dart';
+import 'package:eventersearch/widgets/actor_carousel_card.dart';
+import 'package:eventersearch/widgets/event_carousel_card.dart';
+import 'package:eventersearch/widgets/header_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';

@@ -1,4 +1,4 @@
-package com.example.eventernote
+package com.example.eventersearch
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

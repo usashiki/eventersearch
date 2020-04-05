@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/pages/actor_page.dart';
-import 'package:eventernote/pages/place_page.dart';
-import 'package:eventernote/services/favorites_state.dart';
-import 'package:eventernote/widgets/bold_number.dart';
-import 'package:eventernote/widgets/date_text.dart';
-import 'package:eventernote/widgets/expandable_header_tile.dart';
-import 'package:eventernote/widgets/header_tile.dart';
-import 'package:eventernote/widgets/header_title.dart';
-import 'package:eventernote/widgets/launchable_header_tile.dart';
-import 'package:eventernote/widgets/page_app_bar.dart';
-import 'package:eventernote/widgets/place_map.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/pages/actor_page.dart';
+import 'package:eventersearch/pages/place_page.dart';
+import 'package:eventersearch/services/favorites_state.dart';
+import 'package:eventersearch/widgets/bold_number.dart';
+import 'package:eventersearch/widgets/date_text.dart';
+import 'package:eventersearch/widgets/expandable_header_tile.dart';
+import 'package:eventersearch/widgets/header_tile.dart';
+import 'package:eventersearch/widgets/header_title.dart';
+import 'package:eventersearch/widgets/launchable_header_tile.dart';
+import 'package:eventersearch/widgets/page_app_bar.dart';
+import 'package:eventersearch/widgets/place_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mdi/mdi.dart';
@@ -23,7 +23,7 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget fab = Consumer<FavoritesState>(builder: (_, state, __) {
+    Widget fab = Consumer<FavoritesState>(builder: (context, state, __) {
       if (state.containsEvent(event)) {
         return SpeedDial(
           child: Icon(Icons.star, color: Colors.amber, size: 28.0),
@@ -61,7 +61,7 @@ class EventPage extends StatelessWidget {
           Icons.star_border,
           color: Theme.of(context).textTheme.headline6.color,
         ),
-        tooltip: 'このイベントに参加(ノート作成)',
+        tooltip: '参加する(ノート作成)',
         onPressed: () => state.addEvent(event),
       );
     });
@@ -154,10 +154,10 @@ class _EventHeader extends StatelessWidget {
               icon: Icons.person_outline,
               child: Text(actor.name),
               openWidget: ActorPage(actor),
-              trailing: Provider.of<FavoritesState>(context, listen: false)
-                      .containsActor(actor)
-                  ? Icon(Icons.favorite, color: Colors.red)
-                  : null,
+              trailing:
+                  Provider.of<FavoritesState>(context).containsActor(actor)
+                      ? Icon(Icons.favorite, color: Colors.red)
+                      : null,
             ),
         ],
       ),
@@ -187,9 +187,9 @@ class _EventHeader extends StatelessWidget {
     if (event.hashtag != null && event.hashtag.isNotEmpty) {
       children.add(LaunchableHeaderTile(
         icon: Mdi.pound,
-        child: Text('#${event.hashtag}'),
+        child: Text(event.fullHashtag),
         uri: event.hashtagUrl,
-        copyableText: '#${event.hashtag}',
+        copyableText: event.fullHashtag,
       ));
     }
 

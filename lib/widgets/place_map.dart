@@ -1,4 +1,4 @@
-import 'package:eventernote/models/place.dart';
+import 'package:eventersearch/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';

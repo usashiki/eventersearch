@@ -1,4 +1,4 @@
-import 'package:eventernote/services/holidays_service.dart';
+import 'package:eventersearch/services/holidays_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

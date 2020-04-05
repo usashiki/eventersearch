@@ -1,7 +1,7 @@
-import 'package:eventernote/widgets/date_text.dart';
+import 'package:eventersearch/widgets/date_text.dart';
 import 'package:flutter/material.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/pages/event_page.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/pages/event_page.dart';
 import 'package:mdi/mdi.dart';
 
 class EventSuggestionTile extends StatelessWidget {

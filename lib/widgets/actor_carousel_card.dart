@@ -1,13 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/pages/actor_page.dart';
-import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/services/favorites_state.dart';
-import 'package:eventernote/widgets/bold_number.dart';
-import 'package:eventernote/widgets/icon_button_circle.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/pages/actor_page.dart';
+import 'package:eventersearch/services/eventernote_service.dart';
+import 'package:eventersearch/widgets/actor_favorite_button.dart';
+import 'package:eventersearch/widgets/bold_number.dart';
+import 'package:eventersearch/widgets/icon_button_circle.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ActorCarouselCard extends StatelessWidget {
   final Actor actor;
@@ -17,21 +16,6 @@ class ActorCarouselCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget favoriteButton = Consumer<FavoritesState>(
-      builder: (_, state, __) {
-        if (state.containsActor(actor)) {
-          return IconButtonCircle(
-            icon: Icon(Icons.favorite, color: Colors.red),
-            onPressed: () => state.removeActor(actor),
-          );
-        }
-        return IconButtonCircle(
-          icon: Icon(Icons.favorite_border, color: Colors.white),
-          onPressed: () => state.addActor(actor),
-        );
-      },
-    );
-
     return Container(
       width: 200.0,
       padding: EdgeInsets.all(4.0),
@@ -53,7 +37,7 @@ class ActorCarouselCard extends StatelessWidget {
                     children: <Widget>[
                       Align(
                         alignment: Alignment(1.0, -1.0),
-                        child: favoriteButton,
+                        child: IconButtonCircle(ActorFavoriteButton(actor)),
                       ),
                       Align(
                         alignment: Alignment(-1.0, 1.0),
@@ -64,7 +48,7 @@ class ActorCarouselCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ConstrainedBox(
-                                constraints: BoxConstraints(maxHeight: 55),
+                                constraints: BoxConstraints(maxHeight: 50),
                                 child: AutoSizeText(
                                   rank != null
                                       ? '${rank + 1}. ${actor.name}'

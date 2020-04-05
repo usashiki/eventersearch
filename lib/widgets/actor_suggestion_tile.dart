@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/pages/actor_page.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/pages/actor_page.dart';
 import 'package:flutter/material.dart';
 
 class ActorSuggestionTile extends StatelessWidget {

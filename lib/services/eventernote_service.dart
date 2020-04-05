@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:eventernote/models/actor.dart';
-import 'package:eventernote/models/actors_search.dart';
-import 'package:eventernote/models/event.dart';
-import 'package:eventernote/models/events_search.dart';
-import 'package:eventernote/models/place.dart';
-import 'package:eventernote/models/places_search.dart';
-import 'package:eventernote/models/vertical_search.dart';
-import 'package:eventernote/models/vertical_search_result.dart';
+import 'package:eventersearch/models/actor.dart';
+import 'package:eventersearch/models/actors_search.dart';
+import 'package:eventersearch/models/event.dart';
+import 'package:eventersearch/models/events_search.dart';
+import 'package:eventersearch/models/place.dart';
+import 'package:eventersearch/models/places_search.dart';
+import 'package:eventersearch/models/vertical_search.dart';
+import 'package:eventersearch/models/vertical_search_result.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
@@ -131,7 +131,7 @@ class EventernoteService {
 }
 
 class _EventernoteCacheManager extends BaseCacheManager {
-  static const key = 'eventernoteCache';
+  static const key = 'eventersearchCache';
 
   static _EventernoteCacheManager _instance;
 

@@ -1,6 +1,6 @@
-import 'package:eventernote/services/eventernote_service.dart';
-import 'package:eventernote/services/holidays_service.dart';
-import 'package:eventernote/widgets/event_tile.dart';
+import 'package:eventersearch/services/eventernote_service.dart';
+import 'package:eventersearch/services/holidays_service.dart';
+import 'package:eventersearch/widgets/event_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:table_calendar/table_calendar.dart';

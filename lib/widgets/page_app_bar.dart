@@ -20,19 +20,19 @@ class PageAppBar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       leading: Container(
-        padding: EdgeInsets.all(10),
-        child: IconButtonCircle(
+        padding: EdgeInsets.all(8),
+        child: IconButtonCircle(IconButton(
           icon: Icon(Icons.close),
           onPressed: () => Navigator.pop(context),
-        ),
+        )),
       ),
       actions: <Widget>[
-        IconButtonCircle(
+        IconButtonCircle(IconButton(
           icon: Icon(Mdi.web),
           tooltip: 'サイトで見る',
           onPressed: () async => await launch(url),
-        ),
-        SizedBox(width: 10),
+        )),
+        SizedBox(width: 8),
       ],
       expandedHeight: background != null ? 200.0 : null,
       stretch: true,
