@@ -1,0 +1,57 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout git repo
+      uses: actions/checkout@v2
+      
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+        
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: '1.15.17'
+
+    - name: Get Flutter dependencies
+      run: flutter pub get
+      
+    - name: Build APK
+      run: flutter build apk
+
+    - name: Create tag
+      id: create_tag
+      uses: mcpierce/github-commit-timestamp-tagger@master
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        base_version: v0.0.1
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.create_tag.outputs.tag_name }}
+        release_name: ${{ steps.create_tag.outputs.tag_name }}
+    
+    - name: Upload APK to release
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/app/outputs/apk/release/app-release.apk
+        asset_name: eventersearch.apk
+        asset_content_type: application/vnd.android.package-archive
