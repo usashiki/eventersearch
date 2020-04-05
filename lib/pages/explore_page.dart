@@ -9,22 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 
-class SearchPage extends StatefulWidget {
-  /// A search/explore page with a search bar at the top and carousels for newly
-  /// added [Actor]s, popular [Actor]s, and today's [Event]s.
-  const SearchPage({Key key}) : super(key: key);
+class ExplorePage extends StatefulWidget {
+  /// A explore/search page with a search bar at the top and carousels for newly
+  /// added [Actor]s, popular [Actor]s, and today's [Event]s. Also includes a
+  /// link to an [AboutDialog].
+  const ExplorePage({Key key}) : super(key: key);
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _ExplorePageState createState() => _ExplorePageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _SearchBarButton(),
       body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           HeaderTile(
             icon: Icons.fiber_new,
@@ -59,7 +59,7 @@ class _SearchPageState extends State<SearchPage> {
             onTap: () => showAboutDialog(
               context: context,
               applicationIcon: Icon(Icons.search, size: 42),
-              applicationVersion: '0.0.0',
+              applicationVersion: '0.0.1',
               children: <Widget>[
                 const Text(
                     'このアプリは株式会社イベンターノート(www.eventernote.com)とは一切関係ありません。'),

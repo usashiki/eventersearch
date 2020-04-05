@@ -1,7 +1,7 @@
 name: eventersearch
 description: A new Flutter project.
 
-version: 0.0.0+1
+version: 0.0.1
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -38,7 +38,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: icons/icon.png # stolen from twitter
+  image_path: icons/icon.png
 
 flutter:
   uses-material-design: true

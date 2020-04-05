@@ -1,6 +1,6 @@
 import 'package:eventersearch/pages/calendar_page.dart';
 import 'package:eventersearch/pages/favorites_page.dart';
-import 'package:eventersearch/pages/search_page.dart';
+import 'package:eventersearch/pages/explore_page.dart';
 import 'package:eventersearch/services/favorites_state.dart';
 import 'package:eventersearch/services/vertical_search_delegate.dart';
 import 'package:eventersearch/widgets/animated_indexed_stack.dart';
@@ -23,7 +23,7 @@ class EventersearchApp extends StatefulWidget {
 
 class _EventersearchAppState extends State<EventersearchApp> {
   final _pages = const <Widget>[
-    SearchPage(),
+    ExplorePage(),
     CalendarPage(),
     FavoritesPage(),
   ];
