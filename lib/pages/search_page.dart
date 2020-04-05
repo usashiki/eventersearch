@@ -18,6 +18,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: _SearchBarButton(),
       body: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           HeaderTile(
             icon: Icons.fiber_new,
@@ -46,6 +47,19 @@ class _SearchPageState extends State<SearchPage> {
             child: Text('今日のイベント'),
           ),
           _TodaysEvents(),
+          SizedBox(height: 8),
+          HeaderTile(
+            icon: Icons.info_outline,
+            child: Text('このアプリについて'),
+            onTap: () => showAboutDialog(
+              context: context,
+              applicationIcon: Icon(Icons.search, size: 42),
+              applicationVersion: '0.0.0',
+              children: <Widget>[
+                Text('このアプリは株式会社イベンターノート(www.eventernote.com)とは一切関係ありません。'),
+              ],
+            ),
+          ),
         ],
       ),
     );

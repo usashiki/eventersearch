@@ -83,7 +83,7 @@ class Event {
 
   String get timesString =>
       '開場 ${openTime ?? '-'} 開演 ${startTime ?? '-'} 終演 ${endTime ?? '-'}';
-  String get eventernoteUrl => 'https://www.eventersearch.com/events/$id';
+  String get eventernoteUrl => 'https://www.eventernote.com/events/$id';
   List<String> get links => link?.split(RegExp(r'(\r)?\n'));
   String get fullHashtag => hashtag.startsWith('#') ? hashtag : '#$hashtag';
   String get hashtagUrl => 'https://www.twitter.com/search/?q=$fullHashtag';

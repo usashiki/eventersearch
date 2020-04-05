@@ -31,7 +31,7 @@ class PlacePage extends StatelessWidget {
               return Column(
                 children: <Widget>[
                   Divider(height: 0.5),
-                  EventTile(event, animated: true),
+                  EventTile(event, animated: true, showPlace: false),
                 ],
               );
             },

@@ -183,32 +183,26 @@ goodbye tabs
 
 #### v0
 
+* administrative
+  + general code organization/naming
+    - header tiles, date text
+  + documentation/comments
+  + tests
+  + readme
+  + license
+  + data use
+
+#### v1+
+
 * fabs: background color?
+
+* [event, place pages] inkwell in expanded SliverAppBar
 
 * about/settings page
   + licenses
   + cache duration
   + clear cache
-
-* administrative
-  + app name
-  + error handling
-  + general code organization/naming
-  + documentation
-  + tests
-  + readme
-  + license
-  + ask about data use
-
-#### v1+
-
-* place page: for events in event list, hide venue?
-
-* [event, place pages] inkwell in expanded SliverAppBar
-
-* custom statusbar + navigation bar background color
-  + generally make sure works with various hole punches etc
-  + https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
+  + theme selector
 
 * actor carousel card: add color
   + random from logo?
@@ -231,6 +225,10 @@ goodbye tabs
     - #6CBA5A or #59F35E
 
 * how to indicate past events on event tile? (and what about dark theme?)
+
+* custom statusbar + navigation bar background color
+  + generally make sure works with various hole punches etc
+  + https://stackoverflow.com/questions/52489458/how-to-change-status-bar-color-in-flutter
 
 * launch/splash screen
   + use https://pub.dev/packages/flutter_native_splash to set static launch image

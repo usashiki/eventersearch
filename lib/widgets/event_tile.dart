@@ -26,12 +26,16 @@ class EventTile extends StatelessWidget {
   /// favorite the event.
   final bool showCount;
 
+  /// Whether the place of the event should be displayed. Defaults to true.
+  final bool showPlace;
+
   const EventTile(
     this.event, {
     this.animated = false,
     this.showCount = true,
     this.showDate = true,
     this.showTime = true,
+    this.showPlace = true,
     Key key,
   }) : super(key: key);
 
@@ -47,6 +51,7 @@ class EventTile extends StatelessWidget {
           showCount: showCount,
           showDate: showDate,
           showTime: showTime,
+          showPlace: showPlace,
         ),
         openBuilder: (context, _) => EventPage(event),
       );
@@ -56,6 +61,7 @@ class EventTile extends StatelessWidget {
       showCount: showCount,
       showDate: showDate,
       showTime: showTime,
+      showPlace: showPlace,
     );
   }
 }
@@ -63,7 +69,7 @@ class EventTile extends StatelessWidget {
 class _BaseEventTile extends StatelessWidget {
   final Event event;
   final VoidCallback tap;
-  final bool showCount, showDate, showTime;
+  final bool showCount, showDate, showTime, showPlace;
 
   const _BaseEventTile(
     this.event, {
@@ -71,6 +77,7 @@ class _BaseEventTile extends StatelessWidget {
     this.showCount,
     this.showDate,
     this.showTime,
+    this.showPlace,
     Key key,
   }) : super(key: key);
 
@@ -89,7 +96,9 @@ class _BaseEventTile extends StatelessWidget {
         TextSpan(text: '\n'),
       ]);
     }
-    info.add(TextSpan(text: event?.place?.name));
+    if (showPlace) {
+      info.add(TextSpan(text: event?.place?.name));
+    }
 
     Widget trailing;
     if (showCount) {

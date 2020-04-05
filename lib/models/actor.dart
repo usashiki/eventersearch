@@ -36,7 +36,7 @@ class Actor {
     // this.hasImage,
   });
 
-  String get eventernoteUrl => 'https://www.eventersearch.com/actors/$id';
+  String get eventernoteUrl => 'https://www.eventernote.com/actors/$id';
   String get wikiUrl => 'https://ja.wikipedia.org/wiki/$name';
 
   // https://dart.dev/guides/libraries/library-tour#implementing-map-keys

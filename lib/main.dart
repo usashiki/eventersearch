@@ -39,7 +39,7 @@ class _EventersearchAppState extends State<EventersearchApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       // debugShowCheckedModeBanner: false,
-      title: 'イベンターノート',
+      title: 'イベンターサーチ',
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: _BouncingScrollPhysicsBehavior(),
