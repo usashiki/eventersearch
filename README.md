@@ -38,6 +38,8 @@ As a proof of concept you can mark favorite artists and events, but due to lack 
 
 Eventersearch can also display most artist, event, and venue information available on Eventernote (not including user information, eg event attendees).
 
+(Both light and dark themes of each of the above screenshots can be found in [`images/`](images/) long with a recording of the UI.)
+
 ## Installation
 
 ### Android
