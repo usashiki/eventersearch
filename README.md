@@ -1,6 +1,6 @@
 # Eventersearch
 
-Eventersearch is a proof-of-concept [Eventernote](https://www.eventernote.com/) client written in [Flutter](https://flutter.dev/), supporting Android and theoretically iOS.
+Eventersearch is a proof-of-concept [Eventernote](https://www.eventernote.com/) client written using [Flutter](https://flutter.dev/), supporting Android and theoretically iOS.
 
 Note that the authors of Eventersearch have no relation to the owners of Eventernote. Eventersearch uses undocumented APIs which may break at any time, and, due to the limited scope of said APIs, many site features are unavailable.
 
@@ -50,7 +50,35 @@ TODO (Unfortunately, I currently do not have a suitable iOS device to test iOS o
 
 ## Development
 
-To get started with Flutter, follow Flutter's [official documentation](https://flutter.dev/docs/get-started/install).
+Eventersearch is written in Dart using Flutter. To install Dart/Flutter, follow Flutter's [official documentation](https://flutter.dev/docs/get-started/install).
+
+At time of writing Eventersearch is built using Flutter 1.15.17, the latest beta channel version, so after installation you will need to run
+
+```
+flutter channel beta
+flutter upgrade
+```
+
+See the [Flutter Wiki](https://github.com/flutter/flutter/wiki/Flutter-build-release-channels) for more info on Flutter's release channels.
+
+Once you've done that, clone the repo then run
+
+```
+flutter pub get
+```
+
+to download the necessary dependencies. (Alternatively just open your preferred IDE, with the proper Flutter extensions it should be able to do that for you.)
+
+### Code layout
+
+The Flutter app code lives in `lib/`. Within `lib/` there is:
+* `models/` containing the JSON serializable models and corresponding generated code using [json_serializable](https://pub.dev/packages/json_serializable),
+* `pages/` containing full pages (complete `Scaffold`s),
+* `services/` containing API-interfacing code and state code,
+* `widgets/` containing all the custom widgets,
+* and `main.dart`.
+
+There are no tests.
 
 ## Meta
 
