@@ -2,7 +2,7 @@
 
 Eventersearch is a proof-of-concept [Eventernote](https://www.eventernote.com/) client written using [Flutter](https://flutter.dev/), supporting Android and theoretically iOS.
 
-Note that the authors of Eventersearch have no relation to the owners of Eventernote. Eventersearch uses undocumented APIs which may break at any time, and, due to the limited scope of said APIs, many site features are unavailable.
+Note that the authors of Eventersearch have no relation to the owners of Eventernote. Eventersearch uses [undocumented APIs](https://www.eventernote.com/javascripts/eventernote.js) which may break at any time, and, due to the limited scope of said APIs, many site features are unavailable.
 
 ## Features / Screenshots
 
@@ -72,7 +72,7 @@ to download the necessary dependencies. (Alternatively just open your preferred 
 ### Code layout
 
 The Flutter app code lives in `lib/`. Within `lib/` there is:
-* `models/` containing the JSON serializable models and corresponding generated code using [json_serializable](https://pub.dev/packages/json_serializable),
+* `models/` containing JSON serializable classes and corresponding generated code using [json_serializable](https://pub.dev/packages/json_serializable) based on Eventernote's API,
 * `pages/` containing full pages (complete `Scaffold`s),
 * `services/` containing API-interfacing code and state code,
 * `widgets/` containing all the custom widgets,
